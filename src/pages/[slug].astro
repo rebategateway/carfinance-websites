@@ -7,7 +7,7 @@ import OwedCards from '../components/OwedCards.astro';
 import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
 import Faqs from '../components/Faqs.astro';
-import { LENDERS, CHALLENGERS, lenderHref } from '../data/lenders';
+import { LENDERS, CHALLENGERS, lenderHref, shortName } from '../data/lenders';
 import type { LenderInfo } from '../data/lenders';
 import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES } from '../data/site';
 import type { Faq } from '../data/faqs';
@@ -82,7 +82,7 @@ const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).h
 
   <section class="wrap section center">
     <h2 class="d h2">Other lenders</h2>
-    <ul class="lchips">{others.map((o) => <li><a href={lenderHref(o.slug)}>{o.name}</a></li>)}</ul>
+    <ul class="lchips">{others.map((o) => <li><a href={lenderHref(o.slug)}>{shortName(o)}</a></li>)}</ul>
     <a class="more" href="/lenders/">All {LENDERS.length} lenders</a>
   </section>
 

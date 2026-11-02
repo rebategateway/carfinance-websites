@@ -303,3 +303,15 @@ export const LENDERS: LenderInfo[] = [
 ];
 
 export const lenderHref = (slug: string) => `/${slug}/`;
+
+
+// Short names for menus and pills, so every name fits on one line (Jack, 2 Nov 2026).
+const SHORT: Record<string, string> = {
+  'alphera-finance': 'Alphera', 'close-brothers-finance': 'Close Brothers', 'mercedes-finance': 'Mercedes-Benz',
+  'motonovo-finance': 'MotoNovo', 'northridge-finance': 'Northridge', 'rci-finance': 'RCI Financial',
+  'santander-finance': 'Santander', 'startline-finance': 'Startline', 'toyota-finance': 'Toyota Finance',
+  'volkswagen-finance': 'Volkswagen', 'hyundai-finance': 'Hyundai Finance',
+};
+export const shortName = (l: { slug: string; name: string }) => SHORT[l.slug] ?? l.name;
+// The lenders shown first in menus: the biggest motor finance lenders.
+export const POPULAR = ['blackhorse-finance', 'santander-finance', 'close-brothers-finance', 'motonovo-finance', 'volkswagen-finance', 'bmw-finance', 'mercedes-finance', 'ford-finance', 'moneybarn-finance', 'audi-finance', 'toyota-finance', 'vauxhall-finance'];

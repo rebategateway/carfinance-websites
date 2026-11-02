@@ -11,7 +11,7 @@ import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
 import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL, CREDITRIGHTS } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
-import { LENDERS, lenderHref } from '../data/lenders';
+import { LENDERS, lenderHref, shortName } from '../data/lenders';
 const c = SITE.company;
 
 const title = `${SITE.name} Claims | Car Finance Compensation`;
@@ -33,7 +33,7 @@ const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
     <h2 class="d h2">Every major lender</h2>
     <p class="lead-c">Black Horse, Santander, MotoNovo, Close Brothers and more. Pick yours to see where it stands.</p>
     <ul class="lchips">
-      {lenders.map((l) => <li><a href={lenderHref(l.slug)}>{l.name}</a></li>)}
+      {lenders.map((l) => <li><a href={lenderHref(l.slug)}>{shortName(l)}</a></li>)}
     </ul>
     <a class="more" href="/lenders/">All {LENDERS.length} lenders</a>
   </section>

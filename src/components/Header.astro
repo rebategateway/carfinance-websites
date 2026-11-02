@@ -4,12 +4,10 @@
 import Logo from './Logo.astro';
 import { LETTER, CLAIM_URL, NAV_HELP, SITE } from '../data/site';
 import type { NavId } from '../data/site';
-import { LENDERS, lenderHref } from '../data/lenders';
+import { LENDERS, POPULAR, lenderHref, shortName } from '../data/lenders';
 interface Props { active?: NavId }
 const { active = 'none' } = Astro.props;
-const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
-const popular = ['blackhorse-finance', 'santander-finance', 'close-brothers-finance', 'motonovo-finance', 'volkswagen-finance', 'bmw-finance', 'mercedes-finance', 'ford-finance']
-  .map((s) => LENDERS.find((l) => l.slug === s)).filter((l) => !!l);
+const popular = POPULAR.map((s) => LENDERS.find((l) => l.slug === s)!).filter(Boolean);
 const helpOn = NAV_HELP.some((h) => h.id === active);
 const chev = '<svg class="chev" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 ---
@@ -24,11 +22,11 @@ const chev = '<svg class="chev" width="10" height="6" viewBox="0 0 10 6" aria-hi
             <div class="p-in">
               <div class="p-intro">
                 <p class="p-h">Find your lender</p>
-                <p class="p-txt">Car finance from 2007 to 2024 with any of these lenders can be checked.</p>
-                <a class="p-more" href="/lenders/">All {LENDERS.length} lenders →</a>
+                <p class="p-txt">Car finance from 2007 to 2024 with any lender can be checked.</p>
+                <a class="btn btn-sm" href="/lenders/">All {LENDERS.length} lenders</a>
               </div>
               <ul class="p-lenders">
-                {lenders.map((l) => <li><a href={lenderHref(l.slug)}>{l.name}</a></li>)}
+                {popular.map((l) => <li><a href={lenderHref(l.slug)}>{shortName(l)}</a></li>)}
               </ul>
             </div>
           </div>
@@ -39,7 +37,7 @@ const chev = '<svg class="chev" width="10" height="6" viewBox="0 0 10 6" aria-hi
           <button class:list={['nav-btn', { on: helpOn }]} type="button" aria-expanded="false" aria-controls="dd-help" data-dd>Help<Fragment set:html={chev} /></button>
           <div class="dd-panel p-help" id="dd-help">
             <ul>
-              {NAV_HELP.map((h) => <li><a href={h.href} aria-current={h.id === active ? 'page' : undefined}><strong>{h.label}</strong><span>{h.desc}</span></a></li>)}
+              {NAV_HELP.map((h) => <li><a href={h.href} aria-current={h.id === active ? 'page' : undefined}>{h.label}</a></li>)}
             </ul>
           </div>
         </li>
@@ -67,15 +65,15 @@ const chev = '<svg class="chev" width="10" height="6" viewBox="0 0 10 6" aria-hi
       <li><a href="/how-it-works/">How it works</a></li>
       <li><a href="/fca-redress-scheme/">The FCA scheme</a></li>
     </ul>
-    <section class="m-grp" aria-labelledby="m-lenders">
-      <h2 id="m-lenders">Lenders</h2>
-      <ul class="m-chips">{popular.map((l) => <li><a href={lenderHref(l!.slug)}>{l!.name}</a></li>)}</ul>
+    <details class="m-acc">
+      <summary>Lenders</summary>
+      <ul class="m-grid">{popular.map((l) => <li><a href={lenderHref(l.slug)}>{shortName(l)}</a></li>)}</ul>
       <a class="p-more" href="/lenders/">All {LENDERS.length} lenders →</a>
-    </section>
-    <section class="m-grp" aria-labelledby="m-help">
-      <h2 id="m-help">Help</h2>
+    </details>
+    <details class="m-acc">
+      <summary>Help</summary>
       <ul class="m-grid">{NAV_HELP.map((h) => <li><a href={h.href}>{h.label}</a></li>)}</ul>
-    </section>
+    </details>
   </div>
   <div class="menu-foot">
     <a class="btn btn-block" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a>
