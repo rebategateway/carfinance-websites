@@ -1,8 +1,6 @@
 ---
-import '@fontsource-variable/lexend-deca';
-import '@fontsource-variable/archivo/standard.css';
-import fontBody from '@fontsource-variable/lexend-deca/files/lexend-deca-latin-wght-normal.woff2?url';
-import fontDisplay from '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url';
+import '@fontsource-variable/plus-jakarta-sans';
+import fontBody from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -83,7 +81,6 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <meta name="description" content={description} />
   {!path.startsWith('/404') && <link rel="canonical" href={canonical} />}
   <link rel="preload" href={fontBody} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={fontDisplay} as="font" type="font/woff2" crossorigin />
   <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
   <meta name="theme-color" content="#04C78D" />
   <meta name="format-detection" content="telephone=no" />
@@ -105,7 +102,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <a class="skip-link" href="#main">Skip to content</a>
   {green ? (
     <div class="top">
-      <BrandMark class="top-mark" />
+      <div class="top-bg" aria-hidden="true"><BrandMark class="top-mark" /></div>
       <Header active={active} />
       <slot name="hero" />
     </div>

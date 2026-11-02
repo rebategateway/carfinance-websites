@@ -94,7 +94,17 @@ export const NAV = [
   { id: 'fees', label: 'Fees', href: '/fees/' },
   { id: 'faqs', label: 'FAQs', href: '/faqs/' },
 ] as const;
-export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'none';
+export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'complaints' | 'none';
+
+// The Help drop-down in the header.
+export const NAV_HELP = [
+  { id: 'faqs', label: 'FAQs', href: '/faqs/', desc: 'Answers to the questions we’re asked most' },
+  { id: 'fees', label: 'Fees', href: '/fees/', desc: 'What you pay if your claim succeeds' },
+  { id: 'letter', label: 'Received a letter?', href: '/received-a-letter/', desc: 'Why we wrote and what happens next' },
+  { id: 'about', label: 'About us', href: '/about-us/', desc: 'Who we are and how we’re paid' },
+  { id: 'contact', label: 'Contact', href: '/contact/', desc: 'How to get in touch' },
+  { id: 'complaints', label: 'Complaints', href: '/complaints/', desc: 'How to make a complaint' },
+] as const;
 
 export const LETTER = { label: 'Received a letter?', href: '/received-a-letter/' } as const;
 
