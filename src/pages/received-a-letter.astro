@@ -1,32 +1,50 @@
 ---
+// Received a letter, in the home page style (Jack, 2 Nov 2026). Most visitors arrive here from a letter, on a phone.
 import Base from '../layouts/Base.astro';
-import HeroCard from '../components/HeroCard.astro';
+import CarHero from '../components/CarHero.astro';
+import StatBand from '../components/StatBand.astro';
+import HowCards from '../components/HowCards.astro';
+import EndBand from '../components/EndBand.astro';
 import Faqs from '../components/Faqs.astro';
-import { SITE, FREE_ROUTE, PAYMENT_LINE, PARTNER, FIGURES } from '../data/site';
+import { SITE, FIGURES, FREE_ROUTE, PAYMENT_LINE } from '../data/site';
 import { FAQ } from '../data/faqs';
+const c = SITE.company;
+const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const WHY = [
+  { t: 'You may have had car finance', p: `Our letter goes to people who may have had PCP or HP finance between ${FIGURES.from} and ${FIGURES.to}.` },
+  { t: 'Commission may not have been disclosed', p: 'Many dealers were paid commission they didn’t tell customers about.' },
+  { t: 'The FCA says people could be owed', p: `Its average is ${FIGURES.average} per agreement, where claims are upheld.` },
+  { t: 'It’s free to check', p: 'A soft search finds your agreements. It won’t affect your credit score.' },
+];
 const faqs = [
   { q: 'Why did you write to me?', a: `<p>We write to people who may have had car finance between ${FIGURES.from} and ${FIGURES.to}. We don’t know anything about your agreements when we write. Your letter explains where your details came from.</p>` },
-  FAQ.paidOff, FAQ.after, FAQ.process,
-  { q: 'I don’t want any more letters', a: `<p>Tell us${SITE.email ? ` at <a href="mailto:${SITE.email}">${SITE.email}</a> or` : ''} by post to ${SITE.company.legalName}, ${SITE.company.address.street}, ${SITE.company.address.locality} ${SITE.company.address.postcode}, and we won’t write to you again.</p>` },
+  { q: 'Is this a scam?', a: `<p>No. ${SITE.name} is a trading style of ${c.legalName}, a claims management company authorised and regulated by the Financial Conduct Authority (FRN ${c.frn}). You can check us on the <a href="https://register.fca.org.uk/s/firm?id=${c.frn}" rel="noopener">FCA register</a>.</p>` },
+  FAQ.paidOff,
+  FAQ.process,
+  { q: 'I don’t want any more letters', a: `<p>Tell us${SITE.email ? ` at <a href="mailto:${SITE.email}">${SITE.email}</a> or` : ''} by post to ${c.legalName}, ${c.address.street}, ${c.address.locality} ${c.address.postcode}, and we won’t write to you again.</p>` },
 ];
 ---
-<Base path="/received-a-letter/" title={`Received a letter from ${SITE.name}?`} description={`Had a letter from ${SITE.name} about car finance? Here's why we wrote, what happens next and how to find every agreement in your name. No win, no fee.`} active="letter" crumbs={[{ name: 'Received a letter?', href: '/received-a-letter/' }]}>
-  <div slot="hero" class="wrap hero" style="padding-top:0">
-    <div class="hero-copy">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span aria-current="page">Received a letter?</span></nav>
-      <h1 class="d h1 sm">Received a letter from us?</h1>
-      <p class="lede" style="max-width:38ch">We wrote because you may have had car finance between 2007 and 2024. If the dealer was paid commission you weren’t told about, you could be owed compensation.</p>
-      <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
-    </div>
-    <HeroCard />
-  </div>
+<Base path="/received-a-letter/" title={`Received a letter from ${SITE.name}?`} description={`Had a letter from ${SITE.name} about car finance? Here's why we wrote, what happens next and how to find every agreement in your name. No win, no fee.`} active="letter" crumbs={[{ name: 'Received a letter?', href: '/received-a-letter/' }]} closing={false}>
+  <CarHero slot="hero" h1={`Received a letter from ${SITE.name}?`} sub="You may be owed compensation for car finance. Check your agreements in a few minutes." crumbs={[{ name: 'Received a letter?', href: '/received-a-letter/' }]} />
+
+  <StatBand />
+
   <section class="wrap section">
-    <div class="sec-head"><h2 class="d h2">What happens next</h2></div>
-    <ol class="steps">
-      <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Enter your details</h3><p>On {PARTNER.name}’ secure page, so your credit file can be searched.</p></div></li>
-      <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Your agreements are found</h3><p>A soft search finds car finance agreements back to 2007.</p></div></li>
-      <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">Each lender gets a complaint</h3><p>{PARTNER.name} complains to each lender for you. No win, no fee.</p></div></li>
-    </ol>
+    <div class="narrow center">
+      <h2 class="d h2">Why you’ve heard from us</h2>
+      <ul class="tcards" style="width:100%;text-align:left">
+        {WHY.map((o) => <li><Fragment set:html={tick} /><div><h3>{o.t}</h3><p>{o.p}</p></div></li>)}
+      </ul>
+    </div>
   </section>
-  <section class="band-mint"><div class="wrap section two-col"><h2 class="d h2">About your letter</h2><Faqs items={faqs} openFirst /></div></section>
+
+  <HowCards />
+
+  <section class="wrap section center">
+    <h2 class="d h2">About your letter</h2>
+    <div class="faq-pills"><Faqs items={faqs} /></div>
+    <p class="fine muted narrow">{FREE_ROUTE} {PAYMENT_LINE}</p>
+  </section>
+
+  <EndBand />
 </Base>

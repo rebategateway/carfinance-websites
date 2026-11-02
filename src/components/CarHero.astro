@@ -2,11 +2,11 @@
 // Centred hero: big heading, one line, one button, then the brand's car on the arch.
 import { CLAIM_URL } from '../data/site';
 import { BRAND } from '../brands';
-interface Props { h1: string; sub: string; cta?: string; meta?: string; crumbs?: { name: string; href: string }[] }
-const { h1, sub, cta = 'Check my agreements', meta = 'No win, no fee* · Agreements from 2007 to 2024', crumbs = [] } = Astro.props;
-const img = BRAND.heroImage;
+interface Props { h1: string; sub: string; cta?: string; meta?: string; crumbs?: { name: string; href: string }[]; car?: boolean }
+const { h1, sub, cta = 'Check my agreements', meta = 'No win, no fee* · Agreements from 2007 to 2024', crumbs = [], car = true } = Astro.props;
+const img = car ? BRAND.heroImage : null;
 ---
-<section class="hx">
+<section class:list={['hx', !img && 'hx-flat']}>
   <div class="wrap hx-in">
     {crumbs.length > 0 && <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a>{crumbs.map((c, i) => <> / {i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</>)}</nav>}
     <h1 class="d hx-h">{h1}</h1>

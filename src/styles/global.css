@@ -523,3 +523,14 @@ html.ck-open body { padding-bottom: var(--ckb-h, 0px); }
 .xsell-b { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .xsell-b a:not(.btn) { color: #fff; font-size: 14px; font-weight: 600; }
 @media (min-width: 1024px) { .xsell { grid-template-columns: minmax(0, 1.5fr) auto; align-items: center; gap: 48px; padding: 36px 44px; } .xsell h2 { font-size: 32px; } }
+.hx-flat { padding-bottom: 34px; }
+@media (min-width: 1024px) { .hx-flat { padding-bottom: 56px; } }
+.hx .crumbs { font-size: 13px; }
+/* Numbered timeline cards (what happens next) */
+.tl { list-style: none; padding: 0; display: grid; gap: 10px; counter-reset: tl; width: 100%; text-align: left; }
+.tl li { counter-increment: tl; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 14px 16px; }
+.tl li::before { content: counter(tl); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--green); border: 2px solid var(--ink); font-family: var(--heavy); font-stretch: 125%; font-weight: 900; font-size: 18px; }
+.tl h3 { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; }
+.tl p { font-size: 14px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+@media (min-width: 1024px) { .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .tl li { padding: 18px 20px; } .tl h3 { font-size: 18px; } }
+.narrow { max-width: 860px; margin-inline: auto; }

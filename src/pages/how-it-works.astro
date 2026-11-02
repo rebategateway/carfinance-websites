@@ -1,84 +1,60 @@
 ---
-// Old /how-to-claim/ page, word for word apart from the FCA dates (Jack, 2 Nov 2026).
+// How it works, in the home page style (Jack, 2 Nov 2026). Wording from the old /how-to-claim/, shortened.
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
+import CarHero from '../components/CarHero.astro';
+import StatBand from '../components/StatBand.astro';
+import HowCards from '../components/HowCards.astro';
+import EndBand from '../components/EndBand.astro';
+import Faqs from '../components/Faqs.astro';
 import { SITE, PARTNER, FREE_ROUTE, PAYMENT_LINE, CLAIM_URL } from '../data/site';
-
+import { FAQ } from '../data/faqs';
+const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const QUESTIONS = [
-  'Did you enter into a Personal Contract Purchase (PCP) or Hire Purchase (HP) agreement?',
-  'Did you take out your finance agreement between April 2007 and November 2024?',
-  'Were you aware the broker or dealer would receive a commission for arranging your finance?',
-  'Did you know they had the ability to set or adjust the interest rate on your agreement?',
-  'Did you go through proper affordability checks?',
-  'Were the terms of your agreement clearly explained to you?',
-  'Did you feel pressured to agree on the deal?',
-  'Were you presented with multiple financial packages?',
-  'Were all the fees and charges explained to you upfront?',
-  'Did you think you’d own your car after the PCP agreement?',
+  { t: 'PCP or hire purchase?', p: 'Did you take out a PCP or HP agreement between April 2007 and November 2024?' },
+  { t: 'Commission kept quiet?', p: 'Were you told the dealer or broker would be paid commission for arranging it?' },
+  { t: 'Dealer set the rate?', p: 'Did you know they could set or adjust your interest rate?' },
+  { t: 'Terms and fees unclear?', p: 'Were the terms, fees and charges explained to you up front?' },
+  { t: 'Pressure to sign?', p: 'Did you feel pressured, or were you shown only one finance option?' },
+  { t: 'Thought you’d own the car?', p: 'Did you think you’d own the car at the end of your PCP?' },
 ];
+const NEXT = [
+  { t: 'You sign up with ' + PARTNER.name, p: 'If you choose to go ahead, you agree their terms and get a confirmation email.' },
+  { t: 'Your lender gets a complaint', p: `${PARTNER.name} writes to each lender to make a claim on your behalf.` },
+  { t: 'The lender replies', p: 'Your lender acknowledges the complaint and looks into it.' },
+  { t: 'You get a decision', p: 'Payouts under the FCA’s scheme are on hold until the legal challenge is decided in 2027.' },
+];
+const faqs = [FAQ.process, FAQ.after, FAQ.paidOff, FAQ.used];
 ---
-<Base path="/how-it-works/" title={`How It Works | ${SITE.name} | Car Finance Claims`} description={`If you believe you may have been mis-sold a car finance agreement, compensation could be just around the corner. ${SITE.name} can help you make a claim.`} active="how" crumbs={[{ name: 'How it works', href: '/how-it-works/' }]}>
-  <PageHero slot="hero" h1="How to claim" lede={`If you believe you may have been mis-sold a car finance agreement, compensation could be just around the corner. ${SITE.name} can help you make a claim!`} crumbs={[{ name: 'How it works', href: '/how-it-works/' }]}>
-    <div><a class="btn" href={CLAIM_URL} rel="sponsored noopener">Get started <span aria-hidden="true">→</span></a></div>
-  </PageHero>
+<Base path="/how-it-works/" title={`How It Works | ${SITE.name} | Car Finance Claims`} description={`If you believe you may have been mis-sold a car finance agreement, compensation could be just around the corner. ${SITE.name} can help you make a claim.`} active="how" crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} closing={false}>
+  <CarHero slot="hero" car={false} h1="How to claim" sub="Mis-sold car finance? Compensation could be just around the corner. It takes a few minutes to start." crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} />
+
+  <StatBand />
+
+  <HowCards />
 
   <section class="wrap section">
-    <div class="sec-head">
-      <h2 class="d h2">Getting the right deal</h2>
-      <p>Check whether you may be eligible for compensation for mis-sold car finance!</p>
-    </div>
-    <div class="know">
-      <div><h3 class="h3">Loan size</h3><p>The larger the loan the more significant your payments, which may in turn affect potential compensation.</p></div>
-      <div><h3 class="h3">Length of agreement</h3><p>Longer agreements mean you may have paid more interest than you needed to.</p></div>
-      <div><h3 class="h3">Interest rates</h3><p>If the rate you were charged is higher than it should’ve been, your compensation could be higher too.</p></div>
+    <div class="narrow center">
+      <h2 class="d h2">Questions to ask yourself</h2>
+      <p class="lead-c">Mis-selling isn’t just paying too much. It’s not getting the full picture. If you answer yes to any of these, check your agreements.</p>
+      <ul class="tcards" style="width:100%;text-align:left">
+        {QUESTIONS.map((o) => <li><Fragment set:html={tick} /><div><h3>{o.t}</h3><p>{o.p}</p></div></li>)}
+      </ul>
     </div>
   </section>
 
-  <section class="band-mint">
-    <div class="wrap section two-col">
-      <div class="stack">
-        <h2 class="d h2">Can I claim?</h2>
-        <p class="muted">Sign up to assess your eligibility and get started!</p>
-      </div>
-      <div class="stack" style="gap:24px">
-        <ol class="steps">
-          <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Add your details</h3><p>Add your personal details like name, date of birth, address and sign up.</p></div></li>
-          <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We look for your agreements</h3><p>We look for your finance agreements, tell you if you can claim.</p></div></li>
-          <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">You decide</h3><p>You decide if you would like our claims handling partner(s) to represent you.</p></div></li>
-        </ol>
-        <div><a class="btn" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a></div>
-      </div>
+  <section class="tint">
+    <div class="wrap section center">
+      <h2 class="d h2">What happens next</h2>
+      <ol class="tl">{NEXT.map((n) => <li><div><h3>{n.t}</h3><p>{n.p}</p></div></li>)}</ol>
+      <p class="fine muted narrow" style="margin-top:18px">No win, no fee: you typically pay 30% + VAT (36% including VAT) of any amount recovered, never more, and it may be less. A cancellation fee may apply outside the cooling-off period. {FREE_ROUTE} {PAYMENT_LINE}</p>
     </div>
   </section>
 
-  <section class="wrap section two-col">
-    <div class="stack">
-      <h2 class="d h2">What happens next?</h2>
-      <p class="muted">From confusion to conclusion</p>
-    </div>
-    <div class="prose" style="gap:14px">
-      <p>If you decide that you would like our partner ({PARTNER.name}) to represent you, you must agree and sign their terms and conditions, a confirmation email will be sent once you have done this.</p>
-      <p>The Financial Conduct Authority has looked into mis-sold car finance, focusing on getting anyone who’s overpaid their money back, and has set up a redress scheme. Payouts under the scheme are on hold until a legal challenge is heard from 16 February to 3 March 2027. See <a href="/fca-redress-scheme/">the FCA scheme</a>.</p>
-      <ol class="steps" style="margin-top:6px">
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Step 1</h3><p>Our partner, {PARTNER.name}, will contact your lender by letter to make a claim on your behalf.</p></div></li>
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Step 2</h3><p>The lender should reply or at least acknowledge your complaint.</p></div></li>
-        <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">Step 3</h3><p>Your lender must reply, but payouts under the FCA’s scheme are on hold until the legal challenge is decided.</p></div></li>
-      </ol>
-      <p class="small muted">No win no fee: this means that a customer will typically pay 30% + VAT (36% including VAT) of any amount recovered by a Claims Management Company, although this will be subject to your individual circumstances and the actual fee may be less than this but it will never be more. A cancellation fee may be charged by a third party/Claims Management Company if you cancel outside the cooling off period. You do not need to use a claims management company to make a car finance claim; you can do this yourself for free by contacting the car dealership or finance provider and if that is not successful you can complain to the Financial Ombudsman Service. {PAYMENT_LINE}</p>
-    </div>
+  <section class="wrap section center">
+    <h2 class="d h2">Got questions?</h2>
+    <div class="faq-pills"><Faqs items={faqs} /></div>
+    <a class="more" href="/faqs/">All questions</a>
   </section>
 
-  <section class="band-mint">
-    <div class="wrap section two-col">
-      <div class="stack">
-        <h2 class="d h2">Questions to ask</h2>
-        <p class="muted">Let’s get some answers</p>
-      </div>
-      <div class="prose" style="gap:14px">
-        <p>Mis-selling isn’t just the feeling that you’ve paid too much — it’s about not getting the full picture. Below are a few quick questions to help you determine if you were mis-led when you agreed to your finance deal.</p>
-        <ul>{QUESTIONS.map((q) => <li>{q}</li>)}</ul>
-        <p class="small muted">{FREE_ROUTE}</p>
-      </div>
-    </div>
-  </section>
+  <EndBand />
 </Base>
