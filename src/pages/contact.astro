@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+---
+<Base path="/contact/" title={`Contact us | ${SITE.name}`} description={`How to contact ${SITE.name} (Claim Simple Ltd) by ${SITE.email ? 'email or ' : ''}post, and who to contact about a claim already with ${PARTNER.legalName}.`} active="contact" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
+  <PageHero slot="hero" h1="Contact us" crumbs={[{ name: 'Contact', href: '/contact/' }]} />
+  <div class="wrap section">
+    <div class="prose">
+      {SITE.email && <><h2 style="margin-top:0">Email</h2><p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p></>}
+      <h2 style={SITE.email ? undefined : 'margin-top:0'}>Post</h2>
+      <p>{SITE.name}, {SITE.company.legalName}, {ADDRESS_LINE}</p>
+      <h2>About a claim you’ve already started</h2>
+      <p>Once you’ve signed up, your claim is handled by {PARTNER.legalName}. Please contact {PARTNER.name} directly about its progress.</p>
+      <h2>Complaints</h2>
+      <p>See our <a href="/complaints/">complaints policy</a>.</p>
+    </div>
+  </div>
+</Base>

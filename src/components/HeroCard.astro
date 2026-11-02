@@ -1,0 +1,10 @@
+---
+import { CLAIM_URL } from '../data/site';
+interface Props { title?: string }
+const { title = 'Find every car finance agreement in your name' } = Astro.props;
+---
+<div class="card">
+  <h2>{title}</h2>
+  <p class="card-sub">Free to check. No win, no fee.</p>
+  <a class="btn btn-block" href={CLAIM_URL} rel="sponsored noopener" data-mbar-anchor>Find my agreements <span aria-hidden="true">→</span></a>
+</div>

@@ -1,0 +1,17 @@
+---
+import Mark from './Mark.astro';
+import { CLAIM_URL } from '../data/site';
+import { BRAND } from '../brands';
+interface Props { title?: string; text?: string }
+const { title = 'Every agreement since 2007, checked', text = 'It’s free to check, and you choose which agreements to claim for.' } = Astro.props;
+---
+<section class="wrap" style="padding-bottom: var(--section)">
+  <div class="closing">
+    {BRAND.id === 'checkfinance' && <Mark class="mk" color="#2BD4A1" weight={2.2} />}
+    <div class="stack" style="gap:10px">
+      <h2 class="d h2">{title}</h2>
+      {text && <p>{text}</p>}
+    </div>
+    <a class="btn" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a>
+  </div>
+</section>

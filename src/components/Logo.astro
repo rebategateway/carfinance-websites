@@ -1,0 +1,12 @@
+---
+import { BRAND } from '../brands';
+import Mark from './Mark.astro';
+interface Props { mark?: string; href?: string }
+const { mark = '#07131E', href = '/' } = Astro.props;
+// Case Matters: wordmark only until its logo file arrives (TODO Jack).
+const showMark = BRAND.id === 'checkfinance';
+---
+<a class="logo" href={href} aria-label={`${BRAND.name} home`}>
+  {showMark && <Mark color={mark} />}
+  <span><b>{BRAND.wordmark[0]}</b><i>{BRAND.wordmark[1]}</i></span>
+</a>

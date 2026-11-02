@@ -1,0 +1,14 @@
+---
+import Legal from '../components/Legal.astro';
+import { SITE, PARTNER } from '../data/site';
+---
+<Legal path="/cancellation/" title={`Cancellation | ${SITE.name}`} description={`How to cancel a car finance claim you started through ${SITE.name}: your 14-day right to cancel with ${PARTNER.legalName}, and what may be charged after that.`} h1="Cancellation" updated="2 November 2026">
+  <p>{SITE.name} doesn’t sign you up to anything or charge you. Your claim agreement is with {PARTNER.legalName}, so you cancel with {PARTNER.name} directly.</p>
+  <h2>Your right to cancel</h2>
+  <ul>
+    <li>You can cancel free within 14 days of signing your agreement with {PARTNER.name}.</li>
+    <li>After 14 days, you can still cancel, but you may have to pay for work already done, as set out in {PARTNER.name}’ terms.</li>
+  </ul>
+  <h2>How to cancel</h2>
+  <p>Use the contact details in your agreement with {PARTNER.name}, or the cancellation details on its website.</p>
+</Legal>

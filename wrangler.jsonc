@@ -1,0 +1,24 @@
+{
+  // Two Workers from one codebase. Each is built with its own BRAND first:
+  //   Check Finance: BRAND=checkfinance npm run build && npx wrangler deploy
+  //   Case Matters:  BRAND=casematters  npm run build && npx wrangler deploy --env casematters
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "checkfinance-website",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  "vars": { "CANONICAL_HOST": "checkfinance.co.uk" },
+  "observability": { "enabled": true },
+  "env": {
+    "casematters": {
+      "name": "casematters-website",
+      "vars": { "CANONICAL_HOST": "casematters.co.uk" }
+    }
+  }
+}

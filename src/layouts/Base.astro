@@ -1,0 +1,121 @@
+---
+import '@fontsource-variable/lexend-deca';
+import '@fontsource-variable/archivo/standard.css';
+import fontBody from '@fontsource-variable/lexend-deca/files/lexend-deca-latin-wght-normal.woff2?url';
+import fontDisplay from '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Closing from '../components/Closing.astro';
+import MobileBar from '../components/MobileBar.astro';
+import Mark from '../components/Mark.astro';
+import { BRAND } from '../brands';
+import { SITE } from '../data/site';
+import type { NavId } from '../data/site';
+
+interface Crumb { name: string; href: string }
+interface Props {
+  path: string;
+  title: string;
+  description: string;
+  noindex?: boolean;
+  active?: NavId;
+  crumbs?: Crumb[];
+  schema?: Record<string, unknown>[];
+  /** Green band behind the header (pages put their hero in the "hero" slot). Otherwise a plain white header. */
+  green?: boolean;
+  closing?: boolean;
+  mbar?: boolean;
+  pageType?: string;
+}
+const { path, title, description, active = 'none', crumbs = [], schema = [], green = true, closing = true, mbar = true, pageType = 'WebPage' } = Astro.props;
+const noindex = Astro.props.noindex ?? false;
+const canonical = new URL(path, SITE.url).href;
+const c = SITE.company;
+
+// One connected entity graph per page, with stable @ids.
+const ORG_ID = `${SITE.url}/#organization`;
+const SITE_ID = `${SITE.url}/#website`;
+const PAGE_ID = `${canonical}#webpage`;
+const CRUMB_ID = `${canonical}#breadcrumb`;
+const org = {
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: SITE.name,
+  legalName: c.legalName,
+  description: `${SITE.name} introduces car finance commission claims to Consultation Claims Limited. A trading name of Claim Simple Ltd, authorised and regulated by the Financial Conduct Authority.`,
+  url: `${SITE.url}/`,
+  logo: { '@type': 'ImageObject', '@id': `${SITE.url}/#logo`, url: `${SITE.url}/brand/logo.png` },
+  ...(SITE.email ? { email: SITE.email } : {}),
+  address: { '@type': 'PostalAddress', streetAddress: c.address.street, addressLocality: c.address.locality, postalCode: c.address.postcode, addressCountry: c.address.country },
+  identifier: [
+    { '@type': 'PropertyValue', propertyID: 'Companies House company number', value: c.number },
+    { '@type': 'PropertyValue', propertyID: 'FCA Firm Reference Number', value: c.frn },
+  ],
+  areaServed: { '@type': 'Country', name: 'United Kingdom' },
+  sameAs: [
+    `https://find-and-update.company-information.service.gov.uk/company/${c.number}`,
+    `https://register.fca.org.uk/s/firm?id=${c.frn}`,
+  ],
+};
+const website = { '@type': 'WebSite', '@id': SITE_ID, url: `${SITE.url}/`, name: SITE.name, alternateName: BRAND.alternateNames, inLanguage: 'en-GB', publisher: { '@id': ORG_ID } };
+const webpage = {
+  '@type': pageType, '@id': PAGE_ID, url: canonical, name: title, description, inLanguage: 'en-GB',
+  isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID },
+  ...(crumbs.length ? { breadcrumb: { '@id': CRUMB_ID } } : {}),
+};
+const graph: Record<string, unknown>[] = noindex ? [org] : [org, website, webpage, ...schema];
+if (crumbs.length && !noindex) {
+  graph.push({
+    '@type': 'BreadcrumbList', '@id': CRUMB_ID,
+    itemListElement: [{ name: 'Home', href: '/' }, ...crumbs].map((cr, i) => ({ '@type': 'ListItem', position: i + 1, name: cr.name, item: new URL(cr.href, SITE.url).href })),
+  });
+}
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+---
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {!path.startsWith('/404') && <link rel="canonical" href={canonical} />}
+  <link rel="preload" href={fontBody} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={fontDisplay} as="font" type="font/woff2" crossorigin />
+  <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+  <meta name="theme-color" content="#04C78D" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL('/brand/og-image.png', SITE.url).href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={jsonLd} />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {green ? (
+    <div class="top">
+      {BRAND.id === 'checkfinance' && <Mark class="top-mark" color="#2BD4A1" weight={2.2} />}
+      <Header active={active} />
+      <slot name="hero" />
+    </div>
+  ) : (
+    <div class="top top-plain"><Header active={active} /></div>
+  )}
+  <main id="main">
+    <slot />
+    {closing && <Closing />}
+  </main>
+  <Footer />
+  {mbar && <MobileBar />}
+</body>
+</html>

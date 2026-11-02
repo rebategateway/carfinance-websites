@@ -1,0 +1,44 @@
+---
+import { MAKES, DEFAULT_MAKE } from '../data/makes';
+import { lenderHref } from '../data/lenders';
+const first = MAKES.find((m) => m.make === DEFAULT_MAKE) ?? MAKES[0];
+---
+<div class="finder" data-finder data-makes={JSON.stringify(MAKES)}>
+  <div class="stack">
+    <h2 class="d h2">What car did you buy?</h2>
+    <p class="muted">Most people know their car, not their lender. Pick the make to see who usually provided the finance.</p>
+    <label for="make" class="small muted" style="margin-bottom:-8px">Car make</label>
+    <div class="select-wrap">
+      <select id="make">
+        {MAKES.map((m) => <option value={m.make} selected={m.make === first.make}>{m.make}</option>)}
+      </select>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="result" aria-live="polite">
+      <span class="small muted">Usually financed by</span>
+      <span class="d lender" data-lender>{first.lender}</span>
+      <div class="meta"><span data-group>{first.group}</span><span class:list={['chip', first.challenging ? 'chip-warn' : 'chip-ok']} data-chip>{first.challenging ? 'Challenging the scheme' : 'Not challenging the scheme'}</span></div>
+      <a href={first.slug ? lenderHref(first.slug) : '/lenders/'} data-link style="font-weight:500;margin-top:6px">{first.slug ? `About ${first.make} finance →` : 'All lenders →'}</a>
+    </div>
+    <p class="small muted">Bought from a used car dealer? It may have been Black Horse, Close Brothers, MotoNovo or Santander Consumer instead. The search finds them all.</p>
+  </div>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-finder]');
+  if (root) {
+    const makes: { make: string; lender: string; group: string; challenging: boolean; slug?: string }[] = JSON.parse(root.dataset.makes!);
+    root.querySelector('select')!.addEventListener('change', (e) => {
+      const m = makes.find((x) => x.make === (e.target as HTMLSelectElement).value)!;
+      root.querySelector('[data-lender]')!.textContent = m.lender;
+      root.querySelector('[data-group]')!.textContent = m.group;
+      const chip = root.querySelector('[data-chip]')!;
+      chip.textContent = m.challenging ? 'Challenging the scheme' : 'Not challenging the scheme';
+      chip.className = 'chip ' + (m.challenging ? 'chip-warn' : 'chip-ok');
+      const a = root.querySelector<HTMLAnchorElement>('[data-link]')!;
+      a.href = m.slug ? `/${m.slug}/` : '/lenders/';
+      a.textContent = m.slug ? `About ${m.make} finance →` : 'All lenders →';
+    });
+  }
+</script>

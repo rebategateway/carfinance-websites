@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FeeCalc from '../components/FeeCalc.astro';
+import { SITE, PARTNER, FREE_ROUTE } from '../data/site';
+---
+<Base path="/fees/" title={`Fees: no win, no fee | ${SITE.name}`} description={`What you pay if your car finance claim succeeds: no win, no fee charges from 36% down to 18% including VAT, capped in pounds for each band.`} active="fees" crumbs={[{ name: 'Fees', href: '/fees/' }]}>
+  <PageHero slot="hero" h1="Fees" lede="No win, no fee. You only pay if you get compensation." crumbs={[{ name: 'Fees', href: '/fees/' }]} />
+  <section class="wrap section fees">
+    <div class="prose" style="gap:14px">
+      <h2 style="margin-top:0">What you pay</h2>
+      <p>If your claim succeeds, {PARTNER.legalName} takes a percentage of the compensation, depending on how much you get, and never more than the cap in pounds for that band. All fees include VAT. We don’t charge you anything: {PARTNER.name} pays us when we introduce your claim.</p>
+      <h2>Cancelling</h2>
+      <p>You can cancel free within 14 days of signing up with {PARTNER.name}. After that, you may have to pay for work already done, as set out in {PARTNER.name}’ terms. See <a href="/cancellation/">cancellation</a>.</p>
+      <p class="small muted">{FREE_ROUTE}</p>
+    </div>
+    <div class="stack"><FeeCalc /></div>
+  </section>
+</Base>

@@ -1,0 +1,52 @@
+---
+import { SCHEME_STEPS, SCHEME_UPDATED, CLAIM_URL } from '../data/site';
+interface Props { heading?: string; cta?: boolean; level?: 'h1' | 'h2' }
+const { heading = 'Where the scheme is now', cta = true } = Astro.props;
+// Progress along the road: just past the "now" step.
+const nowIndex = SCHEME_STEPS.findIndex((s) => 'now' in s && s.now);
+const progressH = `${Math.round(((nowIndex + 0.55) / SCHEME_STEPS.length) * 100)}%`;
+const progressV = `${Math.round(((nowIndex + 0.8) / SCHEME_STEPS.length) * 100)}%`;
+---
+<section class="band-dark">
+  <div class="wrap section">
+    <div class="sec-head row">
+      <div class="stack" style="gap:8px">
+        <h2 class="d h2">{heading}</h2>
+        <p class="small" style="color:var(--dark-muted)">Updated {SCHEME_UPDATED}. We update this as the case moves.</p>
+      </div>
+      <a href="/fca-redress-scheme/" class="small">Full timeline and sources</a>
+    </div>
+
+    <div class="road-v" style={`--progress:${progressV}`}>
+      <div class="lane" aria-hidden="true">
+        <svg class="car" width="22" height="44" viewBox="0 0 30 58"><rect x="1" y="9" width="4" height="8" rx="1.5" fill="#0B1620"/><rect x="25" y="9" width="4" height="8" rx="1.5" fill="#0B1620"/><rect x="1" y="40" width="4" height="8" rx="1.5" fill="#0B1620"/><rect x="25" y="40" width="4" height="8" rx="1.5" fill="#0B1620"/><rect x="3" y="2" width="24" height="54" rx="9" fill="#04C78D"/><path d="M6.5 36v6.5c0 2.5 1.5 4 4 4h9c2.5 0 4-1.5 4-4V36c-2.5 1.2-5.2 1.8-8.5 1.8S9 37.2 6.5 36z" fill="#07131E" opacity=".75"/><path d="M7 14v-3c0-1.8 1.2-3 3-3h10c1.8 0 3 1.2 3 3v3c-2.4-.9-5-1.3-8-1.3S9.4 13.1 7 14z" fill="#07131E" opacity=".55"/></svg>
+      </div>
+      {SCHEME_STEPS.map((s) => (
+        <div class="stop">
+          <b>{s.when}</b>
+          <span>{s.title}. {s.text}</span>
+          {'now' in s && s.now && <span class="here">You are here</span>}
+        </div>
+      ))}
+    </div>
+
+    <div class="road-h" style={`--progress:${progressH}`}>
+      <span class="here">You are here</span>
+      <div class="lane" aria-hidden="true">
+        <svg class="car" width="66" height="34" viewBox="0 0 58 30"><rect x="9" y="1" width="8" height="4" rx="1.5" fill="#0B1620"/><rect x="40" y="1" width="8" height="4" rx="1.5" fill="#0B1620"/><rect x="9" y="25" width="8" height="4" rx="1.5" fill="#0B1620"/><rect x="40" y="25" width="8" height="4" rx="1.5" fill="#0B1620"/><rect x="2" y="3" width="54" height="24" rx="9" fill="#04C78D"/><path d="M36 6.5h6.5c2.5 0 4 1.5 4 4v9c0 2.5-1.5 4-4 4H36c1.2-2.5 1.8-5.2 1.8-8.5S37.2 9 36 6.5z" fill="#07131E" opacity=".75"/><path d="M14 7h-3c-1.8 0-3 1.2-3 3v10c0 1.8 1.2 3 3 3h3c-.9-2.4-1.3-5-1.3-8S13.1 9.4 14 7z" fill="#07131E" opacity=".55"/></svg>
+      </div>
+      <ol>
+        {SCHEME_STEPS.map((s) => (
+          <li class:list={{ done: 'done' in s && s.done }}><b style="font-weight:500">{s.when}</b><span style="color:var(--dark-muted);font-size:15px">{s.title}. {s.text}</span></li>
+        ))}
+      </ol>
+    </div>
+
+    {cta && (
+      <div class="road-foot">
+        <p>People who have already complained are dealt with first.</p>
+        <a class="btn btn-green" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a>
+      </div>
+    )}
+  </div>
+</section>

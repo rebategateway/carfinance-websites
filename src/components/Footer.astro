@@ -1,0 +1,20 @@
+---
+import Logo from './Logo.astro';
+import { SITE, PARTNER, FREE_ROUTE, FOOTER_LINKS, ADDRESS_LINE } from '../data/site';
+const c = SITE.company;
+---
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div class="ftr-top">
+      <div><Logo mark="#04C78D" /></div>
+      <nav class="ftr-nav" aria-label="Footer">
+        {FOOTER_LINKS.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+    </div>
+    <div class="ftr-legal">
+      <p>{SITE.name} is a trading name of {c.legalName}, a claims management company authorised and regulated by the Financial Conduct Authority (FRN {c.frn}). Registered in {c.jurisdiction}, company number {c.number}. Registered office: {ADDRESS_LINE}. ICO registration {c.icoRef}.</p>
+      <p>{FREE_ROUTE} Our claims partner, {PARTNER.legalName} (FRN {PARTNER.frn}), pays us when we introduce your claim.</p>
+      <p>© {c.legalName} {new Date().getFullYear()}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,33 @@
+---
+import Legal from '../components/Legal.astro';
+import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+const c = SITE.company;
+---
+<Legal path="/complaints/" title={`Complaints policy | ${SITE.name}`} description={`How to complain to ${SITE.name} (Claim Simple Ltd), what we'll do and when, and how to take your complaint to the Financial Ombudsman Service.`} h1="Complaints policy" updated="2 November 2026">
+  <p>If you’re unhappy with anything we’ve done, please tell us. We’ll look into it fairly and tell you what we find.</p>
+  <h2>How to complain</h2>
+  <ul>
+    {SITE.email && <li>By email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>}
+    <li>By post: Complaints, {c.legalName}, {ADDRESS_LINE}</li>
+  </ul>
+  <p>Please tell us your name, how we can contact you, what went wrong and what you’d like us to do. If you need us to make any adjustments, for example a different way to communicate, just let us know.</p>
+  <h2>What we’ll do</h2>
+  <ul>
+    <li>We’ll acknowledge your complaint in writing within five working days.</li>
+    <li>If we resolve it within three working days, we’ll write to confirm that, and explain that you can still go to the Financial Ombudsman if you’re not happy.</li>
+    <li>Otherwise, we’ll investigate and send you our final response within eight weeks. If we can’t, we’ll write to explain why and when we expect to reply.</li>
+  </ul>
+  <h2>The Financial Ombudsman Service</h2>
+  <p>If you’re unhappy with our final response, or we haven’t sent one within eight weeks, you can refer your complaint to the Financial Ombudsman Service. It’s free.</p>
+  <ul>
+    <li>You normally need to contact it within six months of our final response.</li>
+    <li>Phone 0800 023 4567</li>
+    <li>Post: Financial Ombudsman Service, Exchange Tower, London E14 9SR</li>
+    <li>Online: <a href="https://www.financial-ombudsman.org.uk/" rel="noopener">financial-ombudsman.org.uk</a></li>
+  </ul>
+  <h2>Complaints about your claim</h2>
+  <p>Once we’ve introduced you, your claim is handled by {PARTNER.legalName}. If you’re unhappy with how it handles your claim, please complain to {PARTNER.name} first. If you’re still unhappy, you can go to the Financial Ombudsman Service.</p>
+  <p>If you’re not sure who to complain to, contact us and we’ll point you in the right direction.</p>
+  <h2>Complaints about your personal information</h2>
+  <p>See our <a href="/privacy-policy/">privacy policy</a>. You can also complain to the Information Commissioner’s Office.</p>
+</Legal>

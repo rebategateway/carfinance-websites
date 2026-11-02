@@ -1,0 +1,86 @@
+---
+// Lender pages at the same addresses as the old site, e.g. /blackhorse-finance/.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import HeroCard from '../components/HeroCard.astro';
+import Faqs from '../components/Faqs.astro';
+import { LENDERS, CHALLENGERS, lenderHref } from '../data/lenders';
+import type { LenderInfo } from '../data/lenders';
+import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES } from '../data/site';
+import type { Faq } from '../data/faqs';
+
+export function getStaticPaths() {
+  return LENDERS.map((l) => ({ params: { slug: l.slug }, props: { l } }));
+}
+interface Props { l: LenderInfo }
+const { l } = Astro.props;
+const path = lenderHref(l.slug);
+const title = `${l.name} car finance claims | ${SITE.name}`;
+const description = `${l.name} car finance from 2007 to 2024? See who the lender is, where the FCA scheme stands, and find every agreement in your name.`;
+const checked = new Date(l.checked).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const faqs: Faq[] = [
+  { q: `My ${l.name} agreement is paid off. Does it count?`, a: `<p>Yes. ${l.name} agreements from ${FIGURES.from} to ${FIGURES.to} count whether you’ve paid them off or are still paying.</p>` },
+  { q: `Is ${l.name} challenging the FCA scheme?`, a: l.challenging
+    ? `<p>Yes. ${l.legalName} is one of three lenders challenging the FCA’s rules in the Upper Tribunal, with the consumer group Consumer Voice. The full hearing is from 16 February to 3 March 2027. Complaints can still be made while it goes ahead.</p>`
+    : `<p>No. The lenders challenging the scheme are ${CHALLENGERS.join(', ').replace(/, ([^,]*)$/, ' and $1')}. Payouts under the scheme are paused for every lender until the challenges are decided, after the hearing from 16 February to 3 March 2027.</p>` },
+  { q: `I’ve had a letter from ${l.name}. What does it mean?`, a: '<p>Under the scheme, lenders have to tell people who have already complained whether they’re owed compensation: by 18 November 2026 for agreements from 1 April 2014 complained about by 30 June 2026, and by 18 January 2027 for older agreements complained about by 31 August 2026. If you’re told you’re not owed and you disagree, you can ask the lender to look again, then go to the Financial Ombudsman.</p>' },
+];
+if (l.brands?.length) faqs.splice(1, 0, { q: `Which cars did ${l.name} finance?`, a: `<p>${l.legalName} provides finance for ${l.brands.join(', ').replace(/, ([^,]*)$/, ' and $1')} cars, among others, through dealers across the UK.</p>` });
+
+// The next three lenders alphabetically, wrapping round, so every page links to different neighbours.
+const sorted = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
+const at = sorted.findIndex((o) => o.slug === l.slug);
+const others = [1, 2, 3].map((n) => sorted[(at + n) % sorted.length]);
+const faqSchema = { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
+const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).href}#lender`, name: l.name, legalName: l.legalName, ...(l.frn ? { identifier: { '@type': 'PropertyValue', propertyID: 'FCA Firm Reference Number', value: l.frn }, sameAs: [`https://register.fca.org.uk/s/firm?id=${l.frn}`] } : {}) };
+---
+<Base path={path} title={title} description={description} active="lenders" crumbs={[{ name: 'Lenders', href: '/lenders/' }, { name: l.name, href: path }]} schema={[faqSchema, lenderOrg]}>
+  <div slot="hero" class="wrap hero" style="padding-top:0">
+    <div class="hero-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lenders/">Lenders</a> / <span aria-current="page">{l.name}</span></nav>
+      <h1 class="d h1 sm">{l.name} car finance claims</h1>
+      <p class="lede" style="max-width:40ch">{l.intro} Every PCP or hire purchase agreement with {l.name} from April 2007 to November 2024 can be checked.</p>
+      <p class="hero-free">{FREE_ROUTE.replace('your lender', l.name)} {PAYMENT_LINE}</p>
+    </div>
+    <HeroCard title={`Find your ${l.name} agreements`} />
+  </div>
+
+  <div class="wrap section lp-grid">
+    <section class="stack">
+      <h2 class="d h2">{l.name} at a glance</h2>
+      <dl class="facts">
+        <div><dt>Legal name</dt><dd>{l.legalName}</dd></div>
+        {l.formerName && <div><dt>Formerly</dt><dd>{l.formerName}</dd></div>}
+        {l.frn && <div><dt>FCA number</dt><dd><a href={`https://register.fca.org.uk/s/firm?id=${l.frn}`} rel="noopener">{l.frn}</a></dd></div>}
+        {l.companyNumber && <div><dt>Company number</dt><dd>{l.companyNumber}</dd></div>}
+        <div><dt>Part of</dt><dd>{l.group}</dd></div>
+        {l.brands?.length && <div><dt>Finances</dt><dd>{l.brands.join(', ')}</dd></div>}
+        <div><dt>FCA scheme</dt><dd><span class:list={['chip', l.challenging ? 'chip-warn' : 'chip-ok']}>{l.challenging ? 'Challenging it' : 'Not challenging it'}</span></dd></div>
+      </dl>
+      <p class="small muted">Checked {checked} against the FCA register, Companies House and the lender’s own website.</p>
+    </section>
+    <aside class="band-dark aside-card" style="background:var(--ink);color:#fff">
+      <h2 class="d" style="font-size:24px">What {l.name} has to do next</h2>
+      <ul class="timeline">
+        <li class="next"><div><b>By 18 November 2026</b><span>Tell you if you’re not owed, for agreements from April 2014 complained about by 30 June 2026</span></div></li>
+        <li><div><b>By 18 January 2027</b><span>The same for older agreements complained about by 31 August 2026</span></div></li>
+        <li><div><b>After the hearing in early 2027</b><span>Pay compensation, if the scheme is upheld</span></div></li>
+      </ul>
+    </aside>
+  </div>
+
+  <section class="band-mint">
+    <div class="wrap section two-col">
+      <h2 class="d h2">{l.name} questions</h2>
+      <Faqs items={faqs} openFirst />
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="sec-head row"><h2 class="d h2">Other lenders</h2><a href="/lenders/" style="font-weight:500">All lenders</a></div>
+    <div class="lender-grid">
+      {others.map((o) => <a href={lenderHref(o.slug)}><span><b style="font-weight:500">{o.name}</b><small>{o.group}</small></span><span class:list={['chip', o.challenging ? 'chip-warn' : 'chip-ok']}>{o.challenging ? 'Challenging' : 'Not challenging'}</span></a>)}
+    </div>
+  </section>
+</Base>

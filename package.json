@@ -1,0 +1,24 @@
+{
+  "name": "carfinance-websites",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:checkfinance": "BRAND=checkfinance astro build",
+    "build:casematters": "BRAND=casematters astro build",
+    "check:site": "node scripts/check-site.mjs",
+    "verify": "BRAND=checkfinance astro build && node scripts/check-site.mjs && BRAND=casematters astro build && node scripts/check-site.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/lexend-deca": "^5.2.0",
+    "@fontsource-variable/archivo": "^5.2.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "engines": { "node": ">=22" }
+}

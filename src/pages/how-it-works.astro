@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faqs from '../components/Faqs.astro';
+import { SITE, PARTNER, FREE_ROUTE, PAYMENT_LINE } from '../data/site';
+import { FAQ } from '../data/faqs';
+const faqs = [FAQ.credit, FAQ.cost, FAQ.switch];
+---
+<Base path="/how-it-works/" title={`How car finance claims work | ${SITE.name}`} description={`A soft search finds every car finance agreement in your name since 2007, then ${PARTNER.name} complains to each lender for you. No win, no fee.`} active="how" crumbs={[{ name: 'How it works', href: '/how-it-works/' }]}>
+  <PageHero slot="hero" h1="How it works" lede={`We introduce you to ${PARTNER.legalName}, which finds your agreements and complains to each lender for you.`} crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} />
+  <section class="wrap section">
+    <ol class="steps">
+      <li><div class="rail"><i></i><u></u></div><div class="body"><h2 class="h3">Enter your details</h2><p>On {PARTNER.name}’ secure page, so your credit file can be searched.</p></div></li>
+      <li><div class="rail"><i></i><u></u></div><div class="body"><h2 class="h3">Your agreements are found</h2><p>A soft search of your credit file finds car finance agreements back to 2007, even if you’ve moved or changed your name. You see them before you decide whether to go ahead.</p></div></li>
+      <li><div class="rail"><i></i></div><div class="body"><h2 class="h3">Each lender gets a complaint</h2><p>You choose which agreements to claim for. {PARTNER.name} complains to each lender and deals with them for you, on a no win, no fee basis.</p></div></li>
+    </ol>
+  </section>
+  <section class="band-mint">
+    <div class="wrap section two-col">
+      <div class="stack"><h2 class="d h2">Who does what</h2></div>
+      <div class="prose" style="gap:14px">
+        <p>{SITE.name} is a trading name of {SITE.company.legalName}, a claims management company authorised and regulated by the Financial Conduct Authority (FRN {SITE.company.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), which handles your claim under its own agreement with you. {PAYMENT_LINE}</p>
+        <p>{FREE_ROUTE}</p>
+      </div>
+    </div>
+  </section>
+  <section class="wrap section two-col">
+    <h2 class="d h2">Questions</h2>
+    <Faqs items={faqs} />
+  </section>
+</Base>

@@ -1,0 +1,6 @@
+---
+// The Check Finance chevron-and-tick mark, drawn as strokes so it stays sharp at any size.
+interface Props { color?: string; class?: string; size?: number; weight?: number }
+const { color = 'currentColor', class: cls, size, weight = 4.4 } = Astro.props;
+---
+<svg class={cls} width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} stroke-width={weight} stroke-linecap="square" aria-hidden="true"><path d="M20 3L3 20l17 17"/><path d="M13 19l4.5 4.5L28 13"/><path d="M36 15L25 26l9 9"/></svg>

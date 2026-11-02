@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroCard from '../components/HeroCard.astro';
+import SchemeRoad from '../components/SchemeRoad.astro';
+import MakeFinder from '../components/MakeFinder.astro';
+import FeeCalc from '../components/FeeCalc.astro';
+import Faqs from '../components/Faqs.astro';
+import { SITE, FIGURES, FREE_ROUTE, PAYMENT_LINE, LETTER } from '../data/site';
+import { HOME_FAQS } from '../data/faqs';
+
+const title = `Car finance claims | ${SITE.name}`;
+const description = `Car finance between 2007 and 2024? If the dealer was paid hidden commission, you could be owed compensation. Find every agreement in your name. No win, no fee.`;
+const faqSchema = { '@type': 'FAQPage', mainEntity: HOME_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
+---
+<Base path="/" title={title} description={description} schema={[faqSchema]}>
+  <section slot="hero" class="wrap hero">
+    <a class="hero-letter" href={LETTER.href}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      Received our letter? Start here
+    </a>
+    <div class="hero-copy">
+      <h1 class="d h1">Your car finance could owe you money.</h1>
+      <p class="lede" style="max-width:36ch">If the dealer was paid commission you weren’t told about, you could be owed. The FCA’s average is {FIGURES.average} for each agreement.</p>
+      <ul class="hero-ticks">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Every agreement since 2007</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Paid off or still paying</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>No win, no fee</li>
+      </ul>
+      <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
+    </div>
+    <HeroCard />
+  </section>
+
+  <div class="wrap">
+    <section class="figs" aria-label="Key figures">
+      <div><span class="d num">{FIGURES.average}</span><span class="small muted">average per agreement</span></div>
+      <div><span class="d num">{FIGURES.agreements}</span><span class="small muted">agreements eligible</span></div>
+      <div class="third"><span class="d num">{FIGURES.deadlineShort}</span><span class="small muted">last day to complain if your lender hasn’t been in touch</span></div>
+      <span class="src">Figures from the FCA, March 2026</span>
+    </section>
+  </div>
+
+  <section class="wrap section">
+    <div class="sec-head">
+      <h2 class="d h2">Three ways commission was unfair</h2>
+      <p>Under the FCA’s scheme, you could be owed compensation if you weren’t told about any of these.</p>
+    </div>
+    <div class="swipe">
+      <div class="slide">
+        <div class="pic" aria-hidden="true"><div class="rate"><i></i><b></b></div><div class="rate-l"><span>4.9% APR</span><span>Your rate 10.9%</span></div></div>
+        <div><h3 class="h3">The dealer set your rate</h3><p>They chose your interest rate and earned more commission the higher it went. Banned from 28 January 2021.</p></div>
+      </div>
+      <div class="slide">
+        <div class="pic" aria-hidden="true"><div class="split"><span>Commission</span><span>Lender’s interest</span></div></div>
+        <div><h3 class="h3">The commission was high</h3><p>At least 39% of the interest and charges, and 10% of the amount borrowed.</p></div>
+      </div>
+      <div class="slide">
+        <div class="pic" aria-hidden="true"><div class="tie"><span>Dealer</span><span class="tie-l">Exclusive deal</span><span>Lender</span></div></div>
+        <div><h3 class="h3">The dealer was tied to a lender</h3><p>The lender had exclusivity or first call on the dealer’s customers, and you weren’t told.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-mint">
+    <div class="wrap section"><MakeFinder /></div>
+  </section>
+
+  <SchemeRoad />
+
+  <section class="wrap section">
+    <div class="sec-head"><h2 class="d h2">How it works</h2></div>
+    <ol class="steps">
+      <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Enter your details</h3><p>On Consultation Claims’ secure page, so your credit file can be searched.</p></div></li>
+      <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">Your agreements are found</h3><p>A soft search of your credit file, back to 2007, even if you’ve moved.</p>
+        <div class="found" aria-hidden="true"><div><span>2016 Ford Fiesta · PCP</span><span>Example</span></div><div><span>2012 Vauxhall Astra · HP</span><span>Example</span></div></div></div></li>
+      <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">Each lender gets a complaint</h3><p>Consultation Claims complains to every lender and deals with each one for you.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="band-mint">
+    <div class="wrap section fees">
+      <div class="stack">
+        <h2 class="d h2">No win, no fee. See what you’d pay.</h2>
+        <p class="muted">You only pay if you get compensation. Consultation Claims takes a percentage, capped in pounds. Fees include VAT. Free to cancel within 14 days.</p>
+      </div>
+      <div class="stack"><FeeCalc /></div>
+    </div>
+  </section>
+
+  <section class="wrap section two-col">
+    <div class="stack"><h2 class="d h2">Questions</h2><a href="/faqs/" style="font-weight:500">All questions</a></div>
+    <Faqs items={HOME_FAQS} openFirst />
+  </section>
+</Base>

@@ -1,0 +1,16 @@
+---
+// Hero for inner pages, sitting in the green band under the header.
+interface Crumb { name: string; href: string }
+interface Props { h1: string; lede?: string; crumbs?: Crumb[] }
+const { h1, lede, crumbs = [] } = Astro.props;
+---
+<section class="wrap">
+  <div class="page-hero">
+    {crumbs.length > 0 && (
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a>{crumbs.map((c, i) => <> / {i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</>)}</nav>
+    )}
+    <h1 class="d h1 sm">{h1}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,16 @@
+---
+// Layout for the legal pages: plain white header, readable column.
+import Base from '../layouts/Base.astro';
+import { LEGAL_REVIEWED } from '../data/site';
+interface Props { path: string; title: string; description: string; h1: string; updated: string }
+const { path, title, description, h1, updated } = Astro.props;
+---
+<Base path={path} title={title} description={description} green={false} closing={false} mbar={false} noindex={!LEGAL_REVIEWED}>
+  <div class="wrap section">
+    <article class="prose">
+      <h1 class="d h1 sm">{h1}</h1>
+      <p class="updated">Last updated {updated}</p>
+      <slot />
+    </article>
+  </div>
+</Base>

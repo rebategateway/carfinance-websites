@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faqs from '../components/Faqs.astro';
+import { SITE } from '../data/site';
+import { ALL_FAQS } from '../data/faqs';
+const faqSchema = { '@type': 'FAQPage', mainEntity: ALL_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
+---
+<Base path="/faqs/" title={`Car finance claims: questions and answers | ${SITE.name}`} description="Car finance commission claims explained: which agreements count, paid-off finance, how much you could get, when you'll be paid and what lender letters mean." active="faqs" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} schema={[faqSchema]}>
+  <PageHero slot="hero" h1="Questions and answers" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} />
+  <section class="wrap section"><div style="max-width:820px"><Faqs items={ALL_FAQS} /></div></section>
+</Base>

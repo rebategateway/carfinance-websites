@@ -1,0 +1,21 @@
+---
+import { CLAIM_URL } from '../data/site';
+---
+<div class="mbar" data-mbar aria-hidden="true">
+  <span><b>Free to check</b><br /><span class="muted">No win, no fee</span></span>
+  <a class="btn" href={CLAIM_URL} rel="sponsored noopener" tabindex="-1">Find my agreements <span aria-hidden="true">→</span></a>
+</div>
+<script>
+  // Show the bar once the page's main button has scrolled out of view.
+  const bar = document.querySelector<HTMLElement>('[data-mbar]');
+  const anchor = document.querySelector('[data-mbar-anchor]');
+  if (bar) {
+    document.body.classList.add('has-mbar');
+    const show = (on: boolean) => { bar.classList.toggle('on', on); bar.setAttribute('aria-hidden', String(!on)); bar.querySelector('a')!.tabIndex = on ? 0 : -1; };
+    if (anchor && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => show(!e.isIntersecting && e.boundingClientRect.top < 0)).observe(anchor);
+    } else {
+      show(true);
+    }
+  }
+</script>

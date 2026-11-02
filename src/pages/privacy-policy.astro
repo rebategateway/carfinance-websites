@@ -1,0 +1,64 @@
+---
+import Legal from '../components/Legal.astro';
+import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+const c = SITE.company;
+const contact = SITE.email ? `email ${SITE.email} or write to us at our registered office` : 'write to us at our registered office';
+---
+<Legal path="/privacy-policy/" title={`Privacy policy | ${SITE.name}`} description={`How ${SITE.name}, a trading name of Claim Simple Ltd, collects, uses and protects your personal information, and your rights.`} h1="Privacy policy" updated="2 November 2026">
+  <h2>Who we are</h2>
+  <p>{SITE.name} is a trading name of {c.legalName} (“we”, “us”), a company registered in {c.jurisdiction} (company no. {c.number}), registered office {ADDRESS_LINE}. We are authorised and regulated by the Financial Conduct Authority as a claims management company (FRN {c.frn}) and registered with the Information Commissioner’s Office (registration {c.icoRef}).</p>
+  <p>We are the controller of the personal information described here. To contact us about this policy or your information, {SITE.email ? <>email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or write to us at our registered office</> : 'write to us at our registered office'}.</p>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li><strong>Letter details:</strong> if we wrote to you, your name and address and the reference on your letter.</li>
+    <li><strong>Messages:</strong> anything you send us if you contact us or make a complaint.</li>
+    <li><strong>Technical information:</strong> such as your IP address, browser and device, which our hosting provider processes to deliver and protect the website.</li>
+  </ul>
+  <p>This website doesn’t ask for your contact details. When you choose to find your agreements, you go to {PARTNER.legalName}’s own website, which collects your details under its own privacy notice.</p>
+
+  <h2 id="letters">If we wrote to you</h2>
+  <p>We write to people who may have had car finance worth looking into. We do this on the basis of our legitimate interests. Your letter explains where your details came from. We don’t know anything about your agreements when we write to you.</p>
+  <p>If you don’t want any more letters, {contact}, and we won’t write to you again. We keep your name and address on our do-not-mail list so we can make sure of that.</p>
+
+  <h2>How we use it, and why we’re allowed to</h2>
+  <table>
+    <thead><tr><th scope="col">What we do</th><th scope="col">Lawful basis</th></tr></thead>
+    <tbody>
+      <tr><td>Send letters to people who may be able to claim</td><td>Our legitimate interest in telling people about claims they may be able to make</td></tr>
+      <tr><td>Keep a do-not-mail list, so we don’t write to people who’ve asked us not to</td><td>Legal obligation, and our legitimate interest in respecting your request</td></tr>
+      <tr><td>Handle messages, complaints and requests about your information</td><td>Legal obligation, and our legitimate interest in responding to you</td></tr>
+      <tr><td>Keep the website secure and working</td><td>Our legitimate interest in running a safe website</td></tr>
+    </tbody>
+  </table>
+  <p>We don’t send you marketing by email or text.</p>
+
+  <h2>Who we share it with</h2>
+  <ul>
+    <li><strong>Service providers</strong> who host our website, send our letters and run our email, acting on our instructions.</li>
+    <li><strong>Regulators, ombudsmen and law enforcement</strong> where the law requires it.</li>
+    <li><strong>Professional advisers</strong>, such as lawyers and auditors.</li>
+    <li><strong>A buyer of our business</strong>, if we sell or transfer it, under the same protections.</li>
+  </ul>
+  <p>We never sell your information.</p>
+
+  <h2>Transfers outside the UK</h2>
+  <p>Our hosting provider runs a global network, so your information may be processed outside the UK. Where that happens, we rely on UK adequacy regulations or approved safeguards such as the UK International Data Transfer Agreement.</p>
+
+  <h2>How long we keep it</h2>
+  <ul>
+    <li><strong>Letters:</strong> the name, address and reference we wrote to, for 12 months from the date of the letter.</li>
+    <li><strong>Our do-not-mail list:</strong> for as long as we send letters.</li>
+    <li><strong>Complaints:</strong> six years from the end of the complaint.</li>
+    <li><strong>Messages:</strong> as long as we need to deal with them, or six years if they become a complaint.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>You have the right to ask for a copy of your information, to have it corrected or deleted, to restrict or object to how we use it, and to have it moved to another organisation. To use any of these rights, {contact}. We’ll normally reply within one month.</p>
+
+  <h2>Complaints</h2>
+  <p>If you’re unhappy with how we’ve handled your information, please contact us first. You can also complain to the Information Commissioner’s Office at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>We’ll post any changes on this page and update the date at the top.</p>
+</Legal>

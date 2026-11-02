@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SchemeRoad from '../components/SchemeRoad.astro';
+import { SITE, FIGURES, SCHEME_UPDATED, FREE_ROUTE } from '../data/site';
+---
+<Base path="/fca-redress-scheme/" title={`FCA car finance redress scheme: where it stands | ${SITE.name}`} description={`The FCA's car finance redress scheme covers agreements from 2007 to 2024. Where it stands, the legal challenge, the deadlines and what it pays.`} active="scheme" pageType="Article" crumbs={[{ name: 'The FCA scheme', href: '/fca-redress-scheme/' }]}>
+  <PageHero slot="hero" h1="The FCA car finance redress scheme" lede={`The FCA’s scheme covers car finance from ${FIGURES.from} to ${FIGURES.to} where the lender paid the dealer commission you weren’t told about. Payouts are paused while the rules are challenged.`} crumbs={[{ name: 'The FCA scheme', href: '/fca-redress-scheme/' }]} />
+  <SchemeRoad cta={false} />
+  <div class="wrap section">
+    <article class="prose">
+      <p class="updated">Updated {SCHEME_UPDATED}</p>
+      <h2>What the scheme is</h2>
+      <p>The Financial Conduct Authority confirmed its motor finance consumer redress scheme on 30 March 2026, in policy statement PS26/3. It requires lenders to look at agreements where they paid the dealer or broker commission, and to pay compensation where the arrangement was unfair and wasn’t properly disclosed.</p>
+      <p>The FCA estimates that 12.1 million agreements are eligible, and that the average compensation is {FIGURES.average} for each agreement.</p>
+      <h2>Which agreements it covers</h2>
+      <p>Car finance taken out between {FIGURES.from} and {FIGURES.to}, such as PCP and hire purchase, where commission was paid. The scheme is split in two: agreements from 6 April 2007 to 31 March 2014, and agreements from 1 April 2014 to 1 November 2024.</p>
+      <h2>What makes it unfair</h2>
+      <p>You could be owed compensation if you weren’t told about any of these:</p>
+      <ul>
+        <li><strong>A discretionary commission arrangement:</strong> the dealer could set your interest rate, and earned more commission the higher it went. These were banned from 28 January 2021.</li>
+        <li><strong>High commission:</strong> at least 39% of the interest and charges, and at least 10% of the amount borrowed.</li>
+        <li><strong>A tie between the dealer and the lender:</strong> for example, the lender had exclusivity or first refusal on the dealer’s customers.</li>
+      </ul>
+      <h2>How compensation is worked out</h2>
+      <p>For most people, compensation is based on the commission paid and the FCA’s estimate of how much more it cost you, plus interest at the Bank of England base rate plus 1%, with a minimum of 3% a year. In the most serious cases, the lender refunds all the commission, plus interest.</p>
+      <h2>The legal challenge</h2>
+      <p>Three lenders, CA Auto Finance, Mercedes-Benz Financial Services and Volkswagen Financial Services, and the consumer group Consumer Voice have challenged the rules. On 2 July 2026 the Upper Tribunal suspended parts of the scheme, so lenders don’t have to pay compensation until the challenges are decided. The full hearing is from 16 February to 3 March 2027. If the scheme is upheld, the FCA expects payments to start in 2027.</p>
+      <h2>Deadlines</h2>
+      <ul>
+        <li>Lenders have to tell people who complained whether they’re owed: by 18 November 2026 for agreements from 1 April 2014 complained about by 30 June 2026, and by 18 January 2027 for older agreements complained about by 31 August 2026.</li>
+        <li>If your lender hasn’t contacted you, you can complain to it until {FIGURES.deadline}.</li>
+        <li>If a lender contacts you about the scheme, you have six months to respond.</li>
+      </ul>
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://www.fca.org.uk/news/statements/fca-confirms-motor-finance-redress-scheme" rel="noopener">FCA: FCA confirms motor finance redress scheme</a></li>
+        <li><a href="https://www.fca.org.uk/publications/policy-statements/ps26-3-motor-finance-consumer-redress-scheme" rel="noopener">FCA: PS26/3 Motor finance consumer redress scheme</a></li>
+      </ul>
+      <p class="small muted">{FREE_ROUTE}</p>
+    </article>
+  </div>
+</Base>

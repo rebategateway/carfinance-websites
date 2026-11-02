@@ -1,0 +1,44 @@
+---
+import { FEE_BANDS, pct, gbp } from '../data/site';
+interface Props { table?: boolean }
+const { table = true } = Astro.props;
+const start = 2500;
+const band = FEE_BANDS.find((b) => start <= b.max)!;
+const fee = Math.min(Math.round(start * band.rate), band.cap);
+const bands = FEE_BANDS.map((b) => ({ max: b.max === Infinity ? null : b.max, rate: b.rate, cap: b.cap }));
+---
+<div class="calc" data-calc data-bands={JSON.stringify(bands)}>
+  <label for="fee-amount"><span class="small muted">If you get</span><span class="d amt" data-amt>{gbp(start)}</span></label>
+  <input id="fee-amount" type="range" min="500" max="20000" step="100" value={start} aria-describedby="fee-out" />
+  <div class="out" id="fee-out" aria-live="polite">
+    <span><span class="small muted">Fee, including VAT</span><b data-fee>{gbp(fee)}</b></span>
+    <span><span class="small muted">You keep</span><b data-keep>{gbp(start - fee)}</b></span>
+  </div>
+</div>
+{table && (
+  <details class="more" open>
+    <summary>All fee bands</summary>
+    <table class="tbl">
+      <thead><tr><th scope="col">Compensation</th><th scope="col">Fee</th><th scope="col">Most you pay</th></tr></thead>
+      <tbody>{FEE_BANDS.map((b) => <tr><td>{b.band}</td><td>{pct(b.rate)}</td><td>{gbp(b.cap)}</td></tr>)}</tbody>
+    </table>
+  </details>
+)}
+<script>
+  for (const el of document.querySelectorAll<HTMLElement>('[data-calc]')) {
+    const bands: { max: number | null; rate: number; cap: number }[] = JSON.parse(el.dataset.bands!);
+    const input = el.querySelector('input')!;
+    const gbp = (n: number) => '£' + n.toLocaleString('en-GB');
+    const update = () => {
+      const a = Number(input.value);
+      const b = bands.find((x) => x.max === null || a <= x.max)!;
+      const fee = Math.min(Math.round(a * b.rate), b.cap);
+      el.querySelector('[data-amt]')!.textContent = gbp(a);
+      el.querySelector('[data-fee]')!.textContent = gbp(fee);
+      el.querySelector('[data-keep]')!.textContent = gbp(a - fee);
+    };
+    input.addEventListener('input', update);
+  }
+  // Phones: the band table starts folded.
+  if (matchMedia('(max-width: 1023px)').matches) document.querySelectorAll('details.more').forEach((d) => d.removeAttribute('open'));
+</script>

@@ -1,0 +1,26 @@
+---
+import Legal from '../components/Legal.astro';
+import { SITE, PARTNER, FREE_ROUTE, ADDRESS_LINE } from '../data/site';
+const c = SITE.company;
+---
+<Legal path="/terms-of-service/" title={`Website terms | ${SITE.name}`} description={`The terms for using the ${SITE.name} website, run by Claim Simple Ltd, an FCA-authorised claims management company that introduces car finance claims.`} h1="Website terms" updated="2 November 2026">
+  <h2>About us</h2>
+  <p>This website is run by {c.legalName}, trading as {SITE.name}, registered in {c.jurisdiction} (company no. {c.number}), registered office {ADDRESS_LINE}. We are authorised and regulated by the Financial Conduct Authority as a claims management company (FRN {c.frn}).</p>
+  <h2>What this website does</h2>
+  <ul>
+    <li>We give general information about car finance commission complaints.</li>
+    <li>If you choose to, we introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), which may handle your claim under a separate agreement with you. We don’t handle claims ourselves.</li>
+    <li>{PARTNER.name} pays us for each introduction. We don’t charge you.</li>
+    <li>{FREE_ROUTE}</li>
+  </ul>
+  <h2>Information on this site</h2>
+  <p>The information here is general and isn’t legal or financial advice about your circumstances. We work to keep it accurate and up to date, but we can’t promise it always will be. Any figures we show, such as the FCA’s average, are examples only.</p>
+  <h2>Using this site</h2>
+  <p>You may use this site for your own personal, non-commercial use. Please don’t misuse it, for example by trying to get unauthorised access or introducing anything harmful. The content and design belong to us or our licensors.</p>
+  <h2>Links to other websites</h2>
+  <p>We link to other websites, including {PARTNER.name}, lenders, regulators and the Financial Ombudsman. We’re not responsible for their content or how they use your information.</p>
+  <h2>Our responsibility to you</h2>
+  <p>We’re not responsible for losses that weren’t foreseeable, or for business losses. Nothing in these terms limits our responsibility where it would be unlawful to do so, including for death or personal injury caused by our negligence, for fraud, or your rights as a consumer.</p>
+  <h2>Changes and law</h2>
+  <p>We may update these terms; the version on this page applies. These terms are governed by the law of England and Wales. If you live in Scotland or Northern Ireland, you can also bring proceedings in your local courts.</p>
+</Legal>
