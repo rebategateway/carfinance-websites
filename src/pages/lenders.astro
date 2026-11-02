@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import CarHero from '../components/CarHero.astro';
 import MakeFinder from '../components/MakeFinder.astro';
 import EndBand from '../components/EndBand.astro';
-import { LENDERS, lenderHref, shortName } from '../data/lenders';
+import { LENDERS, lenderHref } from '../data/lenders';
 import { SITE } from '../data/site';
 const list = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 const itemList = { '@type': 'ItemList', itemListElement: list.map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.name} car finance claims`, url: new URL(lenderHref(l.slug), SITE.url).href })) };
@@ -11,9 +11,9 @@ const itemList = { '@type': 'ItemList', itemListElement: list.map((l, i) => ({ '
 <Base path="/lenders/" title={`Car Finance Lenders We Cover | ${SITE.name}`} description="Car finance lenders whose agreements can be checked for hidden commission: who each one is, who owns it, and whether it is challenging the FCA scheme." active="lenders" pageType="CollectionPage" crumbs={[{ name: 'Lenders', href: '/lenders/' }]} schema={[itemList]} closing={false}>
   <CarHero slot="hero" car={false} h1="Find your lender" sub="Agreements with any of these lenders from April 2007 to November 2024 can be checked. Pick yours to see who it is and where it stands." crumbs={[{ name: 'Lenders', href: '/lenders/' }]} />
   <section class="wrap section">
-    <ul class="lcards">
+    <ul class="llist">
       {list.map((l) => (
-        <li><a href={lenderHref(l.slug)}><b>{shortName(l)}</b><small>{l.group}</small><span class:list={['chip', l.challenging ? 'chip-warn' : 'chip-ok']}>{l.challenging ? 'Challenging' : 'Not challenging'}</span></a></li>
+        <li><a href={lenderHref(l.slug)}><span class="ll-t"><b>{l.name}</b><small>{l.group}{l.challenging && <> · <span class="warn">Challenging the scheme</span></>}</small></span><span class="ar" aria-hidden="true">→</span></a></li>
       ))}
     </ul>
   </section>

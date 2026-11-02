@@ -59,31 +59,50 @@ const chev = '<svg class="chev" width="10" height="6" viewBox="0 0 10 6" aria-hi
       <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
     </button>
   </div>
+  <div class="m-road" aria-hidden="true"></div>
+  <svg class="m-car" viewBox="0 0 28 54" aria-hidden="true"><rect x="0" y="9" width="4" height="10" rx="2" fill="#000"/><rect x="24" y="9" width="4" height="10" rx="2" fill="#000"/><rect x="0" y="37" width="4" height="10" rx="2" fill="#000"/><rect x="24" y="37" width="4" height="10" rx="2" fill="#000"/><rect x="2" y="1" width="24" height="52" rx="9" fill="#04C78D"/><path d="M6 17c5-3 11-3 16 0l-2 8H8z" fill="#07131E"/><path d="M8 40h12l2 6c-5 2-11 2-16 0z" fill="#07131E" opacity=".85"/><rect x="8" y="26" width="12" height="13" rx="3" fill="#C1F7E7" opacity=".35"/><circle cx="7" cy="4.5" r="1.8" fill="#FFF6C8"/><circle cx="21" cy="4.5" r="1.8" fill="#FFF6C8"/></svg>
   <div class="menu-body">
     <ul class="m-main">
-      <li><a href={LETTER.href}>{LETTER.label}</a></li>
-      <li><a href="/how-it-works/">How it works</a></li>
-      <li><a href="/fca-redress-scheme/">The FCA scheme</a></li>
+      <li style="--i:0"><a href={LETTER.href}>{LETTER.label}</a></li>
+      <li style="--i:1"><a href="/how-it-works/">How it works</a></li>
+      <li style="--i:2"><a href="/fca-redress-scheme/">The FCA scheme</a></li>
+      <li style="--i:3">
+        <details class="m-acc">
+          <summary>Lenders</summary>
+          <div class="m-panel">
+            <ul class="m-chips">{popular.map((l) => <li><a href={lenderHref(l.slug)}>{shortName(l)}</a></li>)}</ul>
+            <a class="m-all" href="/lenders/">All {LENDERS.length} lenders <span aria-hidden="true">→</span></a>
+          </div>
+        </details>
+      </li>
+      <li style="--i:4">
+        <details class="m-acc">
+          <summary>Help</summary>
+          <div class="m-panel">
+            <ul class="m-grid">{NAV_HELP.map((h) => <li><a href={h.href}>{h.label}</a></li>)}</ul>
+          </div>
+        </details>
+      </li>
     </ul>
-    <details class="m-acc">
-      <summary>Lenders</summary>
-      <ul class="m-grid">{popular.map((l) => <li><a href={lenderHref(l.slug)}>{shortName(l)}</a></li>)}</ul>
-      <a class="p-more" href="/lenders/">All {LENDERS.length} lenders →</a>
-    </details>
-    <details class="m-acc">
-      <summary>Help</summary>
-      <ul class="m-grid">{NAV_HELP.map((h) => <li><a href={h.href}>{h.label}</a></li>)}</ul>
-    </details>
+    <p class="m-stat"><b>75,000+</b><span>people helped through our partners</span></p>
   </div>
   <div class="menu-foot">
     <a class="btn btn-block" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a>
-    <p class="fine muted">{SITE.name} · FCA authorised, FRN {SITE.company.frn}</p>
+    <p class="fine">{SITE.name} · FCA authorised, FRN {SITE.company.frn}</p>
   </div>
 </dialog>
 <script>
   const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
   document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu?.showModal());
-  document.querySelector('[data-menu-close]')?.addEventListener('click', () => menu?.close());
+  // Short fade out before closing (skipped when motion is reduced).
+  const shut = () => {
+    if (!menu?.open) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return menu.close();
+    menu.classList.add('closing');
+    setTimeout(() => { menu.close(); menu.classList.remove('closing'); }, 170);
+  };
+  document.querySelector('[data-menu-close]')?.addEventListener('click', shut);
+  menu?.addEventListener('cancel', (e) => { e.preventDefault(); shut(); });
   menu?.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) menu.close(); });
 
   // Drop-downs: click or tap to toggle; hover opens them on mouse devices.
