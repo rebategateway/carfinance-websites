@@ -1,13 +1,12 @@
 ---
 import '@fontsource-variable/plus-jakarta-sans';
-import '@fontsource-variable/archivo/standard.css';
-import fontDisplay from '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url';
 import fontBody from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Closing from '../components/Closing.astro';
 import Consent from '../components/Consent.astro';
+import LogoSymbol from '../components/LogoSymbol.astro';
 import MobileBar from '../components/MobileBar.astro';
 import BrandMark from '../components/BrandMark.astro';
 import { BRAND } from '../brands';
@@ -29,9 +28,12 @@ interface Props {
   closingText?: string;
   mbar?: boolean;
   pageType?: string;
+  /** What the page is about, as an @id in the graph. Defaults to our organisation. */
+  aboutId?: string;
 }
 const { path, title, description, active = 'none', crumbs = [], schema = [], green = true, closing = true, closingText, mbar = true, pageType = 'WebPage' } = Astro.props;
 const noindex = Astro.props.noindex ?? false;
+const aboutId = Astro.props.aboutId;
 const canonical = new URL(path, SITE.url).href;
 const c = SITE.company;
 
@@ -63,10 +65,16 @@ const org = {
 const website = { '@type': 'WebSite', '@id': SITE_ID, url: `${SITE.url}/`, name: SITE.name, alternateName: BRAND.alternateNames, inLanguage: 'en-GB', publisher: { '@id': ORG_ID } };
 const webpage = {
   '@type': pageType, '@id': PAGE_ID, url: canonical, name: title, description, inLanguage: 'en-GB',
-  isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID },
+  isPartOf: { '@id': SITE_ID }, about: { '@id': aboutId ?? ORG_ID }, publisher: { '@id': ORG_ID },
   ...(crumbs.length ? { breadcrumb: { '@id': CRUMB_ID } } : {}),
 };
-const graph: Record<string, unknown>[] = noindex ? [org] : [org, website, webpage, ...schema];
+// Page-level nodes join the graph: FAQ blocks and services get a stable @id and point back to the page.
+const extra = schema.map((n) => {
+  if (n['@type'] === 'FAQPage' && !n['@id']) return { '@id': `${canonical}#faq`, isPartOf: { '@id': PAGE_ID }, ...n };
+  if (n['@type'] === 'Service' && !n['@id']) return { '@id': `${SITE.url}/#service`, provider: { '@id': ORG_ID }, ...n };
+  return n;
+});
+const graph: Record<string, unknown>[] = noindex ? [org] : [org, website, webpage, ...extra];
 if (crumbs.length && !noindex) {
   graph.push({
     '@type': 'BreadcrumbList', '@id': CRUMB_ID,
@@ -84,7 +92,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <meta name="description" content={description} />
   {!path.startsWith('/404') && <link rel="canonical" href={canonical} />}
   <link rel="preload" href={fontBody} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={fontDisplay} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/archivo-caps-v1.woff2" as="font" type="font/woff2" crossorigin />
   <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
   <meta name="theme-color" content="#04C78D" />
   <meta name="format-detection" content="telephone=no" />
@@ -103,6 +111,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <script type="application/ld+json" set:html={jsonLd} />
 </head>
 <body>
+  <LogoSymbol />
   <a class="skip-link" href="#main">Skip to content</a>
   {green ? (
     <div class="top">

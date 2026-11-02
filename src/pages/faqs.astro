@@ -1,12 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
+import CarHero from '../components/CarHero.astro';
 import Faqs from '../components/Faqs.astro';
+import EndBand from '../components/EndBand.astro';
 import { SITE } from '../data/site';
-import { ALL_FAQS } from '../data/faqs';
+import { ALL_FAQS, FAQ_GROUPS } from '../data/faqs';
 const faqSchema = { '@type': 'FAQPage', mainEntity: ALL_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
 ---
-<Base path="/faqs/" title={`FAQs | ${SITE.name} | Car Finance Claims`} description="Answers to the most-asked questions about mis-sold car finance claims: who is eligible, discretionary commission, paid-off agreements and what happens next." active="faqs" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} schema={[faqSchema]} closingText={`Get what you deserve. Claim with ${SITE.name}.`}>
-  <PageHero slot="hero" h1="Answering any questions you have." lede="Thousands have been mis-led on car deals. We’re determined to make things clearer. Below are a number of answers to our most-asked questions. If you want to know anything else, feel free to get in touch." crumbs={[{ name: 'FAQs', href: '/faqs/' }]} />
-  <section class="wrap section"><div style="max-width:820px"><Faqs items={ALL_FAQS} /></div></section>
+<Base path="/faqs/" title={`Car Finance Claim FAQs | ${SITE.name}`} description="Answers to the most-asked questions about mis-sold car finance claims: who is eligible, discretionary commission, paid-off agreements and what happens next." active="faqs" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} schema={[faqSchema]} closing={false}>
+  <CarHero slot="hero" car={false} h1="Got questions?" sub="Answers to the questions we’re asked most about car finance claims." crumbs={[{ name: 'FAQs', href: '/faqs/' }]} />
+  {FAQ_GROUPS.map((g, i) => (
+    <section class:list={[i % 2 ? 'tint' : '']}>
+      <div class="wrap section center">
+        <h2 class="d h2">{g.h}</h2>
+        <div class="faq-pills"><Faqs items={g.items} /></div>
+      </div>
+    </section>
+  ))}
+  <EndBand heading={`Ready? Claim with ${SITE.name}.`} text="Get what you deserve. Agreements found in seconds." />
 </Base>

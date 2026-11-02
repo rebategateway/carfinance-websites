@@ -5,7 +5,10 @@ interface Props { mark?: string; href?: string }
 const { mark = '#07131E', href = '/' } = Astro.props;
 // Brands with logo 'svg' use brand-assets/<id>/wordmark.svg, drawn in currentColor.
 const svgs = import.meta.glob('../../brand-assets/*/wordmark.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-const svg = BRAND.logo === 'svg' ? svgs[`../../brand-assets/${BRAND.id}/wordmark.svg`]?.replace('role="img"', 'aria-hidden="true" focusable="false"') : undefined;
+const raw = BRAND.logo === 'svg' ? svgs[`../../brand-assets/${BRAND.id}/wordmark.svg`] : undefined;
+// The path is defined once per page (LogoSymbol in Base) and reused here, so the header, menu and footer don't repeat it.
+const vb = raw?.match(/viewBox="([^"]+)"/)?.[1];
+const svg = raw ? `<svg viewBox="${vb}" aria-hidden="true" focusable="false"><use href="#wordmark"/></svg>` : undefined;
 ---
 <a class:list={['logo', svg && 'logo-svg']} href={href} aria-label={`${BRAND.name} home`}>
   {svg ? <Fragment set:html={svg} /> : (

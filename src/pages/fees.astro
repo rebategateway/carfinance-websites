@@ -1,27 +1,38 @@
 ---
-// Old /fees/ wording (Jack, 2 Nov 2026), with the band table that the old site never rendered.
+// Old /fees/ wording (Jack, 2 Nov 2026), with the band table the old site never rendered.
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
+import CarHero from '../components/CarHero.astro';
 import FeeCalc from '../components/FeeCalc.astro';
+import EndBand from '../components/EndBand.astro';
 import { BRAND } from '../brands';
-import { SITE, PARTNER, FREE_ROUTE, FEE_BANDS, pct, gbp } from '../data/site';
+import { SITE, PARTNER, FREE_ROUTE, PAYMENT_LINE, FEE_BANDS, pct, gbp } from '../data/site';
 ---
-<Base path="/fees/" title={`Fees | ${SITE.name} | Car Finance Claims`} description={`${SITE.name} doesn't charge you. If your claim succeeds, ${PARTNER.name} charges a fee in bands from 36% down to 18% including VAT, capped in pounds.`} active="fees" crumbs={[{ name: 'Fees', href: '/fees/' }]}>
-  <PageHero slot="hero" h1="Fees" lede="Car finance claims" crumbs={[{ name: 'Fees', href: '/fees/' }]} />
+<Base path="/fees/" title={`Car Finance Claim Fees: No Win, No Fee | ${SITE.name}`} description={`${SITE.name} doesn't charge you. If your claim succeeds, ${PARTNER.name} charges a fee in bands from 36% down to 18% including VAT, capped in pounds.`} active="fees" crumbs={[{ name: 'Fees', href: '/fees/' }]} closing={false}>
+  <CarHero slot="hero" car={false} h1="Fees" sub="No upfront costs. You only pay if your claim is successful, and the fee is capped." crumbs={[{ name: 'Fees', href: '/fees/' }]} />
+
   <section class="wrap section fees">
-    <div class="prose" style="gap:14px">
-      <p>{BRAND.host} does not charge you for using our service and acts solely as an introducer. If you choose to proceed with a claim, you will enter into a separate agreement with {PARTNER.legalName}, who are authorised and regulated by the Financial Conduct Authority to provide claims management services and will handle your claim.</p>
-      <p>There are no upfront costs to you. A fee will only be payable if your claim is successful. Fees are charged in bands depending on the amount of redress or refund received. All fees quoted include VAT.</p>
-      <table>
-        <thead><tr><th scope="col">Redress or refund</th><th scope="col">Maximum percentage</th><th scope="col">Maximum fee</th></tr></thead>
+    <div class="stack">
+      <h2 class="d h2">What you pay</h2>
+      <p>{BRAND.host} does not charge you for using our service and acts solely as an introducer. If you go ahead, your agreement is with {PARTNER.legalName}, authorised and regulated by the Financial Conduct Authority (FRN {PARTNER.frn}), who handle your claim.</p>
+      <p>A fee is only payable if your claim succeeds. It’s charged in bands depending on the compensation you receive, and never more than the cap in pounds. All fees include VAT.</p>
+      <table class="feetable">
+        <thead><tr><th scope="col">If you get</th><th scope="col">Up to</th><th scope="col">Capped at</th></tr></thead>
         <tbody>{FEE_BANDS.map((b) => <tr><td>{b.band}</td><td>{pct(b.rate)}</td><td>{gbp(b.cap)}</td></tr>)}</tbody>
       </table>
-      <p>These fees are in line with FCA guidelines on compensation refunds.</p>
-      <h2>Cancelling</h2>
-      <p>If you proceed with {PARTNER.legalName}, you have a 14-day cooling-off period starting from the date you sign or e-sign their Letter of Authority and/or Terms of Engagement. During this period, you may cancel without charge.</p>
-      <p>If you cancel your agreement after the 14-day cooling-off period has ended, cancellation fees may apply in accordance with {PARTNER.legalName}’s Terms of Engagement.</p>
-      <p class="small muted">{FREE_ROUTE}</p>
+      <p class="fine muted">These caps are set by the FCA’s claims management rules (CMCOB 5.2). {PAYMENT_LINE}</p>
     </div>
     <div class="stack"><FeeCalc /></div>
   </section>
+
+  <section class="tint">
+    <div class="wrap section">
+      <div class="gtk">
+        <div><h3>Cancelling within 14 days</h3><p>You have a 14-day cooling-off period from the date you sign or e-sign {PARTNER.name}’s Letter of Authority and/or Terms of Engagement. Cancel in that time and there’s no charge.</p></div>
+        <div><h3>Cancelling after 14 days</h3><p>Cancellation fees may apply, in line with {PARTNER.legalName}’s Terms of Engagement. See <a href="/cancellation/">cancellation</a>.</p></div>
+      </div>
+      <p class="fine muted" style="margin-top:20px">{FREE_ROUTE}</p>
+    </div>
+  </section>
+
+  <EndBand />
 </Base>

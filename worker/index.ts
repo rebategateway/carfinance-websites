@@ -19,6 +19,11 @@ const MOVED: Record<string, string> = {
   '/barclays-finance/': '/lenders/',
   '/clydesdale-finance/': '/lenders/',
   '/wp-login.php': '/',
+  // Old WordPress / Yoast sitemap names point to the new sitemap.
+  '/sitemap_index.xml': '/sitemap-index.xml',
+  '/page-sitemap.xml': '/sitemap-index.xml',
+  '/post-sitemap.xml': '/sitemap-index.xml',
+  '/sitemap.xml': '/sitemap-index.xml',
   '/wp-admin/': '/',
 };
 
@@ -36,6 +41,12 @@ export default {
 
     if (preview && url.pathname === '/robots.txt') {
       return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+    }
+
+    // One case: /Black-Horse-Finance/ → /black-horse-finance/ (all our URLs are lower case).
+    if (/[A-Z]/.test(url.pathname) && !url.pathname.includes(".") && !url.pathname.startsWith("/_astro/")) {
+      url.pathname = url.pathname.toLowerCase();
+      return Response.redirect(url.toString(), 301);
     }
 
     const path = url.pathname.endsWith('/') || url.pathname.includes('.') ? url.pathname : `${url.pathname}/`;

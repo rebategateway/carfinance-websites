@@ -10,6 +10,7 @@ import OwedCards from '../components/OwedCards.astro';
 import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
 import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL, CREDITRIGHTS } from '../data/site';
+import { SERVICE_SCHEMA } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
 import { LENDERS, lenderHref, shortName } from '../data/lenders';
 const c = SITE.company;
@@ -20,7 +21,7 @@ const faqSchema = { '@type': 'FAQPage', mainEntity: HOME_FAQS.map((f) => ({ '@ty
 
 const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 ---
-<Base path="/" title={title} description={description} schema={[faqSchema]} closing={false}>
+<Base path="/" title={title} description={description} schema={[faqSchema, SERVICE_SCHEMA]} closing={false}>
   <CarHero slot="hero" h1={`Received a letter from ${SITE.name}?`} sub="You may be eligible for compensation for mis-sold car finance." />
 
   <StatBand />

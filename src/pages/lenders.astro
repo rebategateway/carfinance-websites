@@ -1,18 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
+import CarHero from '../components/CarHero.astro';
 import MakeFinder from '../components/MakeFinder.astro';
-import { LENDERS, lenderHref } from '../data/lenders';
+import EndBand from '../components/EndBand.astro';
+import { LENDERS, lenderHref, shortName } from '../data/lenders';
 import { SITE } from '../data/site';
 const list = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 const itemList = { '@type': 'ItemList', itemListElement: list.map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.name} car finance claims`, url: new URL(lenderHref(l.slug), SITE.url).href })) };
 ---
-<Base path="/lenders/" title={`Car finance lenders | ${SITE.name}`} description="Car finance lenders whose agreements can be checked for hidden commission: who each one is, who owns it, and whether it is challenging the FCA scheme." active="lenders" pageType="CollectionPage" crumbs={[{ name: 'Lenders', href: '/lenders/' }]} schema={[itemList]}>
-  <PageHero slot="hero" h1="Car finance lenders" lede="Who each lender is, who owns it, and whether it’s challenging the FCA’s redress scheme. Agreements with any of them from April 2007 to November 2024 can be checked." crumbs={[{ name: 'Lenders', href: '/lenders/' }]} />
+<Base path="/lenders/" title={`Car Finance Lenders We Cover | ${SITE.name}`} description="Car finance lenders whose agreements can be checked for hidden commission: who each one is, who owns it, and whether it is challenging the FCA scheme." active="lenders" pageType="CollectionPage" crumbs={[{ name: 'Lenders', href: '/lenders/' }]} schema={[itemList]} closing={false}>
+  <CarHero slot="hero" car={false} h1="Find your lender" sub="Agreements with any of these lenders from April 2007 to November 2024 can be checked. Pick yours to see who it is and where it stands." crumbs={[{ name: 'Lenders', href: '/lenders/' }]} />
   <section class="wrap section">
-    <div class="lender-grid">
-      {list.map((l) => <a href={lenderHref(l.slug)}><span><b style="font-weight:500">{l.name}</b><small>{l.group}</small></span><span class:list={['chip', l.challenging ? 'chip-warn' : 'chip-ok']}>{l.challenging ? 'Challenging' : 'Not challenging'}</span></a>)}
-    </div>
+    <ul class="lcards">
+      {list.map((l) => (
+        <li><a href={lenderHref(l.slug)}><b>{shortName(l)}</b><small>{l.group}</small><span class:list={['chip', l.challenging ? 'chip-warn' : 'chip-ok']}>{l.challenging ? 'Challenging' : 'Not challenging'}</span></a></li>
+      ))}
+    </ul>
   </section>
-  <section class="band-mint"><div class="wrap section"><MakeFinder /></div></section>
+  <section class="tint"><div class="wrap section"><MakeFinder /></div></section>
+  <EndBand />
 </Base>

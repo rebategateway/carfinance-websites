@@ -7,6 +7,7 @@ import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
 import Faqs from '../components/Faqs.astro';
 import { SITE, PARTNER, FREE_ROUTE, PAYMENT_LINE, CLAIM_URL } from '../data/site';
+import { SERVICE_SCHEMA } from '../data/site';
 import { FAQ } from '../data/faqs';
 const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const QUESTIONS = [
@@ -25,7 +26,7 @@ const NEXT = [
 ];
 const faqs = [FAQ.process, FAQ.after, FAQ.paidOff, FAQ.used];
 ---
-<Base path="/how-it-works/" title={`How It Works | ${SITE.name} | Car Finance Claims`} description={`If you believe you may have been mis-sold a car finance agreement, compensation could be just around the corner. ${SITE.name} can help you make a claim.`} active="how" crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} closing={false}>
+<Base schema={[SERVICE_SCHEMA]} path="/how-it-works/" title={`How It Works | ${SITE.name} | Car Finance Claims`} description={`If you believe you may have been mis-sold a car finance agreement, compensation could be just around the corner. ${SITE.name} can help you make a claim.`} active="how" crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} closing={false}>
   <CarHero slot="hero" car={false} h1="How to claim" sub="Mis-sold car finance? Compensation could be just around the corner. It takes a few minutes to start." crumbs={[{ name: 'How it works', href: '/how-it-works/' }]} />
 
   <StatBand />

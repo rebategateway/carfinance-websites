@@ -1,19 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+import CarHero from '../components/CarHero.astro';
+import { SITE, PARTNER } from '../data/site';
+const c = SITE.company;
 ---
-<Base path="/contact/" title={`Contact us | ${SITE.name}`} description={`How to contact ${SITE.name} (Claim Simple Ltd) by ${SITE.email ? 'email or ' : ''}post, and who to contact about a claim already with ${PARTNER.legalName}.`} active="contact" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
-  <PageHero slot="hero" h1="Contact us" crumbs={[{ name: 'Contact', href: '/contact/' }]} />
-  <div class="wrap section">
-    <div class="prose">
-      {SITE.email && <><h2 style="margin-top:0">Email</h2><p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p></>}
-      <h2 style={SITE.email ? undefined : 'margin-top:0'}>Post</h2>
-      <p>{SITE.name}, {SITE.company.legalName}, {ADDRESS_LINE}</p>
-      <h2>About a claim you’ve already started</h2>
-      <p>Once you’ve signed up, your claim is handled by {PARTNER.legalName}. Please contact {PARTNER.name} directly about its progress.</p>
-      <h2>Complaints</h2>
-      <p>See our <a href="/complaints/">complaints policy</a>.</p>
-    </div>
-  </div>
+<Base path="/contact/" title={`Contact Us | ${SITE.name}`} description={`How to contact ${SITE.name} (Claim Simple Ltd) by ${SITE.email ? 'email or ' : ''}post, and who to contact about a claim already with ${PARTNER.legalName}.`} active="contact" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
+  <CarHero slot="hero" car={false} h1="Contact us" sub={`About a claim you’ve started? Contact ${PARTNER.name}. About us or our letters? Use the details below.`} cta="Check my agreements" crumbs={[{ name: 'Contact', href: '/contact/' }]} />
+  <section class="wrap section">
+    <ul class="tcards contact-cards">
+      {SITE.email && <li><div><h3>Email</h3><p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p></div></li>}
+      <li><div><h3>Post</h3><p>{SITE.name}, {c.legalName}, {c.address.street}, {c.address.locality}, {c.address.postcode}</p></div></li>
+      <li><div><h3>A claim you’ve already started</h3><p>Your claim is handled by {PARTNER.legalName}. Please contact {PARTNER.name} directly about its progress.</p></div></li>
+      <li><div><h3>Complaints</h3><p>See our <a href="/complaints/">complaints process</a>.</p></div></li>
+      <li><div><h3>Stop our letters</h3><p>Write to us{SITE.email ? ' or email us' : ''} and we won’t write to you again.</p></div></li>
+    </ul>
+  </section>
 </Base>

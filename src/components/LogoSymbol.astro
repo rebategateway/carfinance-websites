@@ -1,0 +1,8 @@
+---
+// The wordmark path, once per page, for Logo's <use href="#wordmark">.
+import { BRAND } from '../brands';
+const svgs = import.meta.glob('../../brand-assets/*/wordmark.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const raw = BRAND.logo === 'svg' ? svgs[`../../brand-assets/${BRAND.id}/wordmark.svg`] : undefined;
+const d = raw?.match(/ d="([^"]+)"/)?.[1];
+---
+{d && <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="wordmark"><path fill="currentColor" fill-rule="evenodd" d={d} /></symbol></svg>}

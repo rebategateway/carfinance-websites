@@ -137,3 +137,13 @@ export const FOOTER_LINKS = [
 // compliant (2 Nov 2026), so they are indexable.
 export const LEGAL_REVIEWED = true;
 export const LEGAL_PATHS = ['/privacy-policy/', '/cookies/', '/complaints/', '/cancellation/', '/terms-of-service/'];
+
+// The service, as structured data (home and how it works). Matches the visible copy.
+export const SERVICE_SCHEMA = {
+  '@type': 'Service',
+  name: 'Car finance commission claims',
+  serviceType: 'Introduction to a claims management company for car finance commission claims',
+  description: `${BRAND.name} finds car finance agreements from April 2007 to November 2024 and introduces claims to ${'Consultation Claims Limited'}, which complains to each lender on a no win, no fee basis.`,
+  areaServed: { '@type': 'Country', name: 'United Kingdom' },
+  audience: { '@type': 'Audience', audienceType: 'People who took out PCP or hire purchase car finance between 2007 and 2024' },
+};

@@ -1,22 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import { SITE, PARTNER, FREE_ROUTE, ADDRESS_LINE } from '../data/site';
+import CarHero from '../components/CarHero.astro';
+import EndBand from '../components/EndBand.astro';
+import { SITE, PARTNER, FREE_ROUTE, PAYMENT_LINE, CREDITRIGHTS } from '../data/site';
 const c = SITE.company;
+const addr = `${c.address.street}, ${c.address.locality}, ${c.address.postcode}`;
 ---
-<Base path="/about-us/" title={`About us | ${SITE.name}`} description={`${SITE.name} is a trading name of Claim Simple Ltd, an FCA-authorised claims management company that introduces car finance claims to ${PARTNER.name}.`} active="about" crumbs={[{ name: 'About us', href: '/about-us/' }]}>
-  <PageHero slot="hero" h1="About us" lede={`${SITE.name} helps people find out whether their car finance could owe them money, and introduces them to a claims company that can complain for them.`} crumbs={[{ name: 'About us', href: '/about-us/' }]} />
-  <div class="wrap section">
-    <div class="prose">
-      <h2 style="margin-top:0">Who we are</h2>
-      <p>{SITE.name} is a trading name of {c.legalName}, registered in {c.jurisdiction} (company number {c.number}), registered office {ADDRESS_LINE}. We are authorised and regulated by the Financial Conduct Authority as a claims management company (FRN <a href={`https://register.fca.org.uk/s/firm?id=${c.frn}`} rel="noopener">{c.frn}</a>) and registered with the Information Commissioner’s Office ({c.icoRef}).</p>
-      <h2>What we do</h2>
-      <p>We introduce people to {PARTNER.legalName}, a claims management company authorised and regulated by the Financial Conduct Authority (FRN {PARTNER.frn}). {PARTNER.name} finds your car finance agreements and complains to each lender for you, under its own agreement with you. We don’t handle claims ourselves.</p>
-      <h2>How we’re paid</h2>
-      <p>{PARTNER.name} pays us when we introduce your claim. We don’t charge you anything.</p>
-      <p>{FREE_ROUTE}</p>
-      <h2>Why we write to people</h2>
-      <p>Most people hear from us by letter. We write to people who may have had car finance worth looking into. Your letter explains where your details came from. See <a href="/received-a-letter/">received a letter?</a> and our <a href="/privacy-policy/">privacy policy</a>.</p>
+<Base path="/about-us/" title={`About Us | ${SITE.name}`} description={`${SITE.name} is a trading style of Claim Simple Ltd, an FCA-authorised claims management company that introduces car finance claims to ${PARTNER.name}.`} active="about" crumbs={[{ name: 'About us', href: '/about-us/' }]} closing={false}>
+  <CarHero slot="hero" car={false} h1={`About ${SITE.name}`} sub="We help people find out whether their car finance could owe them money, and introduce them to a claims company that complains for them." crumbs={[{ name: 'About us', href: '/about-us/' }]} />
+
+  <section class="wrap section">
+    <ul class="keyfacts">
+      <li><b class="d">{c.frn}</b><span>FCA firm reference number</span></li>
+      <li><b class="d">{c.number}</b><span>Companies House number</span></li>
+      <li><b class="d">{c.icoRef}</b><span>ICO registration</span></li>
+      <li><b class="d">{PARTNER.frn}</b><span>{PARTNER.name} FRN</span></li>
+    </ul>
+  </section>
+
+  <section class="tint">
+    <div class="wrap section">
+      <div class="gtk">
+        <div><h3>Who we are</h3><p>{SITE.name} is a trading style of {c.legalName}, registered in {c.jurisdiction} (company number {c.number}), registered office {addr}. We are authorised and regulated by the Financial Conduct Authority as a claims management company (FRN <a href={`https://register.fca.org.uk/s/firm?id=${c.frn}`} rel="noopener">{c.frn}</a>).</p></div>
+        <div><h3>What we do</h3><p>We introduce people to {PARTNER.legalName}, a claims management company authorised and regulated by the FCA (FRN {PARTNER.frn}). {PARTNER.name} finds your car finance agreements and complains to each lender for you, under its own agreement with you.</p></div>
+        <div><h3>How we’re paid</h3><p>We don’t charge you anything. {PAYMENT_LINE} {FREE_ROUTE}</p></div>
+        <div><h3>Why we write to people</h3><p>Most people hear from us by letter. Your letter explains where your details came from. See <a href="/received-a-letter/">received a letter?</a> and our <a href="/privacy-policy/">privacy policy</a>.</p></div>
+        <div><h3>Other claims</h3><p>{c.legalName} also trades as <a href={CREDITRIGHTS.url} rel="noopener">CreditRights</a>, for irresponsible and unaffordable lending claims. See <a href={CREDITRIGHTS.page}>irresponsible lending</a>.</p></div>
+        <div><h3>Contact and complaints</h3><p>See <a href="/contact/">contact us</a> and our <a href="/complaints/">complaints process</a>.</p></div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <EndBand />
 </Base>

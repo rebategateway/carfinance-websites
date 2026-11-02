@@ -1,5 +1,8 @@
 /* Check Finance / Case Matters. Brand colours from the original site:
    green #04C78D, ink #07131E, mint #C1F7E7. Mobile first; desktop from 1024px. */
+/* Headings: Archivo, cut to capitals, digits and punctuation at the one style we use (expanded black),
+   6.7KB instead of 90KB. Rebuild with subset-font if headings ever need lower case. */
+@font-face { font-family: 'Archivo Caps'; src: url('/fonts/archivo-caps-v1.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
 :root {
   --green: #04C78D;
   --green-hi: #2ED6A3;
@@ -23,7 +26,7 @@
   --warn-bg: #FFF0D4; --warn-fg: #6E4300;
   --display: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --body: var(--display);
-  --heavy: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --heavy: 'Archivo Caps', 'Arial Black', system-ui, sans-serif;
   --tint: #E4F8F0;
   --gutter: 20px;
   --wrap: 1200px;
@@ -543,3 +546,29 @@ html.ck-open body { padding-bottom: var(--ckb-h, 0px); }
 .tl p { font-size: 14px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
 @media (min-width: 1024px) { .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .tl li { padding: 18px 20px; } .tl h3 { font-size: 18px; } }
 .narrow { max-width: 860px; margin-inline: auto; }
+/* Key facts row and small reference blocks */
+.keyfacts { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.keyfacts li { background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.keyfacts b { font-size: 22px; line-height: 1; }
+.keyfacts span { font-size: 13px; color: var(--muted); font-weight: 600; }
+@media (min-width: 1024px) { .keyfacts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } .keyfacts li { padding: 20px 22px; } .keyfacts b { font-size: 30px; } }
+.sub-h { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+@media (min-width: 720px) { .gtk-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.srcs { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 15px; }
+.owed > div:last-child { min-width: 0; }
+.feetable { width: 100%; border-collapse: separate; border-spacing: 0; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; font-size: 15px; background: #fff; }
+.feetable th, .feetable td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+.feetable th { background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; }
+.feetable tr:last-child td { border-bottom: 0; }
+.feetable td:not(:first-child) { font-weight: 700; }
+.contact-cards li { grid-template-columns: 1fr; }
+@media (min-width: 720px) { .contact-cards { display: grid; grid-template-columns: 1fr 1fr; } }
+.lcards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.lcards li { min-width: 0; }
+.lcards a { display: flex; flex-direction: column; gap: 3px; height: 100%; background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 14px; text-decoration: none; }
+.lcards a:hover { background: var(--tint); color: var(--ink); }
+.lcards b { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lcards small { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lcards .chip { margin-top: 6px; font-size: 13px; white-space: normal; }
+@media (min-width: 720px) { .lcards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .lcards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; } .lcards a { padding: 18px; } .lcards b { font-size: 18px; } }
