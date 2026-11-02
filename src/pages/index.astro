@@ -9,7 +9,7 @@ import StatBand from '../components/StatBand.astro';
 import OwedCards from '../components/OwedCards.astro';
 import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
-import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL } from '../data/site';
+import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL, CREDITRIGHTS } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
 import { LENDERS, lenderHref } from '../data/lenders';
 const c = SITE.company;
@@ -38,15 +38,28 @@ const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
     <a class="more" href="/lenders/">All {LENDERS.length} lenders</a>
   </section>
 
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="xsell">
+      <div>
+        <h2 class="d">Struggled with other credit?</h2>
+        <p>If a lender gave you an overdraft, card, loan or catalogue account you couldn’t afford, you could get back the interest and charges. Our sister service {CREDITRIGHTS.name} handles these claims.</p>
+      </div>
+      <div class="xsell-b">
+        <a class="btn btn-inv" href={CREDITRIGHTS.url} rel="noopener">Visit CreditRights <span aria-hidden="true">→</span></a>
+        <a href={CREDITRIGHTS.page}>What counts as irresponsible lending</a>
+      </div>
+    </div>
+  </section>
+
   <SchemeRoad heading="Where the FCA scheme is now" />
 
   <section class="wrap section">
     <h2 class="d h2">Good to know</h2>
     <div class="gtk">
-      <div><span class="pill">No win, no fee</span><p>You pay nothing unless your claim is successful. A fee between 18 and 36% including VAT applies on successful claims, depending on the redress secured. A cancellation fee may apply after the 14-day cooling-off period. <a href="/fees/">See fees</a>.</p></div>
-      <div><span class="pill">Your choices</span><p>{CHOICES_LINE}</p></div>
-      <div><span class="pill">Who we are</span><p>{SITE.name} is a trading style of {c.legalName}, a claims management company authorised and regulated by the FCA ({c.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), who handle your claim. {PAYMENT_LINE} <a href="/about-us/">About us</a>.</p></div>
-      <div><span class="pill pill-y">FCA update</span><p>The FCA has confirmed a redress scheme for car finance, but payouts are on hold until a legal challenge is heard from 16 February to 3 March 2027. The last day to complain is {FIGURES.deadline}. <a href="/fca-redress-scheme/">Latest update</a>.</p></div>
+      <div><h3>No win, no fee</h3><p>You pay nothing unless your claim is successful. A fee between 18 and 36% including VAT applies on successful claims, depending on the redress secured. A cancellation fee may apply after the 14-day cooling-off period. <a href="/fees/">See fees</a>.</p></div>
+      <div><h3>Your choices</h3><p>{CHOICES_LINE}</p></div>
+      <div><h3>Who we are</h3><p>{SITE.name} is a trading style of {c.legalName}, a claims management company authorised and regulated by the FCA ({c.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), who handle your claim. {PAYMENT_LINE} <a href="/about-us/">About us</a>.</p></div>
+      <div><h3>FCA update</h3><p>The FCA has confirmed a redress scheme for car finance, but payouts are on hold until a legal challenge is heard from 16 February to 3 March 2027. The last day to complain is {FIGURES.deadline}. <a href="/fca-redress-scheme/">Latest update</a>.</p></div>
     </div>
   </section>
 

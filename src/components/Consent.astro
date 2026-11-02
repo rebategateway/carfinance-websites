@@ -1,0 +1,67 @@
+---
+// Cookie banner and Google Analytics, copied from Report Repair (Jack, 2 Nov 2026). Renders nothing until GA_ID is set.
+// One slim bar at the bottom; while it shows, the sticky bottom buttons (.foot, .mbar) sit above it.
+// GA loads only after Accept (PECR reg 6). Accept and Reject carry equal weight, and "Cookie
+// settings" links (data-cookies) reopen the banner so consent is as easy to withdraw as to give.
+// The choice itself is kept in a first-party cookie (strictly necessary, no consent needed).
+import { BRAND } from '../brands';
+const GA_ID = BRAND.gaId;
+---
+{GA_ID && (
+  <>
+    <div class="ckb" data-ckb role="region" aria-label="Cookies" hidden>
+      <p>We use cookies to improve your experience. <a href="/cookies/">Cookie policy</a></p>
+      <div class="ckb-b"><button type="button" class="btn btn-sm" data-ck="yes">Accept</button><button type="button" class="btn btn-sm" data-ck="no">Reject</button></div>
+    </div>
+    <script is:inline define:vars={{ id: GA_ID }}>
+      (function () {
+        var KEY = 'cf_ck', box = document.querySelector('[data-ckb]'), root = document.documentElement;
+        var open = function (on) {
+          box.hidden = !on; root.classList.toggle('ck-open', on);
+          if (on) root.style.setProperty('--ckb-h', box.offsetHeight + 'px'); else root.style.removeProperty('--ckb-h');
+        };
+        var get = function () { var m = document.cookie.match(/(?:^|; )cf_ck=(yes|no)/); return m && m[1]; };
+        var set = function (v) { document.cookie = KEY + '=' + v + '; Max-Age=' + 60 * 60 * 24 * 180 + '; Path=/; SameSite=Lax; Secure'; };
+        var load = function () {
+          if (window.gtag) return;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { dataLayer.push(arguments); };
+          gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
+          gtag('js', new Date());
+          // Only campaign parameters go to Google: the claim pages carry a private link token (?t=)
+          // and reference (?ref=) in the address. GA also redacts these keys (stream settings).
+          var clean = function (u) {
+            try { var x = new URL(u); if (x.origin !== location.origin) return u; var q = new URLSearchParams();
+              x.searchParams.forEach(function (v, k) { if (/^(utm_[a-z]+|gclid|gbraid|wbraid)$/i.test(k)) q.set(k, v); });
+              x.search = q.toString(); x.hash = ''; return x.href; } catch (e) { return ''; }
+          };
+          gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false, page_location: clean(location.href), page_referrer: document.referrer ? clean(document.referrer) : '' });
+          var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+          document.head.appendChild(s);
+        };
+        var wipe = function () {
+          document.cookie.split('; ').forEach(function (c) {
+            var n = c.split('=')[0];
+            if (/^_ga/.test(n)) ['', location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach(function (d) { document.cookie = n + '=; Max-Age=0; Path=/' + (d ? '; Domain=' + d : ''); });
+          });
+        };
+        // Conversion events from the claim pages; nothing personal is ever sent.
+        window.cfTrack = function (name, params) { if (get() === 'yes' && window.gtag) gtag('event', name, params || {}); };
+        box.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-ck]'); if (!b) return;
+          var v = b.getAttribute('data-ck'), was = get();
+          set(v); open(false);
+          if (v === 'yes') load();
+          else if (was === 'yes') { wipe(); location.reload(); }
+        });
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('[data-cookies]'); if (!a) return;
+          e.preventDefault(); open(true); box.querySelector('button').focus();
+        });
+        var c = get();
+        if (c === 'yes') load(); else if (!c) open(true);
+        addEventListener('resize', function () { if (!box.hidden) open(true); });
+      })();
+    </script>
+  </>
+)}

@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import { BRAND } from '../brands';
 import { SITE, FREE_ROUTE, PAYMENT_LINE, FOOTER_LINKS, FIGURES } from '../data/site';
 const c = SITE.company;
 ---
@@ -9,6 +10,7 @@ const c = SITE.company;
       <div><Logo mark="#04C78D" /></div>
       <nav class="ftr-nav" aria-label="Footer">
         {FOOTER_LINKS.map((l) => <a href={l.href}>{l.label}</a>)}
+        {BRAND.gaId && <a href="/cookies/" data-cookies>Cookie settings</a>}
       </nav>
     </div>
     <div class="ftr-legal">

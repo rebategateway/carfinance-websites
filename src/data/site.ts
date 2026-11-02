@@ -94,7 +94,14 @@ export const NAV = [
   { id: 'fees', label: 'Fees', href: '/fees/' },
   { id: 'faqs', label: 'FAQs', href: '/faqs/' },
 ] as const;
-export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'complaints' | 'none';
+export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'complaints' | 'lending' | 'none';
+
+// Sister trading name of Claim Simple Ltd for irresponsible/unaffordable lending claims (Jack, 2 Nov 2026).
+export const CREDITRIGHTS = {
+  name: 'CreditRights',
+  url: `https://creditrights.co.uk/?utm_source=${BRAND.host}&utm_medium=referral&utm_campaign=irresponsible-lending`,
+  page: '/irresponsible-lending/',
+} as const;
 
 // The Help drop-down in the header.
 export const NAV_HELP = [
@@ -104,6 +111,7 @@ export const NAV_HELP = [
   { id: 'about', label: 'About us', href: '/about-us/', desc: 'Who we are and how we’re paid' },
   { id: 'contact', label: 'Contact', href: '/contact/', desc: 'How to get in touch' },
   { id: 'complaints', label: 'Complaints', href: '/complaints/', desc: 'How to make a complaint' },
+  { id: 'lending', label: 'Irresponsible lending', href: '/irresponsible-lending/', desc: 'Credit you couldn’t afford? Claim through CreditRights' },
 ] as const;
 
 export const LETTER = { label: 'Received a letter?', href: '/received-a-letter/' } as const;
@@ -115,6 +123,7 @@ export const FOOTER_LINKS = [
   { label: 'Fees', href: '/fees/' },
   { label: 'FAQs', href: '/faqs/' },
   { label: 'Received a letter?', href: '/received-a-letter/' },
+  { label: 'Irresponsible lending', href: '/irresponsible-lending/' },
   { label: 'About us', href: '/about-us/' },
   { label: 'Contact', href: '/contact/' },
   { label: 'Privacy', href: '/privacy-policy/' },

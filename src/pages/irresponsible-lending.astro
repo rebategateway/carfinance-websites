@@ -1,0 +1,49 @@
+---
+// Irresponsible / unaffordable lending, handled by CreditRights, another trading name of
+// Claim Simple Ltd (Jack, 2 Nov 2026). Short on purpose: the detail lives on creditrights.co.uk.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faqs from '../components/Faqs.astro';
+import { SITE, CREDITRIGHTS } from '../data/site';
+import type { Faq } from '../data/faqs';
+const c = SITE.company;
+const TYPES = [
+  { t: 'Overdrafts', p: 'Left in your overdraft for months, or the limit kept going up.' },
+  { t: 'Credit and store cards', p: 'Limits raised while you were only making minimum payments.' },
+  { t: 'Payday and short-term loans', p: 'Repeat loans, or borrowing to pay off the last one.' },
+  { t: 'Personal and guarantor loans', p: 'Loans that left you short each month once paid.' },
+  { t: 'Catalogue accounts', p: 'Credit that kept growing while you fell behind.' },
+  { t: 'Car finance you couldn’t afford', p: 'Separate from commission claims: payments that were never affordable.' },
+];
+const faqs: Faq[] = [
+  { q: 'Is this the same as a car finance commission claim?', a: '<p>No. A commission claim is about how your car finance was sold. An irresponsible lending claim is about whether the lender should have lent to you at all. You can have both.</p>' },
+  { q: 'Can I claim if I’ve paid the credit off?', a: '<p>Yes. Claims can cover credit you’ve paid off as well as credit you’re still paying, usually going back six years, or longer if you only recently found out you could complain.</p>' },
+  { q: 'Do I have to use a claims company?', a: '<p>No. You can complain to the lender yourself, then to the Financial Ombudsman Service, for free.</p>' },
+];
+const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+<Base path="/irresponsible-lending/" title={`Irresponsible Lending Claims | ${SITE.name}`} description="Lent money you couldn't afford? You could get back the interest and charges. Overdrafts, credit cards, loans, catalogues and car finance, through CreditRights." active="lending" crumbs={[{ name: 'Irresponsible lending', href: '/irresponsible-lending/' }]} closing={false}>
+  <PageHero slot="hero" h1="Lent money you couldn’t afford?" lede="If a lender didn’t properly check you could afford to repay, you could get back the interest and charges you paid." crumbs={[{ name: 'Irresponsible lending', href: '/irresponsible-lending/' }]}>
+    <div><a class="btn btn-xl" href={CREDITRIGHTS.url} rel="noopener" data-mbar-anchor>Check on CreditRights <span aria-hidden="true">→</span></a></div>
+  </PageHero>
+
+  <section class="wrap section owed">
+    <div class="owed-l">
+      <h2 class="d h2">What is irresponsible lending?</h2>
+      <p>Before lending, or raising a limit, lenders must check you can afford to repay without hardship. If they didn’t, or ignored signs you were struggling, the lending may have been irresponsible.</p>
+      <p>Where a complaint is upheld, the Financial Ombudsman usually tells the lender to refund the interest and charges, add 8% simple interest a year, and remove negative entries from your credit file.</p>
+    </div>
+    <ul class="tcards">
+      {TYPES.map((o) => <li><Fragment set:html={tick} /><div><h3>{o.t}</h3><p>{o.p}</p></div></li>)}
+    </ul>
+  </section>
+
+  <section class="tint">
+    <div class="wrap section center">
+      <h2 class="d h2">Who are CreditRights?</h2>
+      <p class="lead-c" style="margin-top:0">CreditRights is another trading name of {c.legalName}, the FCA-authorised claims management company ({c.frn}) behind {SITE.name}. It checks which of your credit agreements could be claimed for and connects you with a firm to handle the claim.</p>
+      <div class="faq-pills"><Faqs items={faqs} /></div>
+      <a class="btn btn-xl" href={CREDITRIGHTS.url} rel="noopener">Go to CreditRights <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>

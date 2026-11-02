@@ -5,6 +5,7 @@ import Legal from '../components/Legal.astro';
 import { SITE } from '../data/site';
 import { BRAND } from '../brands';
 const c = SITE.company;
+const ga = !!BRAND.gaId;
 ---
 <Legal path="/cookies/" title={`Cookie Policy | ${SITE.name}`} description={`How ${BRAND.host} uses cookies and related technologies, which cookies are placed, how consent works and how to delete or block cookies.`} h1="Cookie policy" updated="2 November 2026">
   <h2>1. Introduction</h2>
@@ -18,10 +19,23 @@ const c = SITE.company;
   <h2>5. Cookies</h2>
   <h3>5.1 Technical or functional cookies</h3>
   <p>Some cookies ensure that certain parts of the website work properly. Our hosting provider, Cloudflare, may place a strictly necessary security cookie (for up to 30 minutes) to protect the website from bots and attacks. We may place these cookies without your consent.</p>
-  <h3>5.2 Statistics, advertising and marketing/tracking cookies</h3>
-  <p>We do not currently use statistics, advertising or marketing/tracking cookies on this website, and nothing on it tracks you across other websites. If we add any, we will ask your permission before placing them and update this policy.</p>
-  <h2>6. Consent</h2>
-  <p>Because we only use strictly necessary cookies, we do not show a cookie pop-up. If we start using cookies that need your consent, we will show you a pop-up with an explanation about cookies first. You can disable the use of cookies via your browser, but please note that our website may no longer work properly.</p>
+  {ga ? (
+    <>
+      <h3>5.2 Statistics cookies</h3>
+      <p>We use statistics cookies (Google Analytics: <code>_ga</code> and <code>_ga_*</code>, kept for up to two years) to see how people use our website, so we can improve it. We ask your permission before placing them. Google Analytics is set up so that it does not use Google signals or ad personalisation.</p>
+      <h3>5.3 Advertising and marketing/tracking cookies</h3>
+      <p>We do not use advertising or marketing/tracking cookies on this website.</p>
+      <h2>6. Consent</h2>
+      <p>When you visit our website for the first time, we show a bar at the bottom of the page explaining our use of cookies, with equal buttons to Accept or Reject. Statistics cookies are only placed if you click “Accept”. We remember your choice in a strictly necessary cookie (<code>cf_ck</code>, six months). You can change your mind at any time using “Cookie settings” at the bottom of every page.</p>
+    </>
+  ) : (
+    <>
+      <h3>5.2 Statistics, advertising and marketing/tracking cookies</h3>
+      <p>We do not currently use statistics, advertising or marketing/tracking cookies on this website, and nothing on it tracks you across other websites. If we add any, we will ask your permission before placing them and update this policy.</p>
+      <h2>6. Consent</h2>
+      <p>Because we only use strictly necessary cookies, we do not show a cookie banner. If we start using cookies that need your consent, we will ask first. You can disable the use of cookies via your browser, but please note that our website may no longer work properly.</p>
+    </>
+  )}
   <h2>7. Enabling/disabling and deleting cookies</h2>
   <p>You can use your internet browser to automatically or manually delete cookies. You can also specify that certain cookies may not be placed. Another option is to change the settings of your internet browser so that you receive a message each time a cookie is placed. For more information about these options, please refer to the instructions in the Help section of your browser.</p>
   <p>Please note that our website may not work properly if all cookies are disabled.</p>

@@ -23,6 +23,8 @@ export interface Brand {
   logo: 'mark' | 'svg';
   /** Picture beside the home page hero card, from brand-assets/<id>/ (served at /brand/). null for none. */
   heroImage: { file: string; widths: number[]; width: number; height: number; alt: string } | null;
+  /** Google Analytics 4 measurement ID. null: no banner and no analytics. */
+  gaId: string | null;
 }
 
 export const BRANDS: Record<Brand['id'], Brand> = {
@@ -41,6 +43,8 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     logo: 'mark',
     // The Check Finance car from the original site (Jack, 2 Nov 2026).
     heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Check Finance number plate' },
+    // GA4 property 'Check Finance' (502219593), stream 12059842947.
+    gaId: 'G-EPKNL56HC7',
   },
   casematters: {
     id: 'casematters',
@@ -57,6 +61,8 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     logo: 'svg',
     // The same car with a Case Matters plate (Jack, 2 Nov 2026).
     heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Case Matters number plate' },
+    // GA4 property 'Case Matters' (530019746), stream 14231621757.
+    gaId: 'G-C45C8PHT6V',
   },
 };
 
