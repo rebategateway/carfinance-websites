@@ -19,6 +19,10 @@ export interface Brand {
   letterPrefix: string;
   /** Other spellings people search for, for the site name in search results. */
   alternateNames: string[];
+  /** 'mark': chevron mark plus typed wordmark. 'svg': brand-assets/<id>/wordmark.svg. */
+  logo: 'mark' | 'svg';
+  /** Picture beside the home page hero card, from brand-assets/<id>/ (served at /brand/). null for none. */
+  heroImage: { file: string; widths: number[]; width: number; height: number; alt: string } | null;
 }
 
 export const BRANDS: Record<Brand['id'], Brand> = {
@@ -34,6 +38,9 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     trackingId: 'organic|case_matters',
     letterPrefix: 'CF',
     alternateNames: ['CheckFinance', 'checkfinance.co.uk'],
+    logo: 'mark',
+    // The Check Finance car from the original site (Jack, 2 Nov 2026).
+    heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Check Finance number plate' },
   },
   casematters: {
     id: 'casematters',
@@ -46,6 +53,9 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     trackingId: 'organic|case_matters',
     letterPrefix: 'CM',
     alternateNames: ['CaseMatters', 'casematters.co.uk'],
+    // Wordmark traced from the logo Jack sent on 2 Nov 2026.
+    logo: 'svg',
+    heroImage: null,
   },
 };
 

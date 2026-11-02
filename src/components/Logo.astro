@@ -3,10 +3,15 @@ import { BRAND } from '../brands';
 import Mark from './Mark.astro';
 interface Props { mark?: string; href?: string }
 const { mark = '#07131E', href = '/' } = Astro.props;
-// Case Matters: wordmark only until its logo file arrives (TODO Jack).
-const showMark = BRAND.id === 'checkfinance';
+// Brands with logo 'svg' use brand-assets/<id>/wordmark.svg, drawn in currentColor.
+const svgs = import.meta.glob('../../brand-assets/*/wordmark.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const svg = BRAND.logo === 'svg' ? svgs[`../../brand-assets/${BRAND.id}/wordmark.svg`]?.replace('role="img"', 'aria-hidden="true" focusable="false"') : undefined;
 ---
-<a class="logo" href={href} aria-label={`${BRAND.name} home`}>
-  {showMark && <Mark color={mark} />}
-  <span><b>{BRAND.wordmark[0]}</b><i>{BRAND.wordmark[1]}</i></span>
+<a class:list={['logo', svg && 'logo-svg']} href={href} aria-label={`${BRAND.name} home`}>
+  {svg ? <Fragment set:html={svg} /> : (
+    <>
+      <Mark color={mark} />
+      <span><b>{BRAND.wordmark[0]}</b><i>{BRAND.wordmark[1]}</i></span>
+    </>
+  )}
 </a>

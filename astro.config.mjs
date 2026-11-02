@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { BRAND } from './src/brands/index.ts';
-import { cpSync } from 'node:fs';
+import { cpSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 // Bump when page copy changes; lender pages use their own `checked` date.
@@ -15,7 +15,7 @@ const lastmodFor = (path) => LENDERS.find((l) => path === `/${l.slug}/`)?.checke
 import { LEGAL_REVIEWED, LEGAL_PATHS } from './src/data/site.ts';
 export const NOINDEX = ['/404', ...(LEGAL_REVIEWED ? [] : LEGAL_PATHS)];
 
-// Copies this brand's logo, social image and touch icon into dist/.
+// Copies this brand's logo, social image, touch icon and hero pictures into dist/.
 const brandAssets = {
   name: 'brand-assets',
   hooks: {
@@ -24,6 +24,7 @@ const brandAssets = {
       cpSync(`brand-assets/${BRAND.id}/apple-touch-icon.png`, `${out}/apple-touch-icon.png`);
       cpSync(`brand-assets/${BRAND.id}/logo.png`, `${out}/brand/logo.png`);
       cpSync(`brand-assets/${BRAND.id}/og-image.png`, `${out}/brand/og-image.png`);
+      for (const f of readdirSync(`brand-assets/${BRAND.id}`).filter((f) => f.endsWith('.webp'))) cpSync(`brand-assets/${BRAND.id}/${f}`, `${out}/brand/${f}`);
     },
   },
 };

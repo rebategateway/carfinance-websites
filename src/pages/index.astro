@@ -7,6 +7,8 @@ import FeeCalc from '../components/FeeCalc.astro';
 import Faqs from '../components/Faqs.astro';
 import { SITE, FIGURES, FREE_ROUTE, PAYMENT_LINE, LETTER } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
+import { BRAND } from '../brands';
+const img = BRAND.heroImage;
 
 const title = `Car finance claims | ${SITE.name}`;
 const description = `Car finance between 2007 and 2024? If the dealer was paid hidden commission, you could be owed compensation. Find every agreement in your name. No win, no fee.`;
@@ -28,7 +30,10 @@ const faqSchema = { '@type': 'FAQPage', mainEntity: HOME_FAQS.map((f) => ({ '@ty
       </ul>
       <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
     </div>
-    <HeroCard />
+    <div class:list={['hero-side', img && 'has-pic']}>
+      {img && <img class="hero-pic" src={`/brand/${img.file}-${img.widths.at(-1)}.webp`} srcset={img.widths.map((w) => `/brand/${img.file}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 1024px) 520px, 82vw" width={img.width} height={img.height} alt={img.alt} fetchpriority="high" decoding="async" />}
+      <HeroCard />
+    </div>
   </section>
 
   <div class="wrap">

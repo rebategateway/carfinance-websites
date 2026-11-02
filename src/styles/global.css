@@ -90,6 +90,8 @@ ul, ol { margin: 0; }
 .logo b { font-weight: 600; }
 .logo i { font-style: normal; font-weight: 300; }
 @media (min-width: 1024px) { .logo svg { width: 30px; height: 30px; } .logo span { font-size: 23px; } }
+.logo-svg svg { width: auto; height: 21px; }
+@media (min-width: 1024px) { .logo-svg svg { width: auto; height: 27px; } }
 
 /* Header */
 .top { background: var(--green); position: relative; overflow: hidden; }
@@ -131,6 +133,10 @@ ul, ol { margin: 0; }
 .card { background: #fff; border-radius: 18px; box-shadow: 0 18px 36px rgba(7,19,30,.18); padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
 .card h2 { font-size: 20px; font-weight: 500; line-height: 1.3; font-family: var(--body); letter-spacing: 0; }
 .card-sub { color: var(--muted); font-size: 16px; }
+.hero-side { display: flex; flex-direction: column; }
+.hero-pic { display: block; width: 82%; max-width: 420px; height: auto; margin: 4px auto 0; position: relative; z-index: 0; }
+.has-pic .card { position: relative; z-index: 1; margin-top: -13%; }
+@media (min-width: 560px) { .has-pic .card { margin-top: -96px; } }
 .crumbs { font-size: 14px; }
 .crumbs a { color: var(--ink); }
 @media (min-width: 1024px) {
@@ -141,6 +147,8 @@ ul, ol { margin: 0; }
   .hero-free { font-size: 14px; max-width: 54ch; }
   .card { padding: 32px; gap: 16px; border-radius: 20px; box-shadow: 0 30px 60px rgba(7,19,30,.22); }
   .card h2 { font-size: 26px; }
+  .hero-pic { width: 100%; max-width: 520px; margin-top: -24px; }
+  .has-pic .card { margin: -60px 28px 0; }
 }
 
 /* Figures strip */
