@@ -1,14 +1,11 @@
 ---
+// Old /cancellation/ wording (Jack, 2 Nov 2026).
 import Legal from '../components/Legal.astro';
 import { SITE, PARTNER } from '../data/site';
 ---
-<Legal path="/cancellation/" title={`Cancellation | ${SITE.name}`} description={`How to cancel a car finance claim you started through ${SITE.name}: your 14-day right to cancel with ${PARTNER.legalName}, and what may be charged after that.`} h1="Cancellation" updated="2 November 2026">
-  <p>{SITE.name} doesn’t sign you up to anything or charge you. Your claim agreement is with {PARTNER.legalName}, so you cancel with {PARTNER.name} directly.</p>
-  <h2>Your right to cancel</h2>
-  <ul>
-    <li>You can cancel free within 14 days of signing your agreement with {PARTNER.name}.</li>
-    <li>After 14 days, you can still cancel, but you may have to pay for work already done, as set out in {PARTNER.name}’ terms.</li>
-  </ul>
-  <h2>How to cancel</h2>
-  <p>Use the contact details in your agreement with {PARTNER.name}, or the cancellation details on its website.</p>
+<Legal path="/cancellation/" title={`Cancellation | ${SITE.name}`} description={`Notice of right to cancel: ${SITE.name} is an introducer. If you signed with ${PARTNER.legalName}, you cancel with them directly, free within 14 days.`} h1="Cancellation" updated="2 November 2026">
+  <h2>Notice of right to cancel</h2>
+  <p>{SITE.name} acts as an introducer to certain claim handling partners. It does not provide claim handling services.</p>
+  <p>If you have signed a Letter of Authority and/or Terms of Engagement with one of our claim handling partners, you must cancel with them directly. You have a 14-day cooling-off period during which you may cancel your claim without charge.</p>
+  <p>If you have signed a Letter of Authority and/or Terms of Engagement with {PARTNER.legalName}, please contact them directly here: <a href="https://consultationclaims.co.uk/cancellation/" rel="noopener">consultationclaims.co.uk/cancellation</a>.</p>
 </Legal>

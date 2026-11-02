@@ -1,64 +1,136 @@
 ---
+// Old /privacy-policy/ wording, last updated 23 February 2026 (Jack, 2 Nov 2026).
 import Legal from '../components/Legal.astro';
-import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+import { SITE, PARTNER } from '../data/site';
 const c = SITE.company;
-const contact = SITE.email ? `email ${SITE.email} or write to us at our registered office` : 'write to us at our registered office';
+const addr = `${c.address.street}, ${c.address.locality}, ${c.address.postcode}`;
+const ROWS: [string, string][] = [
+  ['To contact you following the submission of an enquiry regarding a mis sold vehicle finance claim.', 'Depending on the data that is captured within the online submission form we may rely on Consent and Explicit Consent'],
+  ['To identify whether a potential claimant may have a vehicle finance claim', 'Legitimate Interest (necessary for us to provide the requested service to you)'],
+  ['To undertake a soft credit check undertaken by Equifax Ltd/Checkboard Limited', 'Consent'],
+  ['To recommend to you an appropriate claims management company for claims investigation and representation where it has been identified that you may have a potential claim for a mis sold vehicle finance claim', 'Consent'],
+  ['To share any vulnerability/sensitive information with third parties such as a claims management company so that they are aware of it, can support customers with characteristics of vulnerability and have consideration for any specific needs or requirements to adapt their service delivery', 'Consent'],
+  ['Asking you to leave a review or take a customer satisfaction survey. To publish feedback/testimonials provided by you regarding the satisfaction of our services', 'Consent'],
+  ['To respond to any data subject access requests that we may receive from you', 'Legal Obligation'],
+  ['Monitoring and Oversight such as recording and monitoring telephone call and communication to ensure compliance with regulatory obligations and rules and to ensure firm processes for quality and training purposes.', 'Legal Obligation'],
+  ['To administer and protect our business and this website (including trouble shooting, data analysis, testing, system maintenance, support, reporting and hosting of data)', 'Necessary for our legitimate interests (for running our business, provision of administration and IT services, network security, to prevent fraud and in the context of a business reorganisation or group restructuring exercise); Legal Obligation'],
+  ['Notifying you about changes to our terms or privacy policy', 'Legal Obligation'],
+];
 ---
-<Legal path="/privacy-policy/" title={`Privacy policy | ${SITE.name}`} description={`How ${SITE.name}, a trading name of Claim Simple Ltd, collects, uses and protects your personal information, and your rights.`} h1="Privacy policy" updated="2 November 2026">
-  <h2>Who we are</h2>
-  <p>{SITE.name} is a trading name of {c.legalName} (“we”, “us”), a company registered in {c.jurisdiction} (company no. {c.number}), registered office {ADDRESS_LINE}. We are authorised and regulated by the Financial Conduct Authority as a claims management company (FRN {c.frn}) and registered with the Information Commissioner’s Office (registration {c.icoRef}).</p>
-  <p>We are the controller of the personal information described here. To contact us about this policy or your information, {SITE.email ? <>email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or write to us at our registered office</> : 'write to us at our registered office'}.</p>
+<Legal path="/privacy-policy/" title={`Privacy Policy | ${SITE.name}`} description={`How ${SITE.name} (Claim Simple Limited) collects and uses personal data, the lawful basis for each use, who we share it with and your rights under UK GDPR.`} h1="Privacy policy" updated="23 February 2026">
+  <h2>1. General</h2>
+  <p>{SITE.name} is a trading style of Claim Simple Limited (company number {c.number}) of {addr} (“we” “us” “our”), and we are committed to protecting and respecting your privacy.</p>
+  <p>For the purposes of data protection legislation, we are the data controller and we will process your personal data in accordance with the UK General Data Protection Regulation, which relates to the processing of personal data. As a controller of personal data, Claim Simple is registered with the Information Commissioner’s Office (ICO); our ICO registration is {c.icoRef}.</p>
+  <p>Please read the following carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
+  <h3>Our contact details</h3>
+  <p>Name: Claim Simple Limited t/a {SITE.name}<br />Address: {addr}{SITE.email && <><br />Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></>}</p>
 
-  <h2>What we collect</h2>
+  <h2>2. Personal data we collect</h2>
+  <h3>Types of personal data we collect</h3>
+  <p>We only collect data that is necessary and lawful. This may include:</p>
   <ul>
-    <li><strong>Letter details:</strong> if we wrote to you, your name and address and the reference on your letter.</li>
-    <li><strong>Messages:</strong> anything you send us if you contact us or make a complaint.</li>
-    <li><strong>Technical information:</strong> such as your IP address, browser and device, which our hosting provider processes to deliver and protect the website.</li>
+    <li>Contact Data: Address history, phone numbers, email addresses</li>
+    <li>Identity Data: Name, title, date of birth, gender, passport/ID</li>
+    <li>Employment Data: Industry or sector you work in.</li>
+    <li>Credit Data: If necessary to pursue your case our partners will disclose personal data to Checkboard Ltd for the provision of credit report information which may include Equifax. If you’d like to understand how the credit reference agency use and share personal data (including the legitimate interests they pursue) please read the Credit Reference Agency Information Notice for the agency.</li>
   </ul>
-  <p>This website doesn’t ask for your contact details. When you choose to find your agreements, you go to {PARTNER.legalName}’s own website, which collects your details under its own privacy notice.</p>
+  <p>Where you provide your consent, our partners {PARTNER.name} may conduct a soft credit search to verify your eligibility for certain products or services.</p>
+  <p>These checks are carried out on our behalf by their service provider, Checkboard Limited. In order to perform this assessment, Checkboard Limited will obtain an Electronic Credit Report from credit reference agencies, including Equifax and CRAIN. The information contained in that report will be shared with us for eligibility assessment purposes.</p>
+  <p>A soft credit search leaves a soft footprint on your credit file. This footprint:</p>
+  <ul><li>Is visible to you;</li><li>Is not visible to other lenders; and</li><li>Does not affect your credit score.</li></ul>
+  <p>By consenting to a soft credit check, you also acknowledge and agree to Checkboard Ltd’s privacy policy and terms and conditions. We will only conduct soft credit checks where we have a lawful basis to do so, typically your consent.</p>
+  <h3>IP address</h3>
+  <p>2.2.1 We may collect information about your device, including where available your Internet Protocol address, for reasons of fraud protection. We may also collect information about your device’s operating system and browser type, for system administration and to report aggregate information to our advertisers. This is statistical data about our users’ browsing actions and patterns and does not identify any individual.</p>
+  <h3>Cookies</h3>
+  <p>2.2.2 Our Site uses cookies as described in our <a href="/cookies/">cookie policy</a>.</p>
+  <p>2.3 We may use your personal data for our legitimate interests in order to:</p>
+  <ul>
+    <li>2.3.1 provide you with information, or services that you requested from us;</li>
+    <li>2.3.2 allow you to participate in interactive features of our Site, when you choose to do so;</li>
+    <li>2.3.3 ensure that content from our Site is presented in the most effective manner for you and for your device;</li>
+    <li>2.3.4 improve our Site and services; and</li>
+    <li>2.3.5 process and deal with any complaints or enquiries made by you.</li>
+  </ul>
 
-  <h2 id="letters">If we wrote to you</h2>
-  <p>We write to people who may have had car finance worth looking into. We do this on the basis of our legitimate interests. Your letter explains where your details came from. We don’t know anything about your agreements when we write to you.</p>
-  <p>If you don’t want any more letters, {contact}, and we won’t write to you again. We keep your name and address on our do-not-mail list so we can make sure of that.</p>
+  <h2>3. Website links</h2>
+  <p>Our Site may, from time to time, contain links to and from the websites of third parties. Please note that if you follow a link to any of these websites, such websites will apply different terms to the collection and privacy of your personal data and we do not accept any responsibility or liability for these policies. When you leave our Site, we encourage you to read the privacy notice/policy of every website you visit.</p>
 
-  <h2>How we use it, and why we’re allowed to</h2>
+  <h2>4. Purpose and lawful basis for processing personal data</h2>
+  <p>As the controller of customer and prospective customer personal data there are a variety of purposes for which we process personal data. The following table sets this out:</p>
   <table>
-    <thead><tr><th scope="col">What we do</th><th scope="col">Lawful basis</th></tr></thead>
-    <tbody>
-      <tr><td>Send letters to people who may be able to claim</td><td>Our legitimate interest in telling people about claims they may be able to make</td></tr>
-      <tr><td>Keep a do-not-mail list, so we don’t write to people who’ve asked us not to</td><td>Legal obligation, and our legitimate interest in respecting your request</td></tr>
-      <tr><td>Handle messages, complaints and requests about your information</td><td>Legal obligation, and our legitimate interest in responding to you</td></tr>
-      <tr><td>Keep the website secure and working</td><td>Our legitimate interest in running a safe website</td></tr>
-    </tbody>
+    <thead><tr><th scope="col">Purposes for processing personal data</th><th scope="col">Lawful basis</th></tr></thead>
+    <tbody>{ROWS.map(([p, b]) => <tr><td>{p}</td><td>{b}</td></tr>)}</tbody>
   </table>
-  <p>We don’t send you marketing by email or text.</p>
 
-  <h2>Who we share it with</h2>
+  <h2>5. Third parties</h2>
+  <p>5.1 Third party organisations we appoint (normally only for out of hours) to deal with inbound telephone enquiries; the information that will be collected is your name, contact details, any reference, reason for call and any additional information you may wish to provide.</p>
+  <p>5.2 In order to provide you with the services you have requested, we may need to share your personal data with third parties such as claims management/solicitors firms involved in the investigation or handling of your claim. This may include {PARTNER.legalName} (FCA: {PARTNER.frn}), which operates as a claims management company. Where you inform us of anything that will affect how our service delivery should be provided to you, we will ask if we can record this information and share it with any relevant third party.</p>
+  <p>5.3 In order to conduct a review of your case, we obtain details that are necessary to review your case from third-party introducers where you have provided your consent to be contacted. Following conducting a Legitimate Interest Assessment, we will contact you if, from the information we have obtained, we believe you have a legitimate interest in our service and it would be of benefit to you.</p>
+  <p>When establishing a ‘legitimate interest’ for communications/promotions to prospects, we carry out a 3-stage Legitimate Interests Assessment (LIA) where we look to:</p>
+  <ul><li>Identify a Legitimate Interest</li><li>Carry out a Necessity Test</li><li>Carry out a Balancing Test</li></ul>
+  <p>5.4 Under the UK General Data Protection Regulation, personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, or trade union membership, and the processing of genetic data, biometric data, health data, or data concerning a natural person’s sex life or sexual orientation is considered Special category data. Where you tell us of anything that is considered to be Special Category data we will obtain explicit consent to note this on our records and for us to share this information with any relevant third party.</p>
+  <p>5.5 To help us provide the best level of service to you, we may instruct third parties to conduct customer experience surveys on our behalf.</p>
+  <p>5.6 We may also advertise your feedback on our website and marketing materials (subject to obtaining your prior consent).</p>
+
+  <h2>6. If you fail to provide personal data</h2>
+  <p>Where we need to collect personal data by law, or under the terms of a contract with you, and you fail to provide the data when requested, we will be unable to provide you with our services. In this case, we may have to cancel a service/arrangement you have with us but we will notify you if this is the case at the time.</p>
+
+  <h2>7. Marketing</h2>
+  <p>7.1 In addition to the uses described in sections 2-5 above, where you indicate you would like to receive marketing correspondence from us, subscribe to our marketing lists or newsletters or provide us with your details at events, we may use your personal data for our legitimate interests in order to provide you with details about our services which we think may be of interest.</p>
+  <p>7.2 You have the right to opt-out of receiving this information at any time. To opt-out of receiving such information you can:</p>
   <ul>
-    <li><strong>Service providers</strong> who host our website, send our letters and run our email, acting on our instructions.</li>
-    <li><strong>Regulators, ombudsmen and law enforcement</strong> where the law requires it.</li>
-    <li><strong>Professional advisers</strong>, such as lawyers and auditors.</li>
-    <li><strong>A buyer of our business</strong>, if we sell or transfer it, under the same protections.</li>
+    <li>7.3.1 click the unsubscribe button contained in any such communication received; or</li>
+    <li>7.3.2 {SITE.email ? <>email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a></> : <>write to us at {addr}</>} providing us with your name and contact details.</li>
   </ul>
-  <p>We never sell your information.</p>
+  <p>7.4 Where you have subscribed to receive marketing correspondence from us, we will only contact you up to two years from when you provide us with your consent.</p>
 
-  <h2>Transfers outside the UK</h2>
-  <p>Our hosting provider runs a global network, so your information may be processed outside the UK. Where that happens, we rely on UK adequacy regulations or approved safeguards such as the UK International Data Transfer Agreement.</p>
+  <h2>8. Monitoring and recording</h2>
+  <p>We may monitor and record communications with you (such as telephone communications and emails) for the purposes of quality assurance, training, fraud prevention and compliance. In accordance with relevant regulatory rules, we are required in relation to regulated claims management activities to keep personal data including online enquiries, telephone communications and emails for at least 12 months after our last date of contact with you. For all other services we keep call recordings and emails for as long as necessary.</p>
+  <p>We also have CCTV cameras installed in our premises for the purpose of crime prevention and for health and safety reasons.</p>
 
-  <h2>How long we keep it</h2>
+  <h2>9. Disclosure of personal data to third parties</h2>
+  <p>9.1 In addition to the third parties mentioned above, we may disclose your information to the following third parties for our legitimate interests as follows:</p>
   <ul>
-    <li><strong>Letters:</strong> the name, address and reference we wrote to, for 12 months from the date of the letter.</li>
-    <li><strong>Our do-not-mail list:</strong> for as long as we send letters.</li>
-    <li><strong>Complaints:</strong> six years from the end of the complaint.</li>
-    <li><strong>Messages:</strong> as long as we need to deal with them, or six years if they become a complaint.</li>
+    <li>9.1.1 staff members, in order to facilitate the provision of goods or services to you;</li>
+    <li>9.1.2 our affiliated entities, to support internal administration;</li>
+    <li>9.1.3 IT software providers that host our website and store data on our behalf;</li>
+    <li>9.1.4 professional advisers including consultants, lawyers, bankers and insurers who provide us with consultancy, banking, legal, insurance and accounting services;</li>
+    <li>9.1.5 HM Revenue and Customs, regulators and other authorities who require reporting of processing activities in certain circumstances; and</li>
+    <li>9.1.6 third parties to whom we may choose to sell, transfer or merge parts of our business or assets. Alternatively, we may seek to acquire other businesses or merge with them. If a change happens to our business then the new owners may use your personal data in the same way as set out in this privacy policy.</li>
+    <li>9.1.7 We may disclose personal data to the police, regulatory bodies, legal advisors or similar third parties where we are under a legal duty to disclose or share personal data in order to comply with any legal obligation, or in order to enforce or apply our website terms and conditions and other agreements; or to protect our rights, property, or safety of our customers, or others. This includes exchanging information with other companies and organisations for the purposes of fraud protection.</li>
+    <li>9.1.8 We will not sell or distribute personal data to other organisations without your approval.</li>
   </ul>
 
-  <h2>Your rights</h2>
-  <p>You have the right to ask for a copy of your information, to have it corrected or deleted, to restrict or object to how we use it, and to have it moved to another organisation. To use any of these rights, {contact}. We’ll normally reply within one month.</p>
+  <h2>10. Data security</h2>
+  <p>10.1 Unfortunately, the transmission of information via the internet is not completely secure. Although we will do our best to protect your personal data, we cannot guarantee the security of your information transmitted to our Site; any transmission is at your own risk.</p>
+  <p>10.2 Information you provide to us is stored on our secure servers. We have implemented appropriate physical, technical and organisational measures designed to secure your information against accidental loss and unauthorised access, use, alteration or disclosure. In addition, we limit access to personal data to those employees, agents, contractors and other third parties that have a legitimate business need for such access.</p>
 
-  <h2>Complaints</h2>
-  <p>If you’re unhappy with how we’ve handled your information, please contact us first. You can also complain to the Information Commissioner’s Office at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
+  <h2>11. Your legal rights</h2>
+  <p>In accordance with UK GDPR, you are entitled to a range of specific rights as the Data Subject that you may exercise under particular conditions, with a few exceptions.</p>
+  <ul>
+    <li><b>Your right to access.</b> The right of access, commonly referred to as subject access, gives individuals the right to obtain a copy of their personal data as well as other supplementary information. It helps you to understand how and why we are using your data, and to check we are using it lawfully.</li>
+    <li><b>Your right to rectification.</b> You have the right to have inaccurate personal data rectified. You may also be able to have incomplete personal data completed, although this will depend on the purposes for the processing. This may involve providing a supplementary statement to the incomplete data.</li>
+    <li><b>Your right to erasure.</b> Under certain circumstances you have the right to have personal data erased. Also known as ‘the right to be forgotten’. The right is not absolute.</li>
+    <li><b>Your right to restrict processing.</b> Under certain circumstances you have the right to request the restriction or suppression of your personal data and, like the right to erasure, it is not absolute. Restriction of processing means we are permitted to store your personal data, but we are unable to use it.</li>
+    <li><b>Your right to data portability.</b> You have the right to obtain and reuse your personal data for your own purposes across different services. This allows personal data to be copied or transferred easily from one IT environment to another, safely and securely, without affecting its usability.</li>
+    <li><b>Your right to object.</b> Under certain circumstances you have the right to object to the processing of your personal data; however, you have the absolute right to object to direct marketing.</li>
+    <li><b>Your right to be informed.</b> You have the right to be informed about the collection and use of your personal data. Your right to be informed forms part of this policy, and provides the purposes for processing your data, our retention periods and who it will be shared with.</li>
+  </ul>
 
-  <h2>Changes to this policy</h2>
-  <p>We’ll post any changes on this page and update the date at the top.</p>
+  <h2>12. Data subject access requests (DSAR)</h2>
+  <p>You have the right to access your personal information, also known as a Data Subject Access Request (DSAR). This means you are entitled to obtain the following information about yourself:</p>
+  <ul><li>Confirmation that we are processing your personal data;</li><li>A copy of your personal data; and</li><li>Other supplementary information.</li></ul>
+  <p>A third party may make a request on your behalf. This will often involve a claims management company/solicitor acting on your behalf. We will require evidence from the third party of this entitlement. This may take the form of a written authority or a more general power of attorney.</p>
+  <h3>How do we provide you with the data you have requested?</h3>
+  <p>If you make a request electronically, we will provide the information in a commonly used electronic format unless you have specified otherwise. Please note, we may extend the time to respond by a further two months if the request is complex or you have made multiple requests. As you have the right to be informed, we will always ensure you are notified within one month of receiving the request, accompanied by an explanation.</p>
+  <h3>How long do we have to comply with a request?</h3>
+  <p>We must act on your subject access request without undue delay and at the latest within one month of receipt. This is calculated from the day following receipt of the request until the corresponding calendar date the following month. We may request proof of your identity to satisfy the request; however, this will be proportionate to the request itself and to any doubts about the authenticity of identification.</p>
+  <h3>Will it cost you anything?</h3>
+  <p>For the vast majority of requests, we cannot charge you a fee. Where the request is manifestly unfounded or excessive, we may charge a reasonable fee to cover the administrative costs of complying with the request. This also applies in the event that you request further additional copies of data following your initial request. This will again be charged as an administrative cost.</p>
+
+  <h2>13. Changes to our privacy policy</h2>
+  <p>We reserve the right to update this privacy policy at any time, and any changes we make to our privacy policy will be posted on this page. We encourage you to check this privacy policy from time to time for any updates or changes. If we would like to use your previously collected personal data for different purposes than those we notified you about at the time of collection, we will provide you with notice and, where required by law, seek your consent, before using your personal data for a new or unrelated purpose. We may process your personal data without your knowledge or consent where required by applicable law or regulation.</p>
+
+  <h2>14. Contact us</h2>
+  <p>We have appointed a Data Protection Lead to oversee compliance with this privacy policy. If you have any questions, comments or requests regarding this policy or how we use your personal data please contact our Data Protection Lead {SITE.email ? <>at <a href={`mailto:${SITE.email}`}>{SITE.email}</a></> : <>in writing at {addr}</>}. This is in addition to your right to contact the Information Commissioner’s Office if you are unsatisfied with our response to any issues you raise at <a href="https://ico.org.uk/global/contact-us/" rel="noopener">ico.org.uk/global/contact-us</a>.</p>
 </Legal>

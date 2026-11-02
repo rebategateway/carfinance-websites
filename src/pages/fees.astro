@@ -1,17 +1,25 @@
 ---
+// Old /fees/ wording (Jack, 2 Nov 2026), with the band table that the old site never rendered.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import FeeCalc from '../components/FeeCalc.astro';
-import { SITE, PARTNER, FREE_ROUTE } from '../data/site';
+import { BRAND } from '../brands';
+import { SITE, PARTNER, FREE_ROUTE, FEE_BANDS, pct, gbp } from '../data/site';
 ---
-<Base path="/fees/" title={`Fees: no win, no fee | ${SITE.name}`} description={`What you pay if your car finance claim succeeds: no win, no fee charges from 36% down to 18% including VAT, capped in pounds for each band.`} active="fees" crumbs={[{ name: 'Fees', href: '/fees/' }]}>
-  <PageHero slot="hero" h1="Fees" lede="No win, no fee. You only pay if you get compensation." crumbs={[{ name: 'Fees', href: '/fees/' }]} />
+<Base path="/fees/" title={`Fees | ${SITE.name} | Car Finance Claims`} description={`${SITE.name} doesn't charge you. If your claim succeeds, ${PARTNER.name} charges a fee in bands from 36% down to 18% including VAT, capped in pounds.`} active="fees" crumbs={[{ name: 'Fees', href: '/fees/' }]}>
+  <PageHero slot="hero" h1="Fees" lede="Car finance claims" crumbs={[{ name: 'Fees', href: '/fees/' }]} />
   <section class="wrap section fees">
     <div class="prose" style="gap:14px">
-      <h2 style="margin-top:0">What you pay</h2>
-      <p>If your claim succeeds, {PARTNER.legalName} takes a percentage of the compensation, depending on how much you get, and never more than the cap in pounds for that band. All fees include VAT. We don’t charge you anything: {PARTNER.name} pays us when we introduce your claim.</p>
+      <p>{BRAND.host} does not charge you for using our service and acts solely as an introducer. If you choose to proceed with a claim, you will enter into a separate agreement with {PARTNER.legalName}, who are authorised and regulated by the Financial Conduct Authority to provide claims management services and will handle your claim.</p>
+      <p>There are no upfront costs to you. A fee will only be payable if your claim is successful. Fees are charged in bands depending on the amount of redress or refund received. All fees quoted include VAT.</p>
+      <table>
+        <thead><tr><th scope="col">Redress or refund</th><th scope="col">Maximum percentage</th><th scope="col">Maximum fee</th></tr></thead>
+        <tbody>{FEE_BANDS.map((b) => <tr><td>{b.band}</td><td>{pct(b.rate)}</td><td>{gbp(b.cap)}</td></tr>)}</tbody>
+      </table>
+      <p>These fees are in line with FCA guidelines on compensation refunds.</p>
       <h2>Cancelling</h2>
-      <p>You can cancel free within 14 days of signing up with {PARTNER.name}. After that, you may have to pay for work already done, as set out in {PARTNER.name}’ terms. See <a href="/cancellation/">cancellation</a>.</p>
+      <p>If you proceed with {PARTNER.legalName}, you have a 14-day cooling-off period starting from the date you sign or e-sign their Letter of Authority and/or Terms of Engagement. During this period, you may cancel without charge.</p>
+      <p>If you cancel your agreement after the 14-day cooling-off period has ended, cancellation fees may apply in accordance with {PARTNER.legalName}’s Terms of Engagement.</p>
       <p class="small muted">{FREE_ROUTE}</p>
     </div>
     <div class="stack"><FeeCalc /></div>

@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { SITE, PARTNER, FREE_ROUTE, FOOTER_LINKS, ADDRESS_LINE } from '../data/site';
+import { SITE, FREE_ROUTE, PAYMENT_LINE, FOOTER_LINKS, FIGURES } from '../data/site';
 const c = SITE.company;
 ---
 <footer class="ftr">
@@ -12,9 +12,11 @@ const c = SITE.company;
       </nav>
     </div>
     <div class="ftr-legal">
-      <p>{SITE.name} is a trading name of {c.legalName}, a claims management company authorised and regulated by the Financial Conduct Authority (FRN {c.frn}). Registered in {c.jurisdiction}, company number {c.number}. Registered office: {ADDRESS_LINE}. ICO registration {c.icoRef}.</p>
-      <p>{FREE_ROUTE} Our claims partner, {PARTNER.legalName} (FRN {PARTNER.frn}), pays us when we introduce your claim.</p>
-      <p>© {c.legalName} {new Date().getFullYear()}</p>
+      <p>{SITE.name} is a trading style of {c.legalName}, registered in {c.jurisdiction}, Company registration number {c.number}. Registered Office: {c.address.street}, {c.address.locality}, {c.address.postcode}. Authorised and regulated by the Financial Conduct Authority for Claims Management activities ({c.frn}). Registered with the Information Commissioner’s Office; registration number {c.icoRef}. You can find our <a href="/terms-of-service/">terms of use</a>, <a href="/privacy-policy/">privacy policy</a> and our <a href="/cookies/">cookie policy</a> here. {c.legalName} is a claims management company.</p>
+      <p>Where No Win, No Fee is offered – You pay nothing unless your claim is successful. A fee between 18 – 36%, including VAT applies on successful claims (fee dependent on level of redress secured), and a cancellation fee may apply outside the 14 day cooling-off period. {PAYMENT_LINE}</p>
+      <p>{FREE_ROUTE}</p>
+      <p>***All figures disclosed on the results page of our form are based on the FCA’s projected average payout of {FIGURES.average} per eligible agreement</p>
+      <p>© Claim Simple Limited {new Date().getFullYear()}</p>
     </div>
   </div>
 </footer>

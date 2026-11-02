@@ -1,33 +1,38 @@
 ---
+// Old /complaints/ wording (Jack, 2 Nov 2026). The old page named the Claims Management
+// Ombudsman; complaints about claims companies now go to the Financial Ombudsman Service
+// at the same address and number.
 import Legal from '../components/Legal.astro';
-import { SITE, PARTNER, ADDRESS_LINE } from '../data/site';
+import { SITE } from '../data/site';
 const c = SITE.company;
 ---
-<Legal path="/complaints/" title={`Complaints policy | ${SITE.name}`} description={`How to complain to ${SITE.name} (Claim Simple Ltd), what we'll do and when, and how to take your complaint to the Financial Ombudsman Service.`} h1="Complaints policy" updated="2 November 2026">
-  <p>If you’re unhappy with anything we’ve done, please tell us. We’ll look into it fairly and tell you what we find.</p>
-  <h2>How to complain</h2>
+<Legal path="/complaints/" title={`Complaints | ${SITE.name}`} description={`How to make a complaint to ${SITE.name} (Claim Simple Ltd), how we acknowledge and investigate it, and your right to go to the Financial Ombudsman Service.`} h1="How to make a complaint" updated="2 November 2026">
+  <h2>1. Methods</h2>
+  <p>Complaints may be made:</p>
   <ul>
-    {SITE.email && <li>By email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>}
-    <li>By post: Complaints, {c.legalName}, {ADDRESS_LINE}</li>
+    <li>In writing to: {c.address.street}, {c.address.locality}, {c.address.postcode}</li>
+    {SITE.email && <li>by e-mail to <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>}
   </ul>
-  <p>Please tell us your name, how we can contact you, what went wrong and what you’d like us to do. If you need us to make any adjustments, for example a different way to communicate, just let us know.</p>
-  <h2>What we’ll do</h2>
+  <h2>2. Process</h2>
+  <h3>Acknowledgement</h3>
+  <p>We aim to resolve any expression of dissatisfaction as soon as possible. Where this is done within 3 business days, we will not usually confirm acknowledgement of the complaint in writing, but we will still send a summary resolution.</p>
+  <p>If it takes us longer than 3 business days to resolve your complaint, we will send you a written or electronic acknowledgement of a complaint within five business days of receipt, identifying the person who will be handling the complaint for the business.</p>
+  <p>Where we receive a complaint from you that relates to the alleged acts or omission of a third party, we will acknowledge the complaint in writing and advise you that the complaint has been forwarded to the relevant third party who will investigate your complaint and provide you with a final response.</p>
+  <h3>Investigation</h3>
+  <p>Wherever possible, the person handling your complaint will not have been directly involved in the matter which is the subject of the complaint, and will have authority to settle the complaint.</p>
+  <p>Within four weeks of receiving a complaint, we will send you either:</p>
   <ul>
-    <li>We’ll acknowledge your complaint in writing within five working days.</li>
-    <li>If we resolve it within three working days, we’ll write to confirm that, and explain that you can still go to the Financial Ombudsman if you’re not happy.</li>
-    <li>Otherwise, we’ll investigate and send you our final response within eight weeks. If we can’t, we’ll write to explain why and when we expect to reply.</li>
+    <li>a final response adequately addressing the complaint; or</li>
+    <li>a holding response, which explains why we are not yet in a position to resolve the complaint and indicates when we will make further contact with you.</li>
   </ul>
-  <h2>The Financial Ombudsman Service</h2>
-  <p>If you’re unhappy with our final response, or we haven’t sent one within eight weeks, you can refer your complaint to the Financial Ombudsman Service. It’s free.</p>
+  <h3>Our decision</h3>
+  <p>Within eight weeks of receiving a complaint we will send you either:</p>
   <ul>
-    <li>You normally need to contact it within six months of our final response.</li>
-    <li>Phone 0800 023 4567</li>
-    <li>Post: Financial Ombudsman Service, Exchange Tower, London E14 9SR</li>
-    <li>Online: <a href="https://www.financial-ombudsman.org.uk/" rel="noopener">financial-ombudsman.org.uk</a></li>
+    <li>a final response adequately addressing the complaint and outlining your right to refer it to the Financial Ombudsman Service; or</li>
+    <li>a response which explains why we are still not in a position to make a final response, giving reasons for the further delay and indicating when we expect to be able to provide a final response, and informs you that you may refer the complaint to the Financial Ombudsman Service if you are dissatisfied with the delay.</li>
   </ul>
-  <h2>Complaints about your claim</h2>
-  <p>Once we’ve introduced you, your claim is handled by {PARTNER.legalName}. If you’re unhappy with how it handles your claim, please complain to {PARTNER.name} first. If you’re still unhappy, you can go to the Financial Ombudsman Service.</p>
-  <p>If you’re not sure who to complain to, contact us and we’ll point you in the right direction.</p>
-  <h2>Complaints about your personal information</h2>
-  <p>See our <a href="/privacy-policy/">privacy policy</a>. You can also complain to the Information Commissioner’s Office.</p>
+  <p>Where we decide that redress is appropriate, we will provide you with fair compensation for any acts or omissions for which we are responsible and will comply with any offer of redress that you accept. Appropriate redress will not always involve financial redress, but could involve an apology or another suitable form of redress.</p>
+  <h3>Appeals</h3>
+  <p>If you are not satisfied with our decision regarding a complaint about us and you have allowed us the relevant time frames to respond to you, you can refer it to the Financial Ombudsman Service. Complaints to the Financial Ombudsman Service must be submitted within six months of our final response to you.</p>
+  <p>Financial Ombudsman Service<br />Exchange Tower<br />London<br />E14 9SR<br />Tel: 0800 023 4567<br />Web: <a href="https://www.financial-ombudsman.org.uk/" rel="noopener">financial-ombudsman.org.uk</a></p>
 </Legal>

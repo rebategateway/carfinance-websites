@@ -34,10 +34,24 @@ export const PARTNER = {
 export const CLAIM_URL =
   `https://claim-form.consultationclaims.co.uk/claims/step/1?partnerId=1&serviceId=1&trackingId=${encodeURIComponent(BRAND.trackingId)}`;
 
-// Required wording (CMCOB 3.2 and 2.2.8R). Keep exactly as is: nothing more is needed.
+// Required wording, taken word for word from the old checkfinance.co.uk, which
+// Jack confirmed is compliant (2 Nov 2026). Keep as is.
 export const FREE_ROUTE =
-  'You can complain to your lender, then the Financial Ombudsman, yourself for free, and the FCA’s redress scheme is free to use.';
-export const PAYMENT_LINE = 'Our claims partner pays us when we introduce your claim.';
+  'You do not need to use a claims management company to make your complaint. You can do this directly. If your complaint is not successful you can refer it to the Financial Ombudsman Service yourself for free.';
+export const PAYMENT_LINE =
+  'We may receive a fee for introducing you to a third party CMC or panel solicitor, this does not affect any compensation you may receive.';
+export const NO_WIN_LINE =
+  'Where No Win, No Fee is offered – You pay nothing unless your claim is successful. A fee between 18 – 36% including VAT applies on successful claims (fee dependent on level of redress secured), and a cancellation fee may apply outside the 14 day cooling-off period.';
+export const CHOICES_LINE =
+  'Please note that you have the right to pursue your motor finance mis selling claim with the lender directly, through the Financial Ombudsman Service or any public compensation scheme, including the FCA’s motor finance redress scheme. Whilst we will always strive to get you the maximum amount of compensation possible, there is no guarantee that we will recover any more than you may achieve if you pursued the claim on your own.';
+export const SWITCH_LINE =
+  'If you have already instructed a claims management company to act on your behalf you will need to terminate your instructions before entering into your contract with us (dependent on who you have instructed termination fees may apply, you will need to check with the instructed firm).';
+// Old site: proof points shown under the hero.
+export const PROOF = {
+  speed: 'All of your historic agreements found in under 2 minutes',
+  helped: `${BRAND.name} have helped thousands of customers`,
+  helpedCount: '75,000+ customers helped',
+};
 
 // FCA figures (PS26/3 and the FCA statement of 30 March 2026).
 export const FIGURES = {
@@ -100,7 +114,7 @@ export const FOOTER_LINKS = [
   { label: 'Website terms', href: '/terms-of-service/' },
 ] as const;
 
-// Legal pages were adapted from CreditRights' lawyer-reviewed versions for the
-// car finance route. Noindex until confirmed; then set true.
-export const LEGAL_REVIEWED = false;
+// Legal pages carry the old checkfinance.co.uk wording, which Jack confirmed is
+// compliant (2 Nov 2026), so they are indexable.
+export const LEGAL_REVIEWED = true;
 export const LEGAL_PATHS = ['/privacy-policy/', '/cookies/', '/complaints/', '/cancellation/', '/terms-of-service/'];

@@ -6,7 +6,7 @@ import { SITE, FREE_ROUTE, PAYMENT_LINE, PARTNER, FIGURES } from '../data/site';
 import { FAQ } from '../data/faqs';
 const faqs = [
   { q: 'Why did you write to me?', a: `<p>We write to people who may have had car finance between ${FIGURES.from} and ${FIGURES.to}. We don’t know anything about your agreements when we write. Your letter explains where your details came from.</p>` },
-  FAQ.paidOff, FAQ.credit, FAQ.cost,
+  FAQ.paidOff, FAQ.after, FAQ.process,
   { q: 'I don’t want any more letters', a: `<p>Tell us${SITE.email ? ` at <a href="mailto:${SITE.email}">${SITE.email}</a> or` : ''} by post to ${SITE.company.legalName}, ${SITE.company.address.street}, ${SITE.company.address.locality} ${SITE.company.address.postcode}, and we won’t write to you again.</p>` },
 ];
 ---

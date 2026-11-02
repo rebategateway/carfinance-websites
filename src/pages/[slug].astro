@@ -6,7 +6,7 @@ import HeroCard from '../components/HeroCard.astro';
 import Faqs from '../components/Faqs.astro';
 import { LENDERS, CHALLENGERS, lenderHref } from '../data/lenders';
 import type { LenderInfo } from '../data/lenders';
-import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES } from '../data/site';
+import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES, PROOF, CLAIM_URL } from '../data/site';
 import type { Faq } from '../data/faqs';
 
 export function getStaticPaths() {
@@ -15,8 +15,10 @@ export function getStaticPaths() {
 interface Props { l: LenderInfo }
 const { l } = Astro.props;
 const path = lenderHref(l.slug);
-const title = `${l.name} car finance claims | ${SITE.name}`;
-const description = `${l.name} car finance from 2007 to 2024? See who the lender is, where the FCA scheme stands, and find every agreement in your name.`;
+// "Audi Finance" → "Audi Finance"; "Black Horse" → "Black Horse finance".
+const fin = /financ|credit/i.test(l.name) ? l.name : `${l.name} finance`;
+const title = `${fin.replace(/ finance$/, ' Finance')} Claim | ${SITE.name}`;
+const description = `Mis-sold ${l.name} car finance? Check whether your agreement from 2007 to 2024 may be affected. No win, no fee.`;
 const checked = new Date(l.checked).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const faqs: Faq[] = [
@@ -39,14 +41,34 @@ const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).h
   <div slot="hero" class="wrap hero" style="padding-top:0">
     <div class="hero-copy">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lenders/">Lenders</a> / <span aria-current="page">{l.name}</span></nav>
-      <h1 class="d h1 sm">{l.name} car finance claims</h1>
-      <p class="lede" style="max-width:40ch">{l.intro} Every PCP or hire purchase agreement with {l.name} from April 2007 to November 2024 can be checked.</p>
-      <p class="hero-free">{FREE_ROUTE.replace('your lender', l.name)} {PAYMENT_LINE}</p>
+      <h1 class="d h1 sm">{fin} claim</h1>
+      <p class="lede" style="max-width:40ch">Mis-sold {l.name} car finance? You could be one of the millions of drivers owed compensation. Sign up below to check whether your car finance agreement may be affected.</p>
+      <p class="small" style="font-weight:500">Car finance agreements found in seconds · {PROOF.helpedCount} · No win, no fee*</p>
+      <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
     </div>
     <HeroCard title={`Find your ${l.name} agreements`} />
   </div>
 
-  <div class="wrap section lp-grid">
+  <section class="wrap section two-col">
+    <div class="stack">
+      <h2 class="d h2">Why people are filing {l.name} car finance claims</h2>
+    </div>
+    <div class="stack" style="gap:20px">
+      <div class="prose" style="gap:14px">
+        <p>Concerns over mis-sold car finance agreements have led to FCA investigations into hidden fees, inflated interest rates, and undisclosed commissions. As a result, more customers are filing {l.name} car finance complaints to challenge these unfair practices.</p>
+        <p>If your {fin} agreement was affected, you could be eligible for a refund. Check today to see if you qualify and reclaim the compensation you deserve.</p>
+      </div>
+      <ol class="steps">
+        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We find your agreements</h3><p>Our partners’ system connects with major credit reference agencies, allowing us to identify all car finance agreements linked to you, even if you have changed your name or moved to a different address.</p></div></li>
+        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We take the wheel</h3><p>Once you provide your basic details, our system gets to work. Within seconds we’ll pull together your car finance agreements from between 2007 and 2024, which are often difficult for individuals to locate.</p></div></li>
+        <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">The real work begins</h3><p>Your claim is passed to our claims handling partner, who review all your agreements individually. They gather evidence, negotiate directly with lenders and work to maximise your compensation, all on a no win, no fee* basis. Meanwhile, you don’t have to lift a finger.</p></div></li>
+      </ol>
+      <div><a class="btn" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a></div>
+      <p class="small muted">*Where a “No Win, No Fee” service is offered, customers typically pay 30% + VAT (36% including VAT). No Win, No Fee removes the financial risk of making a claim—you pay nothing if your case is unsuccessful. You’ll never pay upfront or encounter hidden charges, ensuring you are never out of pocket. A cancellation fee may apply if you cancel outside the cooling-off period.</p>
+    </div>
+  </section>
+
+  <div class="wrap section lp-grid" style="padding-top:0">
     <section class="stack">
       <h2 class="d h2">{l.name} at a glance</h2>
       <dl class="facts">

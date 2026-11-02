@@ -6,7 +6,7 @@ import { SITE } from '../data/site';
 import { ALL_FAQS } from '../data/faqs';
 const faqSchema = { '@type': 'FAQPage', mainEntity: ALL_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
 ---
-<Base path="/faqs/" title={`Car finance claims: questions and answers | ${SITE.name}`} description="Car finance commission claims explained: which agreements count, paid-off finance, how much you could get, when you'll be paid and what lender letters mean." active="faqs" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} schema={[faqSchema]}>
-  <PageHero slot="hero" h1="Questions and answers" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} />
+<Base path="/faqs/" title={`FAQs | ${SITE.name} | Car Finance Claims`} description="Answers to the most-asked questions about mis-sold car finance claims: who is eligible, discretionary commission, paid-off agreements and what happens next." active="faqs" crumbs={[{ name: 'FAQs', href: '/faqs/' }]} schema={[faqSchema]} closingText={`Get what you deserve. Claim with ${SITE.name}.`}>
+  <PageHero slot="hero" h1="Answering any questions you have." lede="Thousands have been mis-led on car deals. We’re determined to make things clearer. Below are a number of answers to our most-asked questions. If you want to know anything else, feel free to get in touch." crumbs={[{ name: 'FAQs', href: '/faqs/' }]} />
   <section class="wrap section"><div style="max-width:820px"><Faqs items={ALL_FAQS} /></div></section>
 </Base>

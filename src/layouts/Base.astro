@@ -25,10 +25,11 @@ interface Props {
   /** Green band behind the header (pages put their hero in the "hero" slot). Otherwise a plain white header. */
   green?: boolean;
   closing?: boolean;
+  closingText?: string;
   mbar?: boolean;
   pageType?: string;
 }
-const { path, title, description, active = 'none', crumbs = [], schema = [], green = true, closing = true, mbar = true, pageType = 'WebPage' } = Astro.props;
+const { path, title, description, active = 'none', crumbs = [], schema = [], green = true, closing = true, closingText, mbar = true, pageType = 'WebPage' } = Astro.props;
 const noindex = Astro.props.noindex ?? false;
 const canonical = new URL(path, SITE.url).href;
 const c = SITE.company;
@@ -113,7 +114,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   )}
   <main id="main">
     <slot />
-    {closing && <Closing />}
+    {closing && <Closing text={closingText} />}
   </main>
   <Footer />
   {mbar && <MobileBar />}
