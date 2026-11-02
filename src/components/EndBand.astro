@@ -1,0 +1,12 @@
+---
+import { CLAIM_URL } from '../data/site';
+interface Props { heading?: string; text?: string }
+const { heading = 'Ready. Set. Check.', text = 'Car finance agreements found in seconds.' } = Astro.props;
+---
+<section class="endband">
+  <div class="wrap endband-in">
+    <h2 class="d h2">{heading}</h2>
+    <p>{text}</p>
+    <a class="btn btn-xl btn-inv" href={CLAIM_URL} rel="sponsored noopener">Check my agreements <span aria-hidden="true">→</span></a>
+  </div>
+</section>

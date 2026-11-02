@@ -1,0 +1,22 @@
+---
+// Centred hero: big heading, one line, one button, then the brand's car on the arch.
+import { CLAIM_URL } from '../data/site';
+import { BRAND } from '../brands';
+interface Props { h1: string; sub: string; cta?: string; meta?: string; crumbs?: { name: string; href: string }[] }
+const { h1, sub, cta = 'Check my agreements', meta = 'No win, no fee* · Agreements from 2007 to 2024', crumbs = [] } = Astro.props;
+const img = BRAND.heroImage;
+---
+<section class="hx">
+  <div class="wrap hx-in">
+    {crumbs.length > 0 && <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a>{crumbs.map((c, i) => <> / {i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</>)}</nav>}
+    <h1 class="d hx-h">{h1}</h1>
+    <p class="hx-sub">{sub}</p>
+    <a class="btn btn-xl" href={CLAIM_URL} rel="sponsored noopener" data-mbar-anchor>{cta} <span aria-hidden="true">→</span></a>
+    <p class="hx-meta">{meta}</p>
+  </div>
+  {img && (
+    <div class="hx-stage">
+      <img class="hx-car" src={`/brand/${img.file}-${img.widths.at(-1)}.webp`} srcset={img.widths.map((w) => `/brand/${img.file}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 1024px) 620px, 88vw" width={img.width} height={img.height} alt={img.alt} fetchpriority="high" decoding="async" />
+    </div>
+  )}
+</section>

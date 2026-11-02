@@ -1,126 +1,71 @@
 ---
-// Home. Copy follows the old checkfinance.co.uk word for word (Jack, 2 Nov 2026),
-// with the FCA dates brought up to date and the new tools (make finder, scheme
-// road, fee calculator) kept.
+// Home, styled on reclaim247 (Jack, 2 Nov 2026): punchy headings, short copy,
+// the car as the hero picture. Wording from the old checkfinance.co.uk, shortened.
 import Base from '../layouts/Base.astro';
-import HeroCard from '../components/HeroCard.astro';
 import SchemeRoad from '../components/SchemeRoad.astro';
-import MakeFinder from '../components/MakeFinder.astro';
-import FeeCalc from '../components/FeeCalc.astro';
 import Faqs from '../components/Faqs.astro';
-import { SITE, FIGURES, FREE_ROUTE, PAYMENT_LINE, NO_WIN_LINE, CHOICES_LINE, SWITCH_LINE, PROOF, LETTER, CLAIM_URL } from '../data/site';
+import CarHero from '../components/CarHero.astro';
+import StatBand from '../components/StatBand.astro';
+import OwedCards from '../components/OwedCards.astro';
+import HowCards from '../components/HowCards.astro';
+import EndBand from '../components/EndBand.astro';
+import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
-import { BRAND } from '../brands';
-const img = BRAND.heroImage;
+import { LENDERS, lenderHref } from '../data/lenders';
+const c = SITE.company;
 
 const title = `${SITE.name} Claims | Car Finance Compensation`;
 const description = `Received a letter from ${SITE.name}? You may be eligible for compensation for mis-sold car finance. Find your agreements from 2007 to 2024. No win, no fee.`;
 const faqSchema = { '@type': 'FAQPage', mainEntity: HOME_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
-const tick = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 
-const REASONS = [
-  { t: 'Commissions', p: 'You didn’t know the broker or dealer would get a commission for your deal.', i: '<circle cx="12" cy="12" r="9"/><path d="M14.5 8.5a2.6 2.6 0 0 0-4.6 1.7c0 2.1-.6 3.6-1.9 4.8h7"/><path d="M8.5 12.5h5"/>' },
-  { t: 'Interest rate', p: 'You didn’t know they could set or adjust the interest rate on your deal.', i: '<path d="M6 18L18 6"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/>' },
-  { t: 'Finance terms', p: 'The terms of your agreement weren’t clearly explained to you.', i: '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/>' },
-  { t: 'Duress', p: 'You felt pressurised to agree to the deal shown to you.', i: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/>' },
-  { t: 'Fees & charges', p: 'All the fees and charges weren’t explained to you upfront.', i: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>' },
-];
+const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 ---
-<Base path="/" title={title} description={description} schema={[faqSchema]}>
-  <section slot="hero" class="wrap hero">
-    <a class="hero-letter" href={LETTER.href}>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-      What your letter means
-    </a>
-    <div class="hero-copy">
-      <h1 class="d h1">Received a letter from {SITE.name}?</h1>
-      <p class="lede" style="max-width:36ch">You may be eligible for compensation for mis-sold car finance!</p>
-      <ul class="hero-ticks">
-        <li set:html={tick + PROOF.speed} />
-        <li set:html={tick + PROOF.helped} />
-        <li set:html={tick + 'No win, no fee*'} />
-      </ul>
-      <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
-    </div>
-    <div class:list={['hero-side', img && 'has-pic']}>
-      {img && <img class="hero-pic" src={`/brand/${img.file}-${img.widths.at(-1)}.webp`} srcset={img.widths.map((w) => `/brand/${img.file}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 1024px) 520px, 82vw" width={img.width} height={img.height} alt={img.alt} fetchpriority="high" decoding="async" />}
-      <HeroCard />
-    </div>
-  </section>
+<Base path="/" title={title} description={description} schema={[faqSchema]} closing={false}>
+  <CarHero slot="hero" h1={`Received a letter from ${SITE.name}?`} sub="You may be eligible for compensation for mis-sold car finance." />
 
-  <div class="wrap">
-    <section class="figs" aria-label="Key figures">
-      <div><span class="d num">{FIGURES.average}</span><span class="small muted">FCA average per agreement, where claims are upheld</span></div>
-      <div><span class="d num">{FIGURES.agreements}</span><span class="small muted">agreements eligible</span></div>
-      <div class="third"><span class="d num">{FIGURES.deadlineShort}</span><span class="small muted">last day to complain if your lender hasn’t been in touch</span></div>
-      <span class="src">Figures from the FCA, March 2026</span>
-    </section>
-  </div>
+  <StatBand />
 
-  <section class="wrap section">
-    <div class="sec-head">
-      <h2 class="d h2">Could you be owed money?</h2>
-      <p>We can help you claim back your money. Join thousands of drivers who have already used {SITE.name}.</p>
-    </div>
-    <ul class="reasons">
-      {REASONS.map((r) => (
-        <li>
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={r.i} />
-          <div><h3 class="h3">{r.t}</h3><p>{r.p}</p></div>
-        </li>
-      ))}
-    </ul>
-    <a class="btn reasons-cta" href={CLAIM_URL} rel="sponsored noopener">Get started <span aria-hidden="true">→</span></a>
-  </section>
-
-  <section class="band-mint">
-    <div class="wrap section"><MakeFinder /></div>
-  </section>
-
-  <section class="wrap section">
-    <div class="sec-head">
-      <h2 class="d h2">How it works</h2>
-      <p>Sign up to check your eligibility, see <a href="/faqs/">FAQ</a> and <a href="/fees/">Fees</a> for more information!</p>
-    </div>
-    <div class="stack" style="gap:24px">
-      <ol class="steps">
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We find your agreements</h3><p>Our partners’ system connects with major credit reference agencies, allowing us to identify all car finance agreements linked to you, even if you have changed your name or moved address.</p></div></li>
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We take the wheel</h3><p>Once you provide your basic details, our system gets to work. Within seconds they will pull together your historic car finance agreements, even those dating back to 2007, which may be difficult for individuals to locate through traditional methods.</p>
-          <div class="found" aria-hidden="true"><div><span>2016 Ford Fiesta · PCP</span><span>Example</span></div><div><span>2012 Vauxhall Astra · HP</span><span>Example</span></div></div></div></li>
-        <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">The real work begins</h3><p>Your claim is passed to our claims handling partner, who review all your agreements individually. They gather evidence, negotiate directly with lenders and work to maximise your compensation all on a no-win, no-fee* basis. Meanwhile, you don’t have to lift a finger.</p></div></li>
-      </ol>
-      <div><a class="btn" href={CLAIM_URL} rel="sponsored noopener">Get started <span aria-hidden="true">→</span></a></div>
-      <p class="small muted" style="max-width:820px">{FREE_ROUTE} {SWITCH_LINE}</p>
-    </div>
-  </section>
-
-  <section class="band-mint">
+  <section class="tint">
     <div class="wrap section">
-      <div class="sec-head"><h2 class="d h2">Good to know</h2></div>
-      <div class="know">
-        <div><h3 class="h3">No Win No Fee* Promise</h3><p>{NO_WIN_LINE} {PAYMENT_LINE}</p></div>
-        <div><h3 class="h3">About your choices</h3><p>{CHOICES_LINE}</p></div>
-        <div><h3 class="h3">FCA updates</h3><p>The FCA has introduced a Motor Finance Redress Scheme, meaning millions of drivers could be owed compensation. Average payouts are around {FIGURES.average} per agreement (where claims are upheld), and many consumers may have had multiple agreements since 2007. Payouts are on hold until a legal challenge is heard from 16 February to 3 March 2027, and the last day to complain is {FIGURES.deadline}. <a href="/fca-redress-scheme/">More on the scheme</a>.</p></div>
+      <div class="who">
+        <h2 class="d h2">Who is {SITE.name}?</h2>
+        <p>{SITE.name} is a trading style of {c.legalName}, a claims management company authorised and regulated by the FCA ({c.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), who handle your claim. {PAYMENT_LINE}</p>
+        <p>{FREE_ROUTE}</p>
       </div>
     </div>
   </section>
 
-  <SchemeRoad heading="FCA Motor Finance Redress Scheme" />
+  <OwedCards />
+
+  <HowCards />
+
+  <section class="wrap section center">
+    <h2 class="d h2">Every major lender</h2>
+    <p class="lead-c">Black Horse, Santander, MotoNovo, Close Brothers and more. Pick yours to see where it stands.</p>
+    <ul class="lchips">
+      {lenders.map((l) => <li><a href={lenderHref(l.slug)}>{l.name}</a></li>)}
+    </ul>
+    <a class="more" href="/lenders/">All {LENDERS.length} lenders</a>
+  </section>
+
+  <SchemeRoad heading="Where the FCA scheme is now" />
 
   <section class="wrap section">
-    <div class="fees">
-      <div class="stack">
-        <h2 class="d h2">No win, no fee. See what you’d pay.</h2>
-        <p class="muted">You pay nothing unless your claim is successful. A fee between 18 and 36% including VAT applies on successful claims, depending on the level of redress secured, capped in pounds for each band. A cancellation fee may apply outside the 14 day cooling-off period.</p>
-      </div>
-      <div class="stack"><FeeCalc /></div>
+    <h2 class="d h2">Good to know</h2>
+    <div class="gtk">
+      <div><span class="pill">No win, no fee</span><p>You pay nothing unless your claim is successful. A fee between 18 and 36% including VAT applies on successful claims, depending on the redress secured. A cancellation fee may apply after the 14-day cooling-off period. <a href="/fees/">See fees</a>.</p></div>
+      <div><span class="pill">Your choices</span><p>{CHOICES_LINE}</p></div>
+      <div><span class="pill pill-y">FCA update</span><p>The FCA has confirmed a redress scheme for car finance, but payouts are on hold until a legal challenge is heard from 16 February to 3 March 2027. The last day to complain is {FIGURES.deadline}. <a href="/fca-redress-scheme/">Latest update</a>.</p></div>
     </div>
   </section>
 
-  <section class="band-mint">
-    <div class="wrap section two-col">
-      <div class="stack"><h2 class="d h2">Got questions?</h2><a href="/faqs/" style="font-weight:500">All questions</a></div>
-      <Faqs items={HOME_FAQS} openFirst />
+  <section class="tint">
+    <div class="wrap section center">
+      <h2 class="d h2">Got questions?</h2>
+      <div class="faq-pills"><Faqs items={HOME_FAQS} /></div>
+      <a class="more" href="/faqs/">All questions</a>
     </div>
   </section>
+
+  <EndBand />
 </Base>

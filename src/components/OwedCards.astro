@@ -1,0 +1,22 @@
+---
+import { CLAIM_URL } from '../data/site';
+interface Props { heading?: string; text?: string }
+const { heading = 'Could you be owed money?', text = 'If you took out PCP or HP finance between April 2007 and November 2024, you could be owed compensation if any of these happened.' } = Astro.props;
+const OWED = [
+  { t: 'Hidden commission', p: 'You didn’t know the dealer would get a commission for your deal.' },
+  { t: 'Interest rate set by the dealer', p: 'They could set or adjust the interest rate on your deal.' },
+  { t: 'Terms not explained', p: 'The terms, fees and charges weren’t made clear to you.' },
+  { t: 'Pressure to sign', p: 'You felt pressurised to agree to the deal shown to you.' },
+];
+const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+<section class="wrap section owed">
+  <div class="owed-l">
+    <h2 class="d h2">{heading}</h2>
+    <p>{text}</p>
+    <a class="btn" href={CLAIM_URL} rel="sponsored noopener">Check my agreements <span aria-hidden="true">→</span></a>
+  </div>
+  <ul class="tcards">
+    {OWED.map((o) => <li><Fragment set:html={tick} /><div><h3>{o.t}</h3><p>{o.p}</p></div></li>)}
+  </ul>
+</section>

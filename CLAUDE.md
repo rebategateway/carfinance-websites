@@ -15,7 +15,7 @@ Copy follows the old checkfinance.co.uk word for word ("replicate the content - 
 Never add lender phone numbers, opening hours, login links or complaints addresses; never question a lender's standing; no "Independent / not part of [lender]" labels; no pages for closed lenders (administration, scheme of arrangement, stopped lending). Facts in `src/data/lenders.ts` with sources; bump `checked` when re-verified.
 
 ## Design
-Brand colours from the original site (green #04C78D, ink #07131E, mint #C1F7E7). Mobile first; most visitors arrive on phones from letters. Tight spacing, like CreditRights and Report Repair (Jack, 2 Nov 2026: "massively tightened up"). One typeface, Plus Jakarta Sans. Header copies CreditRights: drop-down menus on desktop, grouped full-screen menu on phones. Avoid AI-looking patterns (credentials strips above the header, eyebrow labels, offset-shadow buttons).
+Brand colours from the original site (green #04C78D, ink #07131E, mint #C1F7E7). Mobile first; most visitors arrive on phones from letters. Styled on reclaim247 (Jack, 2 Nov 2026): little copy, lots of punch. Chunky uppercase headings (Archivo expanded black), Plus Jakarta Sans body, bordered cards, dark bands, the car on an arch in a centred hero. Shared blocks: CarHero, StatBand, OwedCards, HowCards, EndBand. Header copies CreditRights: drop-down menus on desktop, grouped full-screen menu on phones. Avoid AI-looking patterns (credentials strips above the header, eyebrow labels, offset-shadow buttons).
 
 ## FCA scheme facts
 `SCHEME_STEPS`, `SCHEME_UPDATED` and `FIGURES` in `src/data/site.ts`; the scheme page is `src/pages/fca-redress-scheme.astro`. Update them when the case moves.

@@ -1,5 +1,7 @@
 ---
 import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource-variable/archivo/standard.css';
+import fontDisplay from '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2?url';
 import fontBody from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
@@ -81,6 +83,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
   <meta name="description" content={description} />
   {!path.startsWith('/404') && <link rel="canonical" href={canonical} />}
   <link rel="preload" href={fontBody} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={fontDisplay} as="font" type="font/woff2" crossorigin />
   <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
   <meta name="theme-color" content="#04C78D" />
   <meta name="format-detection" content="telephone=no" />

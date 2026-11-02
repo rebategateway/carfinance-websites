@@ -1,0 +1,24 @@
+---
+import { CLAIM_URL, PARTNER } from '../data/site';
+const STEPS = [
+  { t: 'We find your agreements', p: 'A soft search of your credit file finds every car finance agreement since 2007, even if you’ve moved.', i: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>' },
+  { t: 'We take the wheel', p: 'Give us a few basic details. Within seconds your historic agreements are pulled together.', i: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3v6.5M3.5 14.5l6.2-1.6M20.5 14.5l-6.2-1.6"/>' },
+  { t: 'The real work begins', p: `${PARTNER.name} complains to each lender for you, no win, no fee*. You don’t lift a finger.`, i: '<path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>' },
+];
+---
+<section class="tint">
+  <div class="wrap section center">
+    <h2 class="d h2">How it works</h2>
+    <ol class="hcards">
+      {STEPS.map((s, i) => (
+        <li>
+          <span class="hc-n">{i + 1}</span>
+          <svg class="hc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.i} />
+          <h3>{s.t}</h3>
+          <p>{s.p}</p>
+        </li>
+      ))}
+    </ol>
+    <a class="btn btn-xl" href={CLAIM_URL} rel="sponsored noopener">Check my agreements <span aria-hidden="true">→</span></a>
+  </div>
+</section>

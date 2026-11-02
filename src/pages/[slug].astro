@@ -1,12 +1,15 @@
 ---
 // Lender pages at the same addresses as the old site, e.g. /blackhorse-finance/.
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import HeroCard from '../components/HeroCard.astro';
+import CarHero from '../components/CarHero.astro';
+import StatBand from '../components/StatBand.astro';
+import OwedCards from '../components/OwedCards.astro';
+import HowCards from '../components/HowCards.astro';
+import EndBand from '../components/EndBand.astro';
 import Faqs from '../components/Faqs.astro';
 import { LENDERS, CHALLENGERS, lenderHref } from '../data/lenders';
 import type { LenderInfo } from '../data/lenders';
-import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES, PROOF, CLAIM_URL } from '../data/site';
+import { SITE, FREE_ROUTE, PAYMENT_LINE, FIGURES } from '../data/site';
 import type { Faq } from '../data/faqs';
 
 export function getStaticPaths() {
@@ -33,56 +36,33 @@ if (l.brands?.length) faqs.splice(1, 0, { q: `Which cars did ${l.name} finance?`
 // The next three lenders alphabetically, wrapping round, so every page links to different neighbours.
 const sorted = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 const at = sorted.findIndex((o) => o.slug === l.slug);
-const others = [1, 2, 3].map((n) => sorted[(at + n) % sorted.length]);
+const others = [1, 2, 3, 4, 5, 6].map((n) => sorted[(at + n) % sorted.length]);
 const faqSchema = { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
 const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).href}#lender`, name: l.name, legalName: l.legalName, ...(l.frn ? { identifier: { '@type': 'PropertyValue', propertyID: 'FCA Firm Reference Number', value: l.frn }, sameAs: [`https://register.fca.org.uk/s/firm?id=${l.frn}`] } : {}) };
 ---
-<Base path={path} title={title} description={description} active="lenders" crumbs={[{ name: 'Lenders', href: '/lenders/' }, { name: l.name, href: path }]} schema={[faqSchema, lenderOrg]}>
-  <div slot="hero" class="wrap hero" style="padding-top:0">
-    <div class="hero-copy">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lenders/">Lenders</a> / <span aria-current="page">{l.name}</span></nav>
-      <h1 class="d h1 sm">{fin} claim</h1>
-      <p class="lede" style="max-width:40ch">Mis-sold {l.name} car finance? You could be one of the millions of drivers owed compensation. Sign up below to check whether your car finance agreement may be affected.</p>
-      <p class="small" style="font-weight:500">Car finance agreements found in seconds · {PROOF.helpedCount} · No win, no fee*</p>
-      <p class="hero-free">{FREE_ROUTE} {PAYMENT_LINE}</p>
-    </div>
-    <HeroCard title={`Find your ${l.name} agreements`} />
-  </div>
+<Base path={path} title={title} description={description} active="lenders" crumbs={[{ name: 'Lenders', href: '/lenders/' }, { name: l.name, href: path }]} schema={[faqSchema, lenderOrg]} closing={false}>
+  <CarHero slot="hero" h1={`${fin} claim`} sub={`Mis-sold ${l.name} car finance? Check whether your agreement may be affected.`} crumbs={[{ name: 'Lenders', href: '/lenders/' }, { name: l.name, href: path }]} />
 
-  <section class="wrap section two-col">
-    <div class="stack">
-      <h2 class="d h2">Why people are filing {l.name} car finance claims</h2>
-    </div>
-    <div class="stack" style="gap:20px">
-      <div class="prose" style="gap:14px">
-        <p>Concerns over mis-sold car finance agreements have led to FCA investigations into hidden fees, inflated interest rates, and undisclosed commissions. As a result, more customers are filing {l.name} car finance complaints to challenge these unfair practices.</p>
-        <p>If your {fin} agreement was affected, you could be eligible for a refund. Check today to see if you qualify and reclaim the compensation you deserve.</p>
-      </div>
-      <ol class="steps">
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We find your agreements</h3><p>Our partners’ system connects with major credit reference agencies, allowing us to identify all car finance agreements linked to you, even if you have changed your name or moved to a different address.</p></div></li>
-        <li><div class="rail"><i></i><u></u></div><div class="body"><h3 class="h3">We take the wheel</h3><p>Once you provide your basic details, our system gets to work. Within seconds we’ll pull together your car finance agreements from between 2007 and 2024, which are often difficult for individuals to locate.</p></div></li>
-        <li><div class="rail"><i></i></div><div class="body"><h3 class="h3">The real work begins</h3><p>Your claim is passed to our claims handling partner, who review all your agreements individually. They gather evidence, negotiate directly with lenders and work to maximise your compensation, all on a no win, no fee* basis. Meanwhile, you don’t have to lift a finger.</p></div></li>
-      </ol>
-      <div><a class="btn" href={CLAIM_URL} rel="sponsored noopener">Find my agreements <span aria-hidden="true">→</span></a></div>
-      <p class="small muted">*Where a “No Win, No Fee” service is offered, customers typically pay 30% + VAT (36% including VAT). No Win, No Fee removes the financial risk of making a claim—you pay nothing if your case is unsuccessful. You’ll never pay upfront or encounter hidden charges, ensuring you are never out of pocket. A cancellation fee may apply if you cancel outside the cooling-off period.</p>
-    </div>
-  </section>
+  <StatBand />
 
-  <div class="wrap section lp-grid" style="padding-top:0">
+  <OwedCards heading={`Why people are claiming against ${l.name}`} text={`If your ${fin} agreement from 2007 to 2024 was affected by any of these, you could be eligible for a refund.`} />
+
+  <HowCards />
+
+  <section class="wrap section lp-grid">
     <section class="stack">
       <h2 class="d h2">{l.name} at a glance</h2>
       <dl class="facts">
         <div><dt>Legal name</dt><dd>{l.legalName}</dd></div>
         {l.formerName && <div><dt>Formerly</dt><dd>{l.formerName}</dd></div>}
         {l.frn && <div><dt>FCA number</dt><dd><a href={`https://register.fca.org.uk/s/firm?id=${l.frn}`} rel="noopener">{l.frn}</a></dd></div>}
-        {l.companyNumber && <div><dt>Company number</dt><dd>{l.companyNumber}</dd></div>}
         <div><dt>Part of</dt><dd>{l.group}</dd></div>
         {l.brands?.length && <div><dt>Finances</dt><dd>{l.brands.join(', ')}</dd></div>}
         <div><dt>FCA scheme</dt><dd><span class:list={['chip', l.challenging ? 'chip-warn' : 'chip-ok']}>{l.challenging ? 'Challenging it' : 'Not challenging it'}</span></dd></div>
       </dl>
-      <p class="small muted">Checked {checked} against the FCA register, Companies House and the lender’s own website.</p>
+      <p class="fine muted">Checked {checked} against the FCA register, Companies House and the lender’s own website.</p>
     </section>
-    <aside class="band-dark aside-card" style="background:var(--ink);color:#fff">
+    <aside class="who" style="text-align:left">
       <h2 class="d" style="font-size:24px">What {l.name} has to do next</h2>
       <ul class="timeline">
         <li class="next"><div><b>By 18 November 2026</b><span>Tell you if you’re not owed, for agreements from April 2014 complained about by 30 June 2026</span></div></li>
@@ -90,19 +70,21 @@ const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).h
         <li><div><b>After the hearing in early 2027</b><span>Pay compensation, if the scheme is upheld</span></div></li>
       </ul>
     </aside>
-  </div>
+  </section>
 
-  <section class="band-mint">
-    <div class="wrap section two-col">
+  <section class="tint">
+    <div class="wrap section center">
       <h2 class="d h2">{l.name} questions</h2>
-      <Faqs items={faqs} openFirst />
+      <div class="faq-pills"><Faqs items={faqs} /></div>
+      <p class="fine muted" style="max-width:720px">{FREE_ROUTE} {PAYMENT_LINE}</p>
     </div>
   </section>
 
-  <section class="wrap section">
-    <div class="sec-head row"><h2 class="d h2">Other lenders</h2><a href="/lenders/" style="font-weight:500">All lenders</a></div>
-    <div class="lender-grid">
-      {others.map((o) => <a href={lenderHref(o.slug)}><span><b style="font-weight:500">{o.name}</b><small>{o.group}</small></span><span class:list={['chip', o.challenging ? 'chip-warn' : 'chip-ok']}>{o.challenging ? 'Challenging' : 'Not challenging'}</span></a>)}
-    </div>
+  <section class="wrap section center">
+    <h2 class="d h2">Other lenders</h2>
+    <ul class="lchips">{others.map((o) => <li><a href={lenderHref(o.slug)}>{o.name}</a></li>)}</ul>
+    <a class="more" href="/lenders/">All {LENDERS.length} lenders</a>
   </section>
+
+  <EndBand />
 </Base>
