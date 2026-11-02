@@ -24,7 +24,7 @@ No duplicate titles, one H1 per page, every indexable page in the sitemap, no or
 
 ## Changes made
 **Crawling and URLs**
-- Upper-case page URLs now 301 to lower case (`/Black-Horse-Finance/` → `/blackhorse-finance/`); assets are excluded.
+- Upper-case page URLs now 301 to lower case (`/BlackHorse-Finance/` → `/blackhorse-finance/`); assets are excluded.
 - Old WordPress/Yoast sitemap names (`/sitemap_index.xml`, `/page-sitemap.xml`, `/post-sitemap.xml`, `/sitemap.xml`) 301 to `/sitemap-index.xml`. The old Case Matters sitemap in Search Console pointed at `page-sitemap.xml`.
 - Unchanged and verified: www → bare domain (301); missing trailing slash → slash (Cloudflare assets); old moved pages 301; `wp-*`, feeds and xmlrpc return 410; real 404 status for unknown URLs; preview hosts (`*.workers.dev`) send `X-Robots-Tag: noindex` and a blocking robots.txt.
 - robots.txt allows all crawlers and records the AI-crawler policy (below).

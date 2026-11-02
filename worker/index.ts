@@ -43,7 +43,7 @@ export default {
       return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
     }
 
-    // One case: /Black-Horse-Finance/ → /black-horse-finance/ (all our URLs are lower case).
+    // One case: /BlackHorse-Finance/ → /blackhorse-finance/ (all our URLs are lower case).
     if (/[A-Z]/.test(url.pathname) && !url.pathname.includes(".") && !url.pathname.startsWith("/_astro/")) {
       url.pathname = url.pathname.toLowerCase();
       return Response.redirect(url.toString(), 301);
