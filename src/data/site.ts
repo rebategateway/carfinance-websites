@@ -50,7 +50,8 @@ export const SWITCH_LINE =
 export const PROOF = {
   speed: 'All of your historic agreements found in under 2 minutes',
   helped: `${BRAND.name} have helped thousands of customers`,
-  helpedCount: '75,000+ customers helped',
+  // Jack, 2 Nov 2026: "We have helped over 75,000 people via our partners."
+  helpedCount: '75,000+ people helped through our partners',
 };
 
 // FCA figures (PS26/3 and the FCA statement of 30 March 2026).
