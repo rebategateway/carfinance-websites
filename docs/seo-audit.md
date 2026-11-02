@@ -5,7 +5,7 @@
 ## Architecture (baseline)
 - Astro 7, fully static (SSG): every page's title, description, canonical, H1, body copy, links and JSON-LD are in the HTML the server sends. The only client JavaScript is the menu, FAQ toggles, fee calculator, make finder, sticky phone bar and cookie bar. Nothing a crawler needs depends on it.
 - Served by Cloudflare Workers (`worker/index.ts`) from `dist/`. One codebase, two brands (`BRAND`).
-- 37 indexable pages per brand, plus the 404 (noindex). All 37 are in `/sitemap-index.xml` → `/sitemap-0.xml` with `lastmod`; lender pages use their own `checked` date.
+- 36 indexable pages per brand, plus the 404 (noindex). All 36 are in `/sitemap-index.xml` → `/sitemap-0.xml` with `lastmod`; lender pages use their own `checked` date.
 
 ## Route inventory (Check Finance; Case Matters identical apart from the brand)
 | Route | Purpose / intent | Schema | Inbound links |
