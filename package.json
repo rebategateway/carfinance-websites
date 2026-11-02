@@ -9,7 +9,7 @@
     "build:checkfinance": "BRAND=checkfinance astro build",
     "build:casematters": "BRAND=casematters astro build",
     "check:site": "node scripts/check-site.mjs",
-    "verify": "BRAND=checkfinance astro build && node scripts/check-site.mjs && BRAND=casematters astro build && node scripts/check-site.mjs"
+    "verify": "BRAND=checkfinance astro build && BRAND=checkfinance node scripts/check-site.mjs && BRAND=casematters astro build && BRAND=casematters node scripts/check-site.mjs"
   },
   "dependencies": {
     "astro": "^7.3.5",
