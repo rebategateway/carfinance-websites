@@ -30,7 +30,8 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     host: 'checkfinance.co.uk',
     // The mailbox already published on the old checkfinance.co.uk complaints page.
     email: 'compliance@checkfinance.co.uk',
-    trackingId: 'organic|check_finance',
+    // Both brands use case_matters for now (Jack, 2 Nov 2026).
+    trackingId: 'organic|case_matters',
     letterPrefix: 'CF',
     alternateNames: ['CheckFinance', 'checkfinance.co.uk'],
   },
