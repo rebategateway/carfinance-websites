@@ -152,14 +152,14 @@ ul, ol { margin: 0; }
 @keyframes m-open { from { clip-path: inset(0 0 100% 0 round 0 0 28px 28px); } to { clip-path: inset(0 0 0 0 round 0); } }
 @keyframes m-close { to { opacity: 0; transform: translateY(-12px); } }
 .m-bar { position: relative; z-index: 2; background: var(--green); display: flex; align-items: center; min-height: 64px; padding: env(safe-area-inset-top, 0px) var(--gutter) 0; flex: none; }
-.menu-body { position: relative; z-index: 1; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 10px 52px 24px var(--gutter); }
+.menu-body { position: relative; z-index: 1; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 10px 56px 24px var(--gutter); }
 .menu :focus-visible { outline-color: var(--green); }
 /* the road and the car */
 .m-road { position: absolute; z-index: 0; right: 22px; top: 64px; bottom: 0; width: 2px; background: repeating-linear-gradient(to top, rgba(255,255,255,.16) 0 14px, transparent 14px 26px); pointer-events: none; }
 .m-road::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--green), rgba(4,199,141,.0)); transform-origin: bottom; transform: scaleY(0); opacity: 0; }
-.m-car { position: absolute; z-index: 3; right: 9px; bottom: 0; width: 28px; height: 54px; transform: translateY(120%); pointer-events: none; filter: drop-shadow(0 6px 10px rgba(4,199,141,.45)); }
-.menu[open] .m-car { animation: m-drive .95s cubic-bezier(.55,0,.25,1) .08s both; }
-.menu[open] .m-road::before { animation: m-trail .95s cubic-bezier(.55,0,.25,1) .08s both; }
+.m-car { position: absolute; z-index: 3; right: 6px; bottom: 0; width: 34px; height: 66px; transform: translateY(120%); pointer-events: none; filter: drop-shadow(0 6px 10px rgba(4,199,141,.45)); }
+.menu[open] .m-car { animation: m-drive 1.9s cubic-bezier(.45,.05,.35,1) .3s both; }
+.menu[open] .m-road::before { animation: m-trail 1.9s cubic-bezier(.45,.05,.35,1) .3s both; }
 @keyframes m-drive { 0% { transform: translateY(120%); } 100% { transform: translateY(calc(-100dvh - 60px)); } }
 @keyframes m-trail { 0% { transform: scaleY(0); opacity: 1; } 70% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 /* links */
@@ -191,11 +191,7 @@ ul, ol { margin: 0; }
 .menu .menu-close { color: var(--ink); }
 .menu-foot .btn { background: var(--green); color: var(--ink); }
 .menu-foot .btn:hover { background: #fff; color: var(--ink); }
-.m-stat { margin-top: 28px; display: flex; flex-direction: column; gap: 4px; }
-.m-stat b { font-family: var(--heavy); font-weight: 900; font-size: 44px; line-height: 1; color: var(--green); }
-.m-stat span { font-size: 15px; color: rgba(255,255,255,.7); }
-.menu[open] .m-stat { animation: m-up .5s cubic-bezier(.2,.8,.2,1) .5s both; }
-
+.menu[open] 
 /* Hero */
 .hero { position: relative; z-index: 1; padding-block: 8px 28px; display: grid; gap: 16px; }
 .hero-letter { justify-self: start; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.35); border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 500; text-decoration: none; }
