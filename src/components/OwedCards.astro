@@ -1,5 +1,5 @@
 ---
-import { CLAIM_URL } from '../data/site';
+import { CLAIM_URL, FREE_ROUTE } from '../data/site';
 interface Props { heading?: string; text?: string }
 const { heading = 'Could you be owed money?', text = 'If you took out PCP or HP finance between April 2007 and November 2024, you could be owed compensation if any of these happened.' } = Astro.props;
 const OWED = [
@@ -15,6 +15,7 @@ const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1"
     <h2 class="d h2">{heading}</h2>
     <p>{text}</p>
     <a class="btn" href={CLAIM_URL} rel="sponsored noopener">Check my agreements <span aria-hidden="true">→</span></a>
+    <p class="fine muted">{FREE_ROUTE}</p>
   </div>
   <ul class="tcards">
     {OWED.map((o) => <li><Fragment set:html={tick} /><div><h3>{o.t}</h3><p>{o.p}</p></div></li>)}

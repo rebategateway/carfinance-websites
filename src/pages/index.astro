@@ -25,16 +25,6 @@ const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
 
   <StatBand />
 
-  <section class="tint">
-    <div class="wrap section">
-      <div class="who">
-        <h2 class="d h2">Who is {SITE.name}?</h2>
-        <p>{SITE.name} is a trading style of {c.legalName}, a claims management company authorised and regulated by the FCA ({c.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), who handle your claim. {PAYMENT_LINE}</p>
-        <p>{FREE_ROUTE}</p>
-      </div>
-    </div>
-  </section>
-
   <OwedCards />
 
   <HowCards />
@@ -55,6 +45,7 @@ const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
     <div class="gtk">
       <div><span class="pill">No win, no fee</span><p>You pay nothing unless your claim is successful. A fee between 18 and 36% including VAT applies on successful claims, depending on the redress secured. A cancellation fee may apply after the 14-day cooling-off period. <a href="/fees/">See fees</a>.</p></div>
       <div><span class="pill">Your choices</span><p>{CHOICES_LINE}</p></div>
+      <div><span class="pill">Who we are</span><p>{SITE.name} is a trading style of {c.legalName}, a claims management company authorised and regulated by the FCA ({c.frn}). We introduce you to {PARTNER.legalName} (FRN {PARTNER.frn}), who handle your claim. {PAYMENT_LINE} <a href="/about-us/">About us</a>.</p></div>
       <div><span class="pill pill-y">FCA update</span><p>The FCA has confirmed a redress scheme for car finance, but payouts are on hold until a legal challenge is heard from 16 February to 3 March 2027. The last day to complain is {FIGURES.deadline}. <a href="/fca-redress-scheme/">Latest update</a>.</p></div>
     </div>
   </section>
