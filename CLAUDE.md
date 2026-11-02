@@ -3,7 +3,7 @@
 Handover and open items: `claude/checkfinance-rebuild-research.md` in the Claim Simple / CMC project.
 
 ## Two brands, one codebase
-Brand differences live only in `src/brands/index.ts` and `brand-assets/<brand>/` (logo, favicon, social image, and the Check Finance car shown in the home hero; the car carries a Check Finance plate, so it never goes on Case Matters). Never hard-code "Check Finance" or "Case Matters" in a page: use `SITE.name` / `BRAND`. `scripts/check-site.mjs` fails the build if one brand's name appears in the other's pages.
+Brand differences live only in `src/brands/index.ts` and `brand-assets/<brand>/` (logo, favicon, social image, and the home hero car, whose number plate carries each brand's own logo). Never hard-code "Check Finance" or "Case Matters" in a page: use `SITE.name` / `BRAND`. `scripts/check-site.mjs` fails the build if one brand's name appears in the other's pages.
 
 ## Compliance rule (Jack)
 Commercial first, compliant to the letter. Exactly what the rules require (CMCOB, consumer law, PECR/UK GDPR), nothing beyond it. Hero cards stay light: heading, one line, button.

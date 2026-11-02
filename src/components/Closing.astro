@@ -1,13 +1,12 @@
 ---
-import Mark from './Mark.astro';
+import BrandMark from './BrandMark.astro';
 import { CLAIM_URL } from '../data/site';
-import { BRAND } from '../brands';
 interface Props { title?: string; text?: string }
 const { title = 'Ready to get started?', text = 'Car finance agreements found in seconds!' } = Astro.props;
 ---
 <section class="wrap" style="padding-bottom: var(--section)">
   <div class="closing">
-    {BRAND.id === 'checkfinance' && <Mark class="mk" color="#2BD4A1" weight={2.2} />}
+    <BrandMark class="mk" />
     <div class="stack" style="gap:10px">
       <h2 class="d h2">{title}</h2>
       {text && <p>{text}</p>}

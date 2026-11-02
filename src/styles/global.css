@@ -387,3 +387,7 @@ body.has-mbar .ftr-in { padding-bottom: calc(100px + env(safe-area-inset-bottom,
   .know > div { padding: 26px; }
 }
 .ftr-legal a { text-decoration: underline; font-size: inherit; }
+/* Case Matters "C" watermark: filled, so lighter than the stroked chevron */
+svg.mark-fill { color: #2BD4A1; opacity: .55; }
+.top-mark.mark-fill { right: -160px; top: 60px; }
+@media (min-width: 1024px) { .top-mark.mark-fill { width: 760px; height: 760px; right: -120px; top: -60px; } }

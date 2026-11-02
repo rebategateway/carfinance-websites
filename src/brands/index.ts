@@ -55,7 +55,8 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     alternateNames: ['CaseMatters', 'casematters.co.uk'],
     // Wordmark traced from the logo Jack sent on 2 Nov 2026.
     logo: 'svg',
-    heroImage: null,
+    // The same car with a Case Matters plate (Jack, 2 Nov 2026).
+    heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Case Matters number plate' },
   },
 };
 

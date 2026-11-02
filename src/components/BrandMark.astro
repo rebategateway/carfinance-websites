@@ -1,0 +1,11 @@
+---
+// Large faint brand mark behind the green bands: Check Finance's chevron, or the
+// "C" from the Case Matters wordmark (brand-assets/casematters/mark.svg).
+import Mark from './Mark.astro';
+import { BRAND } from '../brands';
+interface Props { class?: string }
+const { class: cls } = Astro.props;
+const marks = import.meta.glob('../../brand-assets/*/mark.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const svg = marks[`../../brand-assets/${BRAND.id}/mark.svg`]?.replace('<svg ', `<svg class="${cls ?? ''} mark-fill" aria-hidden="true" focusable="false" `);
+---
+{svg ? <Fragment set:html={svg} /> : <Mark class={cls} color="#2BD4A1" weight={2.2} />}
