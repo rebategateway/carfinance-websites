@@ -8,4 +8,4 @@ const { class: cls } = Astro.props;
 const marks = import.meta.glob('../../brand-assets/*/mark.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 const svg = marks[`../../brand-assets/${BRAND.id}/mark.svg`]?.replace('<svg ', `<svg class="${cls ?? ''} mark-fill" aria-hidden="true" focusable="false" `);
 ---
-{svg ? <Fragment set:html={svg} /> : <Mark class={cls} color="#2BD4A1" weight={2.2} />}
+{!BRAND.watermark ? null : svg ? <Fragment set:html={svg} /> : <Mark class={cls} color="#2BD4A1" weight={2.2} />}

@@ -1,7 +1,8 @@
 {
-  // Two Workers from one codebase. Each is built with its own BRAND first:
+  // Three Workers from one codebase. Each is built with its own BRAND first:
   //   Check Finance: BRAND=checkfinance npm run build && npx wrangler deploy
   //   Case Matters:  BRAND=casematters  npm run build && npx wrangler deploy --env casematters
+  //   Justera:       BRAND=justera      npm run build && npx wrangler deploy --env justera
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "checkfinance-website",
   "main": "worker/index.ts",
@@ -19,6 +20,10 @@
     "casematters": {
       "name": "casematters-website",
       "vars": { "CANONICAL_HOST": "casematters.co.uk" }
+    },
+    "justera": {
+      "name": "justera-website",
+      "vars": { "CANONICAL_HOST": "justera.co.uk" }
     }
   }
 }

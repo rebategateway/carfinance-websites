@@ -29,7 +29,8 @@ const exists = (urlPath) => {
 };
 
 const brand = process.env.BRAND ?? 'checkfinance';
-const other = brand === 'checkfinance' ? /Case Matters|casematters/i : /Check Finance|checkfinance/i;
+const NAMES = { checkfinance: 'Check Finance|checkfinance', casematters: 'Case Matters|casematters', justera: 'Justera|justera' };
+const other = new RegExp(Object.entries(NAMES).filter(([id]) => id !== brand).map(([, n]) => n).join('|'), 'i');
 // Lender pages must not carry lender contact details (Jack, 1 Nov 2026).
 const banned = /\b0(3|8)\d{2} ?\d{3} ?\d{4}\b|opening hours|login|log in to/i;
 const titles = new Map();

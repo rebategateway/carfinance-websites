@@ -8,8 +8,9 @@
     "build": "astro build",
     "build:checkfinance": "BRAND=checkfinance astro build",
     "build:casematters": "BRAND=casematters astro build",
+    "build:justera": "BRAND=justera astro build",
     "check:site": "node scripts/check-site.mjs",
-    "verify": "BRAND=checkfinance astro build && BRAND=checkfinance node scripts/check-site.mjs && BRAND=casematters astro build && BRAND=casematters node scripts/check-site.mjs"
+    "verify": "BRAND=checkfinance astro build && BRAND=checkfinance node scripts/check-site.mjs && BRAND=casematters astro build && BRAND=casematters node scripts/check-site.mjs && BRAND=justera astro build && BRAND=justera node scripts/check-site.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

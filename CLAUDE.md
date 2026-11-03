@@ -1,9 +1,9 @@
-# Check Finance / Case Matters websites
+# Check Finance / Case Matters / Justera websites
 
 Handover and open items: `claude/checkfinance-rebuild-research.md` in the Claim Simple / CMC project.
 
-## Two brands, one codebase
-Brand differences live only in `src/brands/index.ts` and `brand-assets/<brand>/` (logo, favicon, social image, and the home hero car, whose number plate carries each brand's own logo). Never hard-code "Check Finance" or "Case Matters" in a page: use `SITE.name` / `BRAND`. `scripts/check-site.mjs` fails the build if one brand's name appears in the other's pages.
+## Three brands, one codebase (Justera added 3 Nov 2026)
+Brand differences live only in `src/brands/index.ts` and `brand-assets/<brand>/` (logo, favicon, social image, and the home hero car, whose number plate carries each brand's own logo). Never hard-code "Check Finance", "Case Matters" or "Justera" in a page: use `SITE.name` / `BRAND`. `scripts/check-site.mjs` fails the build if one brand's name appears in another's pages. Brand switches (logo type, watermark, GA) are fields on the brand, not checks on its id.
 
 ## Compliance rule (Jack)
 Commercial first, compliant to the letter. Exactly what the rules require (CMCOB, consumer law, PECR/UK GDPR), nothing beyond it. Hero cards stay light: heading, one line, button.
