@@ -29,7 +29,7 @@ const faqs: Faq[] = [
   { q: `Is ${l.name} challenging the FCA scheme?`, a: l.challenging
     ? `<p>Yes. ${l.legalName} is one of three lenders challenging the FCA’s rules in the Upper Tribunal, with the consumer group Consumer Voice. The full hearing is from 16 February to 3 March 2027. Complaints can still be made while it goes ahead.</p>`
     : `<p>No. The lenders challenging the scheme are ${CHALLENGERS.join(', ').replace(/, ([^,]*)$/, ' and $1')}. Payouts under the scheme are paused for every lender until the challenges are decided, after the hearing from 16 February to 3 March 2027.</p>` },
-  { q: `I’ve had a letter from ${l.name}. What does it mean?`, a: '<p>Under the scheme, lenders have to tell people who have already complained whether they’re owed compensation: by 18 November 2026 for agreements from 1 April 2014 complained about by 30 June 2026, and by 18 January 2027 for older agreements complained about by 31 August 2026. If you’re told you’re not owed and you disagree, you can ask the lender to look again, then go to the Financial Ombudsman.</p>' },
+  { q: `I’ve had a letter from ${l.name}. What does it mean?`, a: '<p>While the scheme is paused, lenders don’t have to work out or pay compensation. They must still tell people who have already complained if they’re not owed anything: by 18 November 2026 for agreements from 1 April 2014 complained about by 30 June 2026, and by 18 January 2027 for older agreements complained about by 31 August 2026. Offers wait for the ruling. If you’re told you’re not owed and you disagree, you can ask the lender to look again, then go to the Financial Ombudsman.</p>' },
 ];
 if (l.brands?.length) faqs.splice(1, 0, { q: `Which cars did ${l.name} finance?`, a: `<p>${l.legalName} finances ${l.brands.join(', ').replace(/, ([^,]*)$/, ' and $1')}, among others, through dealers across the UK.</p>` });
 
@@ -67,7 +67,7 @@ const lenderOrg = { '@type': 'Organization', '@id': `${new URL(path, SITE.url).h
       <ul class="timeline">
         <li class="next"><div><b>By 18 November 2026</b><span>Tell you if you’re not owed, for agreements from April 2014 complained about by 30 June 2026</span></div></li>
         <li><div><b>By 18 January 2027</b><span>The same for older agreements complained about by 31 August 2026</span></div></li>
-        <li><div><b>After the hearing in early 2027</b><span>Pay compensation, if the scheme is upheld</span></div></li>
+        <li><div><b>After the hearing in early 2027</b><span>Make offers, only if the scheme is upheld and that decision isn’t appealed</span></div></li>
       </ul>
       <a href="/fca-redress-scheme/" style="color:#fff;font-size:14px;font-weight:600">Full FCA scheme timeline</a>
     </aside>

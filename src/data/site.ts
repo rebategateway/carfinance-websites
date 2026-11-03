@@ -67,12 +67,14 @@ export const FIGURES = {
 
 // The scheme tracker. `done` marks steps that have happened; `now` is where
 // the car sits. Update SCHEME_UPDATED whenever this changes.
-export const SCHEME_UPDATED = '2 November 2026';
+// Hearing dates and the suspension rules: FCA statement "Motor finance legal challenge to be heard in
+// February 2027" (13 Oct 2026, updated 26 Oct 2026). Wording of the hearing and 2027 steps: Jack, 3 Nov 2026.
+export const SCHEME_UPDATED = '3 November 2026';
 export const SCHEME_STEPS = [
   { when: 'March 2026', title: 'Scheme confirmed', text: 'For agreements from 6 April 2007 to 1 November 2024', done: true },
   { when: 'July 2026', title: 'Payouts paused', text: 'While three lenders and a consumer group challenge the rules', done: true, now: true },
-  { when: '16 Feb – 3 Mar 2027', title: 'Full hearing', text: 'Lenders still have to send decision letters before then' },
-  { when: '2027', title: 'Payments expected', text: 'The FCA expects payments to start if the scheme is upheld' },
+  { when: '16 Feb – 3 Mar 2027', title: 'Full hearing', text: 'Lenders must still tell you by 18 November or 18 January if you’re not owed anything. Offers wait for the ruling.' },
+  { when: '2027', title: 'Payments expected', text: 'Only if the scheme is upheld and that decision isn’t appealed' },
   { when: '31 August 2027', title: 'Last day to complain', text: 'If your lender hasn’t contacted you' },
 ] as const;
 
