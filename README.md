@@ -1,6 +1,6 @@
 # Check Finance, Case Matters and Justera websites
 
-One codebase for two car finance claims sites, both trading names of Claim Simple Ltd:
+One codebase for three car finance claims sites, all trading names of Claim Simple Ltd:
 
 | Site | Build | Cloudflare Worker |
 |---|---|---|
@@ -8,7 +8,7 @@ One codebase for two car finance claims sites, both trading names of Claim Simpl
 | casematters.co.uk | `BRAND=casematters npm run build` | `casematters-website` (`npx wrangler deploy --env casematters`) |
 | justera.co.uk | `BRAND=justera npm run build` | `justera-website` (`npx wrangler deploy --env justera`) |
 
-The two sites are identical apart from `src/brands/index.ts` (name, domain, mailbox, Consultation Claims tracking ID) and `brand-assets/<brand>/` (logo, social image, touch icon). Change anything else once and both sites get it on the next deploy.
+The sites are identical apart from `src/brands/index.ts` (name, domain, mailbox, Consultation Claims tracking ID) and `brand-assets/<brand>/` (logo, social image, touch icon). Change anything else once and every site gets it on the next deploy.
 
 - `npm run dev`: local preview (Check Finance; `BRAND=casematters npm run dev` for Case Matters)
 - `npm run verify`: builds both brands and runs `scripts/check-site.mjs` on each
