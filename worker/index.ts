@@ -32,8 +32,9 @@ export default {
     const url = new URL(request.url);
     const preview = isPreview(url.hostname);
 
-    // One canonical host: www goes to the bare domain.
-    if (url.hostname === `www.${env.CANONICAL_HOST}`) {
+    // One canonical host: www and any other subdomain of ours (e.g. Justera's old
+    // register.justera.co.uk) go to the bare domain.
+    if (url.hostname !== env.CANONICAL_HOST && url.hostname.endsWith(`.${env.CANONICAL_HOST}`)) {
       url.hostname = env.CANONICAL_HOST;
       url.protocol = 'https:';
       return Response.redirect(url.toString(), 301);
