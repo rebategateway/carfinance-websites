@@ -97,13 +97,24 @@ export const NAV = [
   { id: 'fees', label: 'Fees', href: '/fees/' },
   { id: 'faqs', label: 'FAQs', href: '/faqs/' },
 ] as const;
-export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'complaints' | 'lending' | 'none';
+export type NavId = (typeof NAV)[number]['id'] | 'about' | 'contact' | 'letter' | 'complaints' | 'lending' | 'tax' | 'none';
 
 // Sister trading name of Claim Simple Ltd for irresponsible/unaffordable lending claims (Jack, 2 Nov 2026).
 export const CREDITRIGHTS = {
   name: 'CreditRights',
   url: `https://creditrights.co.uk/?utm_source=${BRAND.host}&utm_medium=referral&utm_campaign=irresponsible-lending`,
   page: '/irresponsible-lending/',
+} as const;
+
+// Tax on compensation, reclaimed by PCPTaxRebates, a trading style of Rebate Gateway Limited
+// (a separate company from Claim Simple; Jack, 3 Nov 2026). Fees and wording from pcptaxrebates.co.uk/fees/, 3 Nov 2026.
+export const PCPTAX = {
+  name: 'PCPTaxRebates',
+  legalName: 'Rebate Gateway Limited',
+  url: `https://pcptaxrebates.co.uk/?utm_source=${BRAND.host}&utm_medium=referral&utm_campaign=tax-rebate`,
+  calc: `https://pcptaxrebates.co.uk/am-i-eligible/?utm_source=${BRAND.host}&utm_medium=referral&utm_campaign=tax-rebate`,
+  page: '/car-finance-tax-rebate/',
+  fee: '39% + VAT (46.8% including VAT) of what HMRC repays, plus a £35 + VAT (£42) administration fee per claim, with a minimum total fee of £84 including VAT',
 } as const;
 
 // The Help drop-down in the header.
@@ -114,6 +125,7 @@ export const NAV_HELP = [
   { id: 'about', label: 'About us', href: '/about-us/', desc: 'Who we are and how we’re paid' },
   { id: 'contact', label: 'Contact', href: '/contact/', desc: 'How to get in touch' },
   { id: 'complaints', label: 'Complaints', href: '/complaints/', desc: 'How to make a complaint' },
+  { id: 'tax', label: 'Tax on compensation', href: '/car-finance-tax-rebate/', desc: 'Get back the tax taken from your payout' },
   { id: 'lending', label: 'Irresponsible lending', href: '/irresponsible-lending/', desc: 'Credit you couldn’t afford? Claim through CreditRights' },
 ] as const;
 
@@ -127,6 +139,7 @@ export const FOOTER_LINKS = [
   { label: 'FAQs', href: '/faqs/' },
   { label: 'Received a letter?', href: '/received-a-letter/' },
   { label: 'Irresponsible lending', href: '/irresponsible-lending/' },
+  { label: 'Tax on compensation', href: '/car-finance-tax-rebate/' },
   { label: 'About us', href: '/about-us/' },
   { label: 'Contact', href: '/contact/' },
   { label: 'Privacy', href: '/privacy-policy/' },

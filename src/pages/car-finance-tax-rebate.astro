@@ -1,0 +1,73 @@
+---
+// Tax taken from car finance compensation, reclaimed by PCPTaxRebates (Jack, 3 Nov 2026).
+// PCPTaxRebates is a trading style of Rebate Gateway Limited, a separate company from
+// Claim Simple. Facts and fees from pcptaxrebates.co.uk (checked 3 Nov 2026). The site
+// says it is an independent tax agent, not FCA regulated, and that people can claim from
+// HMRC themselves: both are repeated here.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faqs from '../components/Faqs.astro';
+import { SITE, PCPTAX } from '../data/site';
+import type { Faq } from '../data/faqs';
+
+const STEPS = [
+  { n: '01', t: 'Your lender pays you', p: 'Car finance compensation comes with interest added on top.' },
+  { n: '02', t: 'Tax comes off the interest', p: 'Lenders take basic-rate tax off that interest before they pay you: 20%, rising to 22% from 6 April 2027.' },
+  { n: '03', t: 'Most people never owed it', p: 'For most people the interest falls within their Personal Savings Allowance, so HMRC repays the tax.' },
+];
+const WHO = [
+  'You’ve been paid, or are due, car finance compensation through the FCA scheme, a complaint or the Financial Ombudsman',
+  'Your compensation included interest with tax taken off',
+  'You earned under £50,270 in the tax year you were paid, or weren’t working',
+];
+const faqs: Faq[] = [
+  { q: 'Is car finance compensation taxable?', a: '<p>The refund of what you overpaid isn’t taxed. The interest added to it is treated as savings income, and lenders take basic-rate tax off it before paying you.</p>' },
+  { q: 'Why can I get the tax back?', a: '<p>Most people have a Personal Savings Allowance: £1,000 of savings income tax-free for basic-rate taxpayers and £500 for higher-rate taxpayers. Some also get the starting rate for savings, up to £5,000 more. If the interest falls within these, the tax shouldn’t have been taken.</p>' },
+  { q: 'I haven’t been paid yet. Can I still claim?', a: '<p>The tax can only be reclaimed once your compensation has been paid. Payouts under the FCA scheme are on hold until the legal challenge is decided. Keep the letter your lender sends with your payment: it shows the interest and the tax taken off.</p>' },
+  { q: 'Do I have to use a tax agent?', a: '<p>No. You can claim the tax back from HMRC yourself, for free, on form R40 or through Self Assessment if you file a tax return.</p>' },
+];
+const tick = '<svg class="tk" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#04C78D" stroke="#07131E" stroke-width="2"/><path d="M7.5 14.5l4.5 4.5 8.5-9.5" fill="none" stroke="#07131E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const faqSchema = { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() } })) };
+---
+<Base path={PCPTAX.page} title={`Car Finance Tax Rebate: Reclaim Tax on Compensation | ${SITE.name}`} description="Lenders take tax off the interest in car finance compensation. Most basic-rate and non-taxpayers can get it back from HMRC. Here's how it works." active="tax" crumbs={[{ name: 'Tax on compensation', href: PCPTAX.page }]} schema={[faqSchema]} closing={false}>
+  <PageHero slot="hero" h1="Your compensation was taxed. Get it back." lede="Lenders take tax off the interest in car finance compensation. If you’re a basic-rate or non-taxpayer, HMRC will usually repay it." crumbs={[{ name: 'Tax on compensation', href: PCPTAX.page }]}>
+    <div><a class="btn btn-xl" href={PCPTAX.calc} rel="noopener" data-mbar-anchor>Calculate my rebate <span aria-hidden="true">→</span></a></div>
+  </PageHero>
+
+  <section class="wrap section center">
+    <h2 class="d h2">How the tax is taken</h2>
+    <ol class="hcards">
+      {STEPS.map((s, i) => <li><span class="hc-n">{i + 1}</span><h3>{s.t}</h3><p>{s.p}</p></li>)}
+    </ol>
+  </section>
+
+  <section class="tint">
+    <div class="wrap section owed">
+      <div class="owed-l">
+        <h2 class="d h2">Who can claim</h2>
+        <p>You’re likely to get tax back if all three apply. {PCPTAX.name} works out the right tax year and allowances, and claims from HMRC for you.</p>
+      </div>
+      <ul class="tcards">
+        {WHO.map((w) => <li><Fragment set:html={tick} /><div><p>{w}</p></div></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="d h2">Good to know</h2>
+    <div class="gtk">
+      <div><h3>Who does it</h3><p>{PCPTAX.name} is a trading style of {PCPTAX.legalName}, an independent tax agent. It is a separate business from {SITE.name} and is not regulated by the FCA.</p></div>
+      <div><h3>No rebate, no fee</h3><p>Nothing to pay upfront. The fee comes out of the HMRC repayment: {PCPTAX.fee}. If HMRC repays nothing, you pay nothing.</p></div>
+      <div><h3>You can do it yourself</h3><p>You can claim the tax back from HMRC yourself for free, on form R40 or through Self Assessment.</p></div>
+      <div><h3>When</h3><p>Once your compensation has been paid. Payouts under the FCA scheme are on hold until the legal challenge is decided. <a href="/fca-redress-scheme/">Where the scheme stands</a>.</p></div>
+    </div>
+  </section>
+
+  <section class="tint">
+    <div class="wrap section center">
+      <h2 class="d h2">Questions</h2>
+      <div class="faq-pills"><Faqs items={faqs} /></div>
+      <a class="btn btn-xl" href={PCPTAX.url} rel="noopener">Go to {PCPTAX.name} <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>

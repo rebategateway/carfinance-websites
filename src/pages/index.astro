@@ -9,7 +9,7 @@ import StatBand from '../components/StatBand.astro';
 import OwedCards from '../components/OwedCards.astro';
 import HowCards from '../components/HowCards.astro';
 import EndBand from '../components/EndBand.astro';
-import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL, CREDITRIGHTS } from '../data/site';
+import { SITE, PARTNER, FIGURES, FREE_ROUTE, PAYMENT_LINE, CHOICES_LINE, CLAIM_URL, CREDITRIGHTS, PCPTAX } from '../data/site';
 import { SERVICE_SCHEMA } from '../data/site';
 import { HOME_FAQS } from '../data/faqs';
 import { LENDERS, lenderHref, shortName } from '../data/lenders';
@@ -48,6 +48,16 @@ const lenders = [...LENDERS].sort((a, b) => a.name.localeCompare(b.name));
       <div class="xsell-b">
         <a class="btn btn-inv" href={CREDITRIGHTS.url} rel="noopener">Visit CreditRights <span aria-hidden="true">→</span></a>
         <a href={CREDITRIGHTS.page}>What counts as irresponsible lending</a>
+      </div>
+    </div>
+    <div class="xsell" style="margin-top:12px">
+      <div>
+        <h2 class="d">Compensation taxed?</h2>
+        <p>Lenders take tax off the interest in car finance compensation. Most basic-rate and non-taxpayers can get it back from HMRC, and {PCPTAX.name} can claim it for you.</p>
+      </div>
+      <div class="xsell-b">
+        <a class="btn btn-inv" href={PCPTAX.url} rel="noopener">Visit PCPTaxRebates <span aria-hidden="true">→</span></a>
+        <a href={PCPTAX.page}>How the tax rebate works</a>
       </div>
     </div>
   </section>
