@@ -5,6 +5,9 @@ Handover and open items: `claude/checkfinance-rebuild-research.md` in the Claim 
 ## Three brands, one codebase (Justera added 3 Nov 2026)
 Brand differences live only in `src/brands/index.ts` and `brand-assets/<brand>/` (logo, favicon, social image, and the home hero car, whose number plate carries each brand's own logo). Never hard-code "Check Finance", "Case Matters" or "Justera" in a page: use `SITE.name` / `BRAND`. `scripts/check-site.mjs` fails the build if one brand's name appears in another's pages. Brand switches (logo type, watermark, GA) are fields on the brand, not checks on its id.
 
+## Deploys (Jack, 3 Nov 2026: changes go to all three sites)
+A push to `main` builds all three Workers: `carfinance-websites` (checkfinance.co.uk), `casematters-website` (casematters.co.uk) and `justera-website` (justera.co.uk). After every push, check all three started a build for that commit (Workers & Pages → each Worker → Deployments) and that the change is live on all three domains, not just one or two. `npm run verify` builds and checks all three brands. A new brand needs its own Worker connected to the repo (build `BRAND=<id> npm run build`, deploy `npx wrangler deploy --env <id>`).
+
 ## Compliance rule (Jack)
 Commercial first, compliant to the letter. Exactly what the rules require (CMCOB, consumer law, PECR/UK GDPR), nothing beyond it. Hero cards stay light: heading, one line, button.
 
