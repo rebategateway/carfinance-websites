@@ -605,3 +605,6 @@ html.ck-open body { padding-bottom: var(--ckb-h, 0px); }
 /* Logos stay their own colour on hover (Jack, 2 Nov 2026) */
 .logo:hover, .logo:focus-visible { color: var(--ink); }
 .ftr .logo:hover, .ftr .logo:focus-visible { color: #fff; }
+
+/* Claim buttons with no live deal (BRAND.claimLive false) have no href: not clickable */
+a.btn:not([href]) { cursor: default; }

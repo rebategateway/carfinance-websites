@@ -24,6 +24,8 @@ export interface Brand {
   logo: 'mark' | 'svg';
   /** Picture beside the home page hero card, from brand-assets/<id>/ (served at /brand/). null for none. */
   heroImage: { file: string; widths: number[]; width: number; height: number; alt: string } | null;
+  /** Claim buttons link to the Consultation Claims form. false: the buttons stay but link nowhere (no live deal for this brand). */
+  claimLive: boolean;
   /** Faint brand mark behind the green bands (brand-assets/<id>/mark.svg, or the chevron). */
   watermark: boolean;
   /** Google Analytics 4 measurement ID. null: no banner and no analytics. */
@@ -47,6 +49,7 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     // The Check Finance car from the original site (Jack, 2 Nov 2026).
     heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Check Finance number plate' },
     // GA4 property 'Check Finance' (502219593), stream 12059842947.
+    claimLive: true,
     watermark: true,
     gaId: 'G-EPKNL56HC7',
   },
@@ -66,6 +69,7 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     // The same car with a Case Matters plate (Jack, 2 Nov 2026).
     heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Case Matters number plate' },
     // GA4 property 'Case Matters' (530019746), stream 14231621757.
+    claimLive: true,
     watermark: true,
     gaId: 'G-C45C8PHT6V',
   },
@@ -85,6 +89,8 @@ export const BRANDS: Record<Brand['id'], Brand> = {
     // The same car with a Justera plate (Jack, 3 Nov 2026).
     heroImage: { file: 'hero-car', widths: [560, 1024], width: 1024, height: 655, alt: 'Grey hatchback with a Justera number plate' },
     // TODO: GA4 property for Justera. null: no cookie bar and no analytics until one is set.
+    // No live deal for Justera yet (Jack, 3 Nov 2026): claim buttons show but link nowhere.
+    claimLive: false,
     // The J reads as a block behind the heading, so no watermark.
     watermark: false,
     gaId: null,

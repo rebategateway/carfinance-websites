@@ -31,7 +31,8 @@ export const PARTNER = {
   frn: '836626',
 } as const;
 
-export const CLAIM_URL =
+// undefined when the brand has no live deal: <a href={CLAIM_URL}> then renders without an href, so the button shows but goes nowhere.
+export const CLAIM_URL: string | undefined = !BRAND.claimLive ? undefined :
   `https://claim-form.consultationclaims.co.uk/claims/step/1?partnerId=1&serviceId=1&trackingId=${encodeURIComponent(BRAND.trackingId)}`;
 
 // Required wording, taken word for word from the old checkfinance.co.uk, which
