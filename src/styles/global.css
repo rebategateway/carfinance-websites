@@ -475,7 +475,8 @@ svg.mark-fill { color: #2BD4A1; opacity: .55; }
 .hx .btn { margin-top: 4px; width: 100%; max-width: 340px; }
 .hx-meta { font-size: 13px; font-weight: 600; color: #0B3B2C; }
 .hx-stage { position: relative; margin-top: 10px; display: flex; justify-content: center; }
-.hx-stage::before { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 170%; aspect-ratio: 3.6 / 1; border-radius: 50% 50% 0 0; background: #3DD6A6; }
+/* The arch takes its height from the car's box, not the window's width, so it can never rise above the car into the button (Jack, 20 Nov 2026: it covered the button on wide, short windows). */
+.hx-stage::before { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 170%; height: 86%; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: #3DD6A6; }
 .hx-car { position: relative; display: block; width: 80%; max-width: 540px; height: auto; margin-bottom: -6px; }
 .statband { background: var(--ink); color: #fff; }
 .statband-in { display: flex; flex-direction: column; gap: 4px; padding-block: 16px; text-align: center; font-family: var(--display); font-weight: 700; font-size: 15px; }
@@ -528,7 +529,7 @@ svg.mark-fill { color: #2BD4A1; opacity: .55; }
   .hx-sub { font-size: 19px; max-width: none; }
   .hx .btn { width: auto; }
   .hx-stage { margin-top: 14px; }
-  .hx-stage::before { width: 135%; aspect-ratio: 5.2 / 1; }
+  .hx-stage::before { width: 135%; height: 74%; }
   .statband-in { padding-block: 20px; font-size: 18px; gap: 6px 48px; }
   .who { padding: 44px 64px; font-size: 16px; }
   .owed { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
